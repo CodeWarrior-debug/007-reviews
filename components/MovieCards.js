@@ -1,0 +1,59 @@
+import React, { useState, useEffect } from "react";
+import Axios from "axios";
+import Card from "./Card";
+import "tailwindcss/tailwind.css";
+
+export default function MovieCards() {
+  const [movies, setMovies] = useState([]);
+
+
+
+
+  useEffect( async () => {
+    getBondMovies();
+    // console.log(movies);
+  }, []);
+
+  const getBondMovies = async () => {
+    await Axios.get(
+      "https://api.themoviedb.org/3/collection/645?api_key=ef49b4888abc2e14ec134b8ae835513d"
+    )
+      .then((res) => res.data)
+      // .then(data=>console.log(data.parts))
+      .then((data) => setMovies(data.parts))
+      .catch((err) => console.log("error: ", err));
+  };
+
+//  const handleClick = () =>{
+//   setMovies(
+//    movies.sort((a,b)=>a.release_date - b.release_date))
+    
+//   }
+
+  return (
+    <>
+      <div>
+        {movies.map((movie) => {
+          const baseURL = "https://image.tmdb.org/t/p/original/";
+          // let movie_w_backdrop_path= baseURL +`${movie.backdrop_path}`
+          let movie_w_poster_path = baseURL + `${movie.poster_path}`;
+
+          return (
+            <>
+              <Card
+                key={movie.id}
+                original_title={movie.original_title}
+                overview={movie.overview}
+                popularity={movie.popularity}
+                release_date={movie.release_date}
+                vote_average={movie.vote_average}
+                vote_count={movie.vote_count}
+              poster_path={movie_w_poster_path}
+              />
+            </>
+          );
+        })}
+      </div>
+    </>
+  );
+}

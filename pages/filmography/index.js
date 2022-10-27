@@ -1,13 +1,13 @@
 import React from 'react';
-import MovieCard from '../../components/MovieCard'
+import MovieCards from '../../components/MovieCards'
 import Navbar from '../../components/Navbar.js'
+import "tailwindcss/tailwind.css";
 
 export default function Filmography() {
   return (
     <>
-    <p>no problematic imports here</p>
     <Navbar/>
-    <MovieCard/>
+    <MovieCards/>
     </>
   );
 }

@@ -2,7 +2,8 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import Link from "next/link";
-import 'tailwindcss/tailwind.css'
+import Navbar from "../components/Navbar";
+import "tailwindcss/tailwind.css";
 
 export default function Home() {
   return (
@@ -21,20 +22,14 @@ export default function Home() {
         </Head>
 
         <main>
-            <nav>
-              <ul className="flex flex-row justify-evenly underline font-bold" >
-                <li className="mr-2 ml-2">
-                  <Link href="/"> Home</Link>
-                </li>
-                <li>
-                  <Link href="/filmography" className="mr-2 ml-2"> Filmography</Link>
-                </li>
-                <li> Compare </li>
-                <li> Charts</li>
-              </ul>
-            </nav>
+          <Navbar />
 
-            <h1 className="text-3xl text-center mt-2 mb-2">Bond, James Bond. Reviewed.</h1>
+          <h1 className="top-title">
+            Bond, James Bond. Reviewed.
+          </h1>
+
+
+          {/* TODO cluster of images, charts here? */}
         </main>
 
         <footer className={styles.footer}>
