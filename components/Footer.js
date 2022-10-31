@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 
-export default function Navbar() {
+export default function Footer() {
   
   const Login = ()=>{
     
@@ -21,10 +21,12 @@ export default function Navbar() {
                 <li className="nav-link"><Link href="/compare" className="text-2xl"> Compare</Link></li>
                 <li className="nav-link"><Link href="/charts" className="text-2xl"> Charts</Link></li>
                 <Login />
+
+                <li> Compare </li>
+                <li> Charts</li>
                 
               </ul>
             </nav>
     </>
   );
 }
-

@@ -9,6 +9,9 @@
   .top-title{
     @apply text-3xl text-center mt-8 mb-8
   }
+  .nav-link{
+    @apply text-3xl text-center mt-8 mb-8
+  }
 
 }
 
