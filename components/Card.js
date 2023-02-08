@@ -25,13 +25,17 @@ href={`./filmography/${original_title}`}
         <h2 className='font-extrabold text-center '>
             {original_title}
             <br/>
-            <div className='font-normal text-sm text-left indent-3 mt-2 mb-2'>
+            <div className='text-sm text-left indent-3 mt-2 mb-2 font-[600]'>
             {release_date} &emsp; &emsp; &emsp; &emsp; {vote_average.toFixed(1)} ⭐
             </div>
         </h2>
-        <p className='overflow-clip h-32 text-sm leading-tight hover:overflow-y-auto '>
+        <p className='overflow-clip h-32 text-sm leading-tight hover:overflow-y-auto p-2 pl-0'>
             {overview}
         </p>
+        
+        <div className='indent-4'>
+            <span className='font-[600] '>Your review: ?</span>
+        </div>
  
     </div>
     {/* <div className='col-span-1'>

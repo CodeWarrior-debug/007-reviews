@@ -1,0 +1,22 @@
+[
+  {
+    "_id": "1c924808-53ef-4b85-91e2-7adf8d2a9324",
+    "colId": "b886fd0e-4938-4e3c-9ab3-8f4dd5fcf4b6",
+    "containerId": "",
+    "name": "Bond_Movie_Collection",
+    "url": "https://api.themoviedb.org/3/collection/645?api_key=ef49b4888abc2e14ec134b8ae835513d",
+    "method": "GET",
+    "sortNum": 10000,
+    "created": "2023-02-08T21:34:36.519Z",
+    "modified": "2023-02-08T21:34:36.519Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "api_key",
+        "value": "ef49b4888abc2e14ec134b8ae835513d",
+        "isPath": false
+      }
+    ],
+    "tests": []
+  }
+]
