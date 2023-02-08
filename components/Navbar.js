@@ -18,7 +18,7 @@ export default function Navbar() {
               <ul className="flex flex-row justify-evenly underline font-bold" >
                 <li className="nav-link"><Link href="/" className="text-2xl"> Home</Link></li>
                 <li className="nav-link"><Link href="/filmography" className="text-2xl"> Filmography</Link></li>
-                <li className="nav-link"><Link href="/compare" className="text-2xl"> Compare</Link></li>
+                {/* <li className="nav-link"><Link href="/compare" className="text-2xl"> Compare</Link></li> */}
                 <li className="nav-link"><Link href="/charts" className="text-2xl"> Charts</Link></li>
                 <Login />
                 

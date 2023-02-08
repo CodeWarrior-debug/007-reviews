@@ -1,27 +1,53 @@
 import Image from 'next/image';
 import React from 'react';
+import Link from 'next/link'
 
 export default function Card(props) {
+
+    const {original_title,overview,poster_path,popularity, release_date,vote_average, vote_count} = props;
+
+
   return (
     <>
 
+<Link 
+href={`./filmography/${original_title}`}
+>
 
-<div>
-    
-</div>
+<div className='grid grid-cols-8 max-w-32 gap-2 border-4 rounded-md border-gray-900 hover:border-double'>
+    <div className='col-span-3 flex items-center' >
+        {/* <Image className='rounded-l-sm ' src={poster_path} height={250} width={167} alt={original_title} /> */}
+        <Image className='rounded-l-sm ' src={poster_path} height={500} width={333} alt={original_title} />
 
-
-<div className="flex flex-row justify-center w-full bg-blue-lightest m-4">
-
-    <div className='grid grid-rows-3 gap-3 grid-flow-col'>
-        <div className='col-span-1 w-2 bg-black text-white'>1</div>
-        <div className='col-span-1 w-2 bg-black text-white'>2</div>
-        <div className='col-span-1 w-2 bg-black text-white'>3</div>
-        <div className='col-span-1 w-2 bg-black text-white'>4</div>
-        <div className='col-span-1 w-2 bg-black text-white'>5</div>
-        
 
     </div>
+    <div className='col-span-5'>  
+        <h2 className='font-extrabold text-center '>
+            {original_title}
+            <br/>
+            <div className='font-normal text-sm text-left indent-3 mt-2 mb-2'>
+            {release_date} &emsp; &emsp; &emsp; &emsp; {vote_average.toFixed(1)} ⭐
+            </div>
+        </h2>
+        <p className='overflow-clip h-32 text-sm leading-tight hover:overflow-y-auto '>
+            {overview}
+        </p>
+ 
+    </div>
+    {/* <div className='col-span-1'>
+        <span className='h-full align-middle'>Hi</span>
+        
+    </div> */}
+</div>
+
+</Link>
+
+
+
+
+{/* <div className="flex flex-row justify-center w-full bg-blue-lightest m-4"> */}
+
+
 
         {/* <div className="flex bg-white max-w-32 max-h-56 rounded shadow-md text-grey-darkest">
         <Image className='rounded-l-sm ' src={props.poster_path} height={250} width={167} alt={props.title} /> */}
@@ -51,7 +77,7 @@ export default function Card(props) {
                 </div>
             </div> */}
         {/* </div> */}
-    </div>
+    {/* </div> */}
     </>
   );
 }

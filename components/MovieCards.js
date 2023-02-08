@@ -25,14 +25,15 @@ export default function MovieCards() {
   };
 
 //  const handleClick = () =>{
+//   //not working
 //   setMovies(
-//    movies.sort((a,b)=>a.release_date - b.release_date))
+//    movies.sort((a,b)=>a.original_title - b.original_title))
     
 //   }
 
   return (
     <>
-      <div>
+      <div className="grid grid-cols-3 gap-6 ml-32 mr-32">
         {movies.map((movie) => {
           const baseURL = "https://image.tmdb.org/t/p/original/";
           // let movie_w_backdrop_path= baseURL +`${movie.backdrop_path}`
@@ -50,6 +51,7 @@ export default function MovieCards() {
                 vote_average={movie.vote_average}
                 vote_count={movie.vote_count}
               poster_path={movie_w_poster_path}
+              
               />
             </>
           );

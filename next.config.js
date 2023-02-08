@@ -8,7 +8,7 @@ const nextConfig = {
       {
         protocol:'https',
         hostname:"image.tmdb.org",
-        port:'',
+        // port:'',
         // pathname:'/account123/**'
       }
     ]

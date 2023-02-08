@@ -1,5 +1,6 @@
 @tailwind base;
 @tailwind components;
+
 @tailwind utilities;
 
 
@@ -12,6 +13,7 @@
   .nav-link{
     @apply text-3xl text-center mt-8 mb-8
   }
+
 
 }
 
@@ -32,6 +34,11 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.borderTest{
+border-style: dashed;
+}
+
 
 @media (prefers-color-scheme: dark) {
   html {
