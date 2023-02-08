@@ -9,9 +9,9 @@ export default function MovieCards() {
 
 
 
-  useEffect( async () => {
+  useEffect( () => {
     getBondMovies();
-    // console.log(movies);
+    
   }, []);
 
   const getBondMovies = async () => {
@@ -40,7 +40,8 @@ export default function MovieCards() {
 
           return (
             <>
-              <Card
+            
+            <Card
                 key={movie.id}
                 original_title={movie.original_title}
                 overview={movie.overview}
