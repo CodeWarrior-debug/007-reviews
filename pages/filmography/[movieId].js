@@ -70,8 +70,8 @@ const MovieId = () => {
 
 {/* PRODUCTION DETAILS */}
         <p> Movie Budget: ${movieFacts.budget} </p>
-        <p> {movieFacts.production_companies[0]?.name} </p>
-        <p> {movieFacts.production_countries[0]?.name} </p>
+        {/* <p> {movieFacts.production_companies[0]?.name} </p> */}
+        {/* <p> {movieFacts.production_countries[0]?.name} </p> */}
         {/* <p> {movieFacts.genres[0].} </p> */}
         <br/>
 
