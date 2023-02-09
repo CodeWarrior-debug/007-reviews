@@ -43,7 +43,7 @@ export default function MovieCards() {
             <>
             
             <Card
-                key={movie.id}
+                key={movie.id + "1"}
                 movieId={movie.id}
                 original_title={movie.original_title}
                 overview={movie.overview}
