@@ -5,7 +5,7 @@ import  Axios from "axios";
 
 const MovieId = () => {
 
-    const baseURL = "https://image.tmdb.org/t/p/original/";
+    const baseURL = "https://image.tmdb.org/t/p/original";
     
     const router = useRouter();
     const [movieFacts,setMovieFacts] = useState({});
@@ -42,7 +42,8 @@ const MovieId = () => {
   return (
     <>
       {/* <div className="bg-[url('/img/hero-pattern.svg')]"></div> */}
-      <div className={ ` bg-url(' ${ movie_w_backdrop_path } ') ` } ></div>
+      {/* <div className={ ` bg-url(' ${ movie_w_backdrop_path } ') ` } ></div> */}
+      <div className=  "bg-[url('https://image.tmdb.org/t/p/original//v28YYcN5p9hD8PKGAeWLz0ugsfX.jpg')]" ></div>
       
       
     </>
