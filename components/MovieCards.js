@@ -44,6 +44,7 @@ export default function MovieCards() {
             
             <Card
                 key={movie.id}
+                movieId={movie.id}
                 original_title={movie.original_title}
                 overview={movie.overview}
                 popularity={movie.popularity}

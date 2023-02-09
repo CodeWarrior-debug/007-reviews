@@ -4,19 +4,21 @@ import Link from 'next/link'
 
 export default function Card(props) {
 
-    const {original_title,overview,poster_path,popularity, release_date,vote_average, vote_count} = props;
+    const {movieId, original_title,overview,poster_path,popularity, release_date,vote_average, vote_count} = props;
 
 
   return (
     <>
 
 <Link 
-href={`./filmography/${original_title}`}
+href={`./filmography/${movieId}`}
 >
 
 <div className='grid grid-cols-8 max-w-32 gap-2 border-4 rounded-md border-gray-900 hover:border-double'>
     <div className='col-span-3 flex items-center' >
-        {/* <Image className='rounded-l-sm ' src={poster_path} height={250} width={167} alt={original_title} /> */}
+        
+        
+
         <Image className='rounded-l-sm ' src={poster_path} height={500} width={333} alt={original_title} />
 
 
