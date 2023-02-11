@@ -4,7 +4,22 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Axios from "axios";
 
-const MovieId = () => {
+export async function getStaticProps(){
+  return {
+    props: {
+
+    }
+  }
+}
+
+export async function getStaticPaths(){
+  return {
+    paths: [],
+    fallback: false
+  }
+}
+
+const MovieId = (props) => {
   const baseURL = "https://image.tmdb.org/t/p/original";
 
   const router = useRouter();
