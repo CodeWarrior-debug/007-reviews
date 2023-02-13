@@ -4,47 +4,33 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Axios from "axios";
 
+
 // export async function getStaticProps(){
-
-//   const data = await fetch("https://jsonplaceholder.typicode.com/users")
-  
-//   console.log(data)
-
-//   return{
-//     props:{
-//       user: data
-//     }
-//   }
 
 
 // }
 
+
+
+
 const MovieId = () => {
-  const [movieIds, setMovieIds] = useState([]);
+  // const [movieIds, setMovieIds] = useState([]); //building block for get static paths
+
+
+
+
   const [movieDetails, setMovieDetails] = useState([]);
 
-  const BondMovieIds = async()=>{
-    await Axios.get(
-    "https://api.themoviedb.org/3/collection/645?api_key=ef49b4888abc2e14ec134b8ae835513d"
-    )
-    .then((data)=>setMovieDetails(data.parts))
-    .catch((err)=>console.log(err))
+  
 
-    console.log( "movieDetails",
-      movieDetails)
 
-      // setMovieIds(
-      //   movieDetails.map(
-      //     movie => movie.id
-      //   )
-      // )
-  }
 
 
   const baseURL = "https://image.tmdb.org/t/p/original";
 
   const router = useRouter();
   const [movieFacts, setMovieFacts] = useState({});
+  const [movieIdList,setMovieIdList] = useState([]);
 
   let movie_w_backdrop_path = baseURL + `${movieFacts.backdrop_path}`;
   let movie_w_poster_path = baseURL + `${movieFacts.poster_path}`;
@@ -55,15 +41,16 @@ const MovieId = () => {
 
     const fetchData = async () => {
       const data = await getMovieDeets();
-      const data2 = await BondMovieIds();
+      
+      // console.log(movieIds);
     };
 
     fetchData();
 
-    console.log("movieIds ",movieIds)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
 
   const getMovieDeets = async () => {
     await Axios.get(
@@ -78,6 +65,8 @@ const MovieId = () => {
     // console.log("2 movie Facts: ", movieFacts);
     // console.log("3 bg image pth", movie_w_backdrop_path);
   };
+
+
 
   return (
     <>

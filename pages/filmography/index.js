@@ -11,6 +11,12 @@ export async function getStaticProps(){
 
       // console.log(response)
 
+     let movieIdArr = [] ;
+
+     response.map((movie)=>movieIdArr.push(movie.id))
+
+     console.log("movieIdArr: ", movieIdArr)
+
       return {
         props: {
           movies: response,
