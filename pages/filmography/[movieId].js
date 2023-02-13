@@ -4,7 +4,43 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Axios from "axios";
 
-const MovieId = () => {
+// export async function getStaticProps(){
+//   return {
+//     props: {
+
+//     }
+//   }
+// }
+
+// export async function getStaticPaths(){
+//   return {
+//     paths: [],
+//     fallback: false
+//   }
+// }
+
+const MovieId = (props) => {
+  const [movieIds, setMovieIds] = useState([]);
+  const [movieDetails, setMovieDetails] = useState([]);
+
+  const BondMovieIds = async()=>{
+    await Axios.get(
+    "https://api.themoviedb.org/3/collection/645?api_key=ef49b4888abc2e14ec134b8ae835513d"
+    )
+    .then((data)=>setMovieDetails(data.parts))
+    .catch((err)=>console.log(err))
+
+    console.log( "movieDetails",
+      movieDetails)
+
+      // setMovieIds(
+      //   movieDetails.map(
+      //     movie => movie.id
+      //   )
+      // )
+  }
+
+
   const baseURL = "https://image.tmdb.org/t/p/original";
 
   const router = useRouter();
@@ -14,13 +50,17 @@ const MovieId = () => {
   let movie_w_poster_path = baseURL + `${movieFacts.poster_path}`;
 
   useEffect(() => {
-    console.log("1 movie number id:", router.query.movieId);
+    // console.log("1 movie number id:", router.query.movieId);
+
 
     const fetchData = async () => {
       const data = await getMovieDeets();
+      const data2 = await BondMovieIds();
     };
 
     fetchData();
+
+    console.log("movieIds ",movieIds)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -31,7 +71,7 @@ const MovieId = () => {
         router.query.movieId +
         "?api_key=" + process.env.NEXT_PUBLIC_TMDB_API_KEY
     )
-      .then((res) => res.data)
+      .then(res=> res.data)
       .then((data) => setMovieFacts(data))
       .catch((err) => console.log(err));
 
