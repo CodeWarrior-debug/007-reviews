@@ -17,6 +17,9 @@
 
 }
 
+.equalCellHeight{
+  grid-auto-rows: 1fr;
+}
 
 html,
 body {

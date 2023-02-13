@@ -5,21 +5,21 @@ import { useRouter } from "next/router";
 import Axios from "axios";
 
 // export async function getStaticProps(){
-//   return {
-//     props: {
 
+//   const data = await fetch("https://jsonplaceholder.typicode.com/users")
+  
+//   console.log(data)
+
+//   return{
+//     props:{
+//       user: data
 //     }
 //   }
+
+
 // }
 
-// export async function getStaticPaths(){
-//   return {
-//     paths: [],
-//     fallback: false
-//   }
-// }
-
-const MovieId = (props) => {
+const MovieId = () => {
   const [movieIds, setMovieIds] = useState([]);
   const [movieDetails, setMovieDetails] = useState([]);
 
