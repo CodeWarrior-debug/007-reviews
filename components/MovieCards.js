@@ -16,7 +16,7 @@ export default function MovieCards() {
 
   const getBondMovies = async () => {
     await Axios.get(
-      "https://api.themoviedb.org/3/collection/645?api_key=ef49b4888abc2e14ec134b8ae835513d"
+      "https://api.themoviedb.org/3/collection/645?api_key=" + process.env.NEXT_PUBLIC_TMDB_API_KEY
     )
       .then((res) => res.data)
       // .then(data=>console.log(data.parts))
