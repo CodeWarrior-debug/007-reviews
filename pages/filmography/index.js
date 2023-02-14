@@ -11,12 +11,6 @@ export async function getStaticProps(){
 
       // console.log(response)
 
-     let movieIdArr = [] ;
-
-     response.map((movie)=>movieIdArr.push(movie.id))
-
-     console.log("movieIdArr: ", movieIdArr)
-
       return {
         props: {
           movies: response,
@@ -32,6 +26,7 @@ export default function Filmography( {movies} ) {
     <>
       <Navbar />
       <div className="grid equalCellHeight grid-cols-3 gap-6 ml-32 mr-32">
+        {/* TODO how do i get these cells to be equal height */}
       {movies.map((movie) => {
           const baseURL = "https://image.tmdb.org/t/p/original/";
           // let movie_w_backdrop_path= baseURL +`${movie.backdrop_path}`
