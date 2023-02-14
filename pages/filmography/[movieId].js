@@ -14,7 +14,7 @@ export async function getStaticPaths() {
     .then((res) => res.data.parts)
     .catch((err) => console.log("error: ", err));
 
-  // console.log(response)
+  // console.log("response: ", response)
 
   const paths = response.map((movie) => {
     return {
@@ -28,37 +28,21 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps(context) {
-  // const movieFacts = async (context)=>{
-
-  const myID = context.params.id;
-  
-  // const router = useRouter();
-
-  // const myID = router.query.movieId
-
-  console.log('myID: ', myID);
-
+export async function getStaticProps({ params }) {
   const moviesFacts = await Axios.get(
     "https://api.themoviedb.org/3/movie/" +
-    myID +
+      params.movieId +
       "?api_key=" +
       process.env.NEXT_PUBLIC_TMDB_API_KEY
   )
     .then((res) => res.data)
     .catch((err) => console.log(err));
 
-  const movieDetails = JSON.stringify(moviesFacts);
-
-  console.log("movie Details: ", movieDetails);
-
-  // }
-
-  // movieFacts()
+  // console.log("movie Details: ", moviesFacts);
 
   return {
     props: {
-      movieFacts: movieDetails,
+      movieFacts: moviesFacts,
     },
   };
 }
@@ -96,16 +80,16 @@ const MovieId = ({ movieFacts }) => {
           <p> # of votes cast: &emsp; {movieFacts.vote_count} </p>
           <p> Revenue: ${movieFacts.revenue} </p>
           <p> Profitability: ${movieFacts.revenue - movieFacts.budget} </p>
-          {/* <p> {movieFacts.vote_count.toLocaleString("en-US")} </p> */}
+          <p> {movieFacts.vote_count.toLocaleString("en-US")} </p>
           <p> Popularity: {movieFacts.popularity} </p>
           {/* TODO: understand popularity definition */}
           <br />
 
           {/* PRODUCTION DETAILS */}
           <p> Movie Budget: ${movieFacts.budget} </p>
-          {/* <p> {movieFacts.production_companies[0]?.name} </p> */}
-          {/* <p> {movieFacts.production_countries[0]?.name} </p> */}
-          {/* <p> {movieFacts.genres[0].} </p> */}
+          <p> {movieFacts.production_companies[0]?.name} </p>
+          <p> {movieFacts.production_countries[0]?.name} </p>
+          <p> {movieFacts.genres[0].name} </p>
           <br />
 
           {/* ADDL RESOURCES */}
