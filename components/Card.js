@@ -11,7 +11,7 @@ export default function Card(props) {
     <>
 
 <Link 
-href={`./filmography/${movieId}`}
+href={`./filmography/${movieId}`} 
 >
 
 <div className='grid grid-cols-8 max-w-32 gap-2 border-4 rounded-md border-gray-900 hover:border-double'>

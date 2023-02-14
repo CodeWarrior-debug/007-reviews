@@ -36,7 +36,7 @@ export default function Filmography( {movies} ) {
             <>
             
             <Card
-                key={movie.id + "-1"}
+                key={movie.id.toString()}
                 movieId={movie.id}
                 original_title={movie.original_title}
                 overview={movie.overview}
