@@ -31,13 +31,17 @@ export async function getStaticPaths() {
 export async function getStaticProps(context) {
   // const movieFacts = async (context)=>{
 
-  const id = context.params.id;
+  const myID = context.params.id;
+  
+  // const router = useRouter();
 
-  console.log('myID: ', id);
+  // const myID = router.query.movieId
+
+  console.log('myID: ', myID);
 
   const moviesFacts = await Axios.get(
     "https://api.themoviedb.org/3/movie/" +
-      id +
+    myID +
       "?api_key=" +
       process.env.NEXT_PUBLIC_TMDB_API_KEY
   )
@@ -78,7 +82,7 @@ const MovieId = ({ movieFacts }) => {
         <div className="pr-24 pl-24">
           {/* MOVIE CONTENT */}
           {movieFacts.original_title === movieFacts.title ? (
-            <div></div>
+            <div key="1"></div>
           ) : (
             <p>Originally released as + {movieFacts.original_title}</p>
           )}
