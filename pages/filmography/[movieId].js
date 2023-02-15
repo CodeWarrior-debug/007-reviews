@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import Axios from "axios";
 
 export async function getStaticPaths() {
+  // making notations
   const response = await Axios.get(
     "https://api.themoviedb.org/3/collection/" +
       process.env.NEXT_PUBLIC_TMDB_COLLECTION_ID +
