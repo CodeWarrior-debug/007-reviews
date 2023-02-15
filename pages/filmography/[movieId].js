@@ -1,5 +1,9 @@
+//working at getStaticDynamicpage -- [movieId]
+
 import Link from "next/link";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import Axios from "axios";
 
 export async function getStaticPaths() {
@@ -7,8 +11,7 @@ export async function getStaticPaths() {
     "https://api.themoviedb.org/3/collection/" +
       process.env.NEXT_PUBLIC_TMDB_COLLECTION_ID +
       "?api_key=" +
-      // process.env.NEXT_PUBLIC_TMDB_API_KEY
-      "ef49b4888abc2e14ec134b8ae835513d"
+      process.env.NEXT_PUBLIC_TMDB_API_KEY
   )
     .then((res) => res.data.parts)
     .catch((err) => console.log("error: ", err));
@@ -32,8 +35,7 @@ export async function getStaticProps({ params }) {
     "https://api.themoviedb.org/3/movie/" +
       params.movieId +
       "?api_key=" +
-      // process.env.NEXT_PUBLIC_TMDB_API_KEY
-      "ef49b4888abc2e14ec134b8ae835513d"
+      process.env.NEXT_PUBLIC_TMDB_API_KEY
   )
     .then((res) => res.data)
     .catch((err) => console.log(err));
