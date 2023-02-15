@@ -1,34 +1,25 @@
 import Head from "next/head";
-// import Link from "next/link";
 import Navbar from "../components/Navbar";
 import "tailwindcss/tailwind.css";
 
 export default function Home() {
   return (
     <>
-      {/* <div> */}
-        <Head>
-          <title>007-Reviews</title>
-          <meta
-            name="description"
-            content="Bond movies, reviewed by cinephiles of sophistication."
-            
-          />
-          {/* <Link
-            rel="icon"
-            href="/74-745626_transparent-james-bond-silhouette-png-james-bond-icon.png"
-          /> */}
+      <Head>
+        <title>007-Reviews</title>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+      </Head>
 
-        </Head>
+      <main>
 
-        <main>
-          <Navbar />
+        <Navbar className="min-h-[10vh]" />
 
-          <h1 className="top-title">Bond, James Bond. Reviewed.</h1>
+        <h2 className="top-title min-h-[80vh] grid place-items-center leading-12"> Bond. James Bond. <br /> <br /> Reviewed. </h2>
 
-          {/* TODO cluster of images, charts here? */}
-        </main>
-      {/* </div> */}
+
+        {/* TODO cluster of images, charts here? */}
+      </main>
     </>
   );
 }

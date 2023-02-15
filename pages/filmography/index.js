@@ -3,21 +3,7 @@ import Navbar from "../../components/Navbar";
 
 import Axios from "axios";
 
-export async function getStaticProps(){
 
-    const response = await Axios.get("https://api.themoviedb.org/3/collection/" + process.env.NEXT_PUBLIC_TMDB_COLLECTION_ID + "?api_key=" + process.env.NEXT_PUBLIC_TMDB_API_KEY)
-      .then(res=>res.data.parts)
-      .catch(err=>console.log("error: ", err))
-
-      // console.log(response)
-
-      return {
-        props: {
-          movies: response,
-        }
-      }
-
-}
 
 
 
@@ -57,4 +43,20 @@ export default function Filmography( {movies} ) {
 
     </>
   );
+}
+export async function getStaticProps(){
+
+  const response = await Axios.get("https://api.themoviedb.org/3/collection/" + process.env.NEXT_PUBLIC_TMDB_COLLECTION_ID + "?api_key=" + process.env.NEXT_PUBLIC_TMDB_API_KEY)
+    .then(res=>res.data.parts)
+    .catch(err=>console.log("error: ", err))
+
+    // console.log(response)
+
+    return {
+      props: {
+        movies: response,
+        
+      }
+    }
+
 }
