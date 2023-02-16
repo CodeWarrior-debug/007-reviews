@@ -1,13 +1,10 @@
-//working at getStaticDynamicpage -- [movieId]
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import Axios from "axios";
 
 export async function getStaticPaths() {
-  // making notations
+  // CRUCIAL - need to have environment variables set in  https://vercel.com/YOURID/YOURPROJECTNAME/settings/environment-variables to get them to work in all environments
   const response = await Axios.get(
     "https://api.themoviedb.org/3/collection/"
     + process.env.NEXT_PUBLIC_TMDB_COLLECTION_ID +
