@@ -8,7 +8,7 @@ import Axios from "axios";
 
 export async function getStaticPaths() {
   // making notations
-  const response = await fetch(
+  const response = await Axios.get(
     "https://api.themoviedb.org/3/collection/"
     + process.env.NEXT_PUBLIC_TMDB_COLLECTION_ID +
     "?api_key=" + process.env.NEXT_PUBLIC_TMDB_API_KEY
