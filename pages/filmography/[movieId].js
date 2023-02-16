@@ -32,6 +32,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
+  // comment to commit, push
   const moviesFacts = await Axios.get(
     "https://api.themoviedb.org/3/movie/" +
       params.movieId +
