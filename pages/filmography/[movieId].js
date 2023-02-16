@@ -8,8 +8,10 @@ import Axios from "axios";
 
 export async function getStaticPaths() {
   // making notations
-  const response = await Axios.get(
-    "https://api.themoviedb.org/3/collection/645?api_key=ef49b4888abc2e14ec134b8ae835513d"
+  const response = await fetch(
+    "https://api.themoviedb.org/3/collection/"
+    + process.env.NEXT_PUBLIC_TMDB_COLLECTION_ID +
+    "?api_key=" + process.env.NEXT_PUBLIC_TMDB_API_KEY
   )
     .then((res) => res.data.parts)
     .catch((err) => console.log("error: ", err));
@@ -33,7 +35,7 @@ export async function getStaticProps({ params }) {
   const moviesFacts = await Axios.get(
     "https://api.themoviedb.org/3/movie/" +
       params.movieId +
-      "?api_key=ef49b4888abc2e14ec134b8ae835513d"
+      "?api_key=" + process.env.NEXT_PUBLIC_TMDB_API_KEY
   )
     .then((res) => res.data)
     .catch((err) => console.log(err));
