@@ -10,7 +10,7 @@ export async function getStaticPaths() {
   // making notations
   const response = await Axios.get(
     "https://api.themoviedb.org/3/collection/" +
-      process.env.NEXT_PUBLIC_TMDB_COLLECTION_ID +
+    "645"+
       "?api_key=" +
       "ef49b4888abc2e14ec134b8ae835513d"
   )
