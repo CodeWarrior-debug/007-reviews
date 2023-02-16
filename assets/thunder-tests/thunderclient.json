@@ -20,26 +20,6 @@
     "tests": []
   },
   {
-    "_id": "5c91c170-dcf9-4668-a668-1a7faf8d5e31",
-    "colId": "b886fd0e-4938-4e3c-9ab3-8f4dd5fcf4b6",
-    "containerId": "",
-    "name": "Bond_Movie_Collection Copy",
-    "url": "https://api.themoviedb.org/3/collection/645?api_key=ef49b4888abc2e14ec134b8ae835513d",
-    "method": "GET",
-    "sortNum": 20000,
-    "created": "2023-02-09T13:25:42.225Z",
-    "modified": "2023-02-09T13:25:42.225Z",
-    "headers": [],
-    "params": [
-      {
-        "name": "api_key",
-        "value": "ef49b4888abc2e14ec134b8ae835513d",
-        "isPath": false
-      }
-    ],
-    "tests": []
-  },
-  {
     "_id": "46adaa91-c688-4db4-929a-c96cf59e33e7",
     "colId": "b886fd0e-4938-4e3c-9ab3-8f4dd5fcf4b6",
     "containerId": "",

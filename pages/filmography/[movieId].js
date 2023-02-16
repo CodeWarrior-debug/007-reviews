@@ -9,16 +9,14 @@ import Axios from "axios";
 export async function getStaticPaths() {
   // making notations
   const response = await Axios.get(
-    "https://api.themoviedb.org/3/collection/645" +
-      "?api_key=" +
-      "ef49b4888abc2e14ec134b8ae835513d"
+    "https://api.themoviedb.org/3/collection/645?api_key=ef49b4888abc2e14ec134b8ae835513d"
   )
     .then((res) => res.data.parts)
     .catch((err) => console.log("error: ", err));
 
   // console.log("response: ", response)
 
-  const paths = response.map((movie) => {
+  const paths = await response.map((movie) => {
     return {
       params: { movieId: movie.id.toString() },
     };
@@ -35,8 +33,7 @@ export async function getStaticProps({ params }) {
   const moviesFacts = await Axios.get(
     "https://api.themoviedb.org/3/movie/" +
       params.movieId +
-      "?api_key=" +
-      "ef49b4888abc2e14ec134b8ae835513d"
+      "?api_key=ef49b4888abc2e14ec134b8ae835513d"
   )
     .then((res) => res.data)
     .catch((err) => console.log(err));
