@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Axios from "axios";
 
+
 export async function getStaticPaths() {
   // CRUCIAL - need to have environment variables set in  https://vercel.com/YOURID/YOURPROJECTNAME/settings/environment-variables to get them to work in all environments
   const response = await Axios.get(

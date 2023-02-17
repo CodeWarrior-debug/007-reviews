@@ -13,8 +13,6 @@ export default function Home() {
 
       <main>
 
-        <Navbar className="min-h-[10vh]" />
-
         <h2 className="top-title min-h-[80vh] grid place-items-center leading-12"> Bond. James Bond. <br /> <br /> Reviewed. </h2>
 
 
