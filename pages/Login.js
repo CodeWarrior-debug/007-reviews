@@ -1,7 +1,12 @@
+
+
 import React, {useState} from 'react'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, } from "firebase/auth"
-import {auth} from '../firebase/clientApp'
+import {auth} from '../lib/db.js'
+import {db} from '../lib/db.js'
 
+
+ db.collection("reviews").doc("sYggfkfJMPvhCNA6PrPV").get()
 
 const Login = () => {
 
@@ -23,6 +28,7 @@ const register = async () => {
     const user = await createUserWithEmailAndPassword(
       auth,registerEmail,registerPassword
     );
+    console.log(user)
   } catch (error){
     console.log(error.message)
 
@@ -40,45 +46,58 @@ const register = async () => {
     } catch (error){
       console.log(error)
     }
+  }
 
     const logout = async () => {
       await signOut(auth)
     }
-  }
+  
+
 
 
   return (
     <>
-      
-    <div className='App'>
+    <div className='App grid place-items-center h-[80vh]'>
 
       <div>
         <h3> Register User</h3>
+        {/* <form> */}
+
         <input
         placeholder='Email...'
+        type="text"
+        // value={registerEmail}
+        defaultValue='Email...'
         onChange={(event)=> {
           setRegisterEmail(event.target.value)
-        }}/>
+          console.log(registerEmail)
+        }
+        }
+        />
         <input
         placeholder='Password...'
-        onChange={(event)=> {
-          setRegisterPassword(event.target.value)
-        }}/>
-        <button onClick = {register}>Create User</button>
+        onChange={(event) => {
+          setRegisterPassword(event.target.value);
+        }}
+        />
+        {/* </form> */}
+        <button onClick = {register} className="bg-slate-500 font-2xl text-white p-4 ">Create User</button>
 
       </div>
       <h3> Password</h3>
         <input
         placeholder='Email...'
-        onChange={(event)=> {
-          setLoginEmail(event.target.value)
-        }}/>
+        // onChange={(event)=> {
+        //   setLoginEmail(event.target.value)
+        // }}
+        />
         <input
         placeholder='Password...'
-        onChange={(event)=> {
-          setLoginPassword(event.target.value)
-        }}/>
-        <button onClick = {login}>Login</button>
+        // onChange={(event)=> {
+        //   setLoginPassword(event.target.value)
+        // }}
+        />
+        <button onClick = {login} className="bg-slate-500 font-2xl text-white p-4 ">Login</button>
 
         <h4>User Logged In: </h4>
         {user?.email}

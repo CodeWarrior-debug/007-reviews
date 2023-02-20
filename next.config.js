@@ -1,4 +1,13 @@
 /** @type {import('next').NextConfig} */
+
+
+
+require('dotenv').config()
+
+const path=require('path')
+
+const Dotenv = require('dotenv-webpack')
+
 const nextConfig = {
   experimental: {
     fontLoaders: [
@@ -17,7 +26,25 @@ const nextConfig = {
         // pathname:'/account123/**'
       }
     ]
+
+  },
+  
+  webpack: config => {
+    config.plugins = config.plugins || []
+    config.plugins = [
+      ...config.plugins,
+
+      new Dotenv({
+        path: path.join(__dirname, '.env'),
+        systemvars: true
+      })
+    ]
   }
+  
 }
 
-module.exports = nextConfig
+module.exports = {nextConfig, webpack}
+
+
+
+
