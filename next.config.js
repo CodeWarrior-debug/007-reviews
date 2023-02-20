@@ -2,11 +2,11 @@
 
 
 
-require('dotenv').config()
+// require('dotenv').config()
 
-const path=require('path')
+// const path=require('path')
 
-const Dotenv = require('dotenv-webpack')
+// const Dotenv = require('dotenv-webpack')
 
 const nextConfig = {
   experimental: {
@@ -28,22 +28,22 @@ const nextConfig = {
     ]
 
   },
-  
-  webpack: config => {
-    config.plugins = config.plugins || []
-    config.plugins = [
-      ...config.plugins,
 
-      new Dotenv({
-        path: path.join(__dirname, '.env'),
-        systemvars: true
-      })
-    ]
-  }
+  // webpack: config => {
+  //   config.plugins = config.plugins || []
+  //   config.plugins = [
+  //     ...config.plugins,
+
+  //     new Dotenv({
+  //       path: path.join(__dirname, '.env'),
+  //       systemvars: true
+  //     })
+  //   ]
+  // }
   
 }
 
-module.exports = {nextConfig, webpack}
+module.exports = nextConfig
 
 
 
