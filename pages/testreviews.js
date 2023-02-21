@@ -72,6 +72,23 @@ const TestReviews = () => {
 
     //UPDATE ONE DOC
 
+        //****************************
+        const collectionName = "reviews"
+        const docID = "user1"
+        const reviewNumber = 5.5
+
+        const documentRef = doc(db, collectionName, docID);
+        //*************************
+
+        // Chante the review accordingly
+        const updateOneReview= async ()=>
+
+            await updateDoc(documentRef, {
+            review: reviewNumber
+
+        });
+
+        updateOneReview();
         
 
 
