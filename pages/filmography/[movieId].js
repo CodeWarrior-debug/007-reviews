@@ -1,7 +1,8 @@
-
+import {format} from 'date-fns'
 import Link from "next/link";
 import Image from "next/image";
 import Axios from "axios";
+import numeral from "numeral";
 
 
 export async function getStaticPaths() {
@@ -53,6 +54,17 @@ const MovieId = ({ movieFacts }) => {
   let movie_w_backdrop_path = baseURL + `${movieFacts.backdrop_path}`;
   let movie_w_poster_path = baseURL + `${movieFacts.poster_path}`;
 
+  //current strings are YYYY-MM-DD
+  const dateStringToDate = (dateString)=>{
+      
+    const yearStr = dateString.substr(0,4);
+    const mthStr = dateString.substr(5,2);
+    const dayStr = dateString.substr(8,2);
+
+    return format(new Date(yearStr,mthStr,dayStr), "MMMMMMM d, yyyy")
+
+  }
+
   return (
     <>
       <Image
@@ -73,23 +85,22 @@ const MovieId = ({ movieFacts }) => {
           <p> {movieFacts.tagline} </p>
           <p> {movieFacts.overview} </p>
           <p> {movieFacts.runtime} minute runtime </p>
-          <p> Released {movieFacts.release_date} </p>
+          <p> Released {dateStringToDate(movieFacts.release_date)} </p>
           <br />
           {/* RECEPTION AND RATINGS */}
-          <p> Avg ⭐ (of 10): &emsp; {movieFacts.vote_average} </p>
-          <p> # of votes cast: &emsp; {movieFacts.vote_count} </p>
-          <p> Revenue: ${movieFacts.revenue} </p>
-          <p> Profitability: ${movieFacts.revenue - movieFacts.budget} </p>
-          <p> {movieFacts.vote_count.toLocaleString("en-US")} </p>
-          <p> Popularity: {movieFacts.popularity} </p>
+          <p> Avg ⭐ of 10: &emsp; { numeral(movieFacts.vote_average).format('0.0')} </p>
+          <p> Votes cast: &emsp; {numeral(movieFacts.vote_count).format('0,0')} </p>
+          <p> Revenue: &emsp; ${numeral(movieFacts.revenue).format('0,0')} </p>
+          <p> Profit: &emsp; &emsp; ${numeral(movieFacts.revenue - movieFacts.budget).format('0,0')} </p>
+          <p> Popularity: &emsp; {numeral(movieFacts.popularity).format('0.0')} </p>
           {/* TODO: understand popularity definition */}
           <br />
 
           {/* PRODUCTION DETAILS */}
-          <p> Movie Budget: ${movieFacts.budget} </p>
-          <p> {movieFacts.production_companies[0]?.name} </p>
+          <p> Movie Budget: &emsp; ${numeral(movieFacts.budget).format('0,0')} </p>
+          {/* <p> {movieFacts.production_companies[0]?.name} </p>
           <p> {movieFacts.production_countries[0]?.name} </p>
-          <p> {movieFacts.genres[0].name} </p>
+          <p> {movieFacts.genres[0].name} </p> */}
           <br />
 
           {/* ADDL RESOURCES */}
