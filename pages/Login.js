@@ -1,14 +1,18 @@
 import React from 'react'
-import {auth, provider} from ""
+import AuthDetails from '../components/AuthDetails'
+import SignIn from '../components/SignIn'
+import SignUp from '../components/SignUp'
+import "../styles/Login.module.css"
 
 const Login = () => {
   return (
     <>
-      <div className='loginPage'>
-        <p>Sign In With Google to Continue</p>
-        <button className='login'></button>
+        <div className='App'>
+            <SignIn/>
+            <SignUp/>
+            <AuthDetails/>
 
-      </div>
+        </div>
     </>
   )
 }
