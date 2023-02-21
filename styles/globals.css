@@ -13,7 +13,12 @@
   .nav-link{
     @apply text-3xl text-center mt-8 mb-8
   }
-
+  .inputBox{
+    @apply border-2 border-slate-900 rounded p-2 m-4
+  }
+  .styledBtn{
+    @apply bg-black text-white h-11 rounded pl-4 pr-4 font-semibold m-2
+  }
 
 }
 

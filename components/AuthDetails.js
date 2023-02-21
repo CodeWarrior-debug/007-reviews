@@ -29,14 +29,14 @@ const AuthDetails = () => {
   };
 
   return (
-    <div>
+    <div className="grid place-items-center">
       {authUser ? (
         <>
-          <p>{`Signed In as ${authUser.email}`}</p>
-          <button onClick={userSignOut}>Sign Out</button>
+          <p className="bg-slate-300 text-2xl p-2 rounded font-semibold">{`Signed In as ${authUser.email}`}</p>
+          <button onClick={userSignOut} className="styledBtn" >Sign Out</button>
         </>
       ) : (
-        <p>Signed Out</p>
+        <p className="bg-slate-300 text-2xl p-2 rounded font-semibold">Currently Signed Out</p>
       )}
     </div>
   );

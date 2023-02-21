@@ -7,7 +7,7 @@ import "../styles/Login.module.css"
 const Login = () => {
   return (
     <>
-        <div className='App'>
+        <div className='grid place-items-center h-[80vh]'>
             <SignIn/>
             <SignUp/>
             <AuthDetails/>
