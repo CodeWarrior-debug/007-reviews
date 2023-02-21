@@ -72,26 +72,38 @@ const TestReviews = () => {
 
     //UPDATE ONE DOC
 
-        //****************************
-        const collectionName = "reviews"
-        const docID = "user1"
-        const reviewNumber = 5.5
+        // //****************************
+        // const collectionName = "reviews"
+        // const docID = "user1"
+        // const reviewNumber = 5.5
 
-        const documentRef = doc(db, collectionName, docID);
-        //*************************
+        // const documentRef = doc(db, collectionName, docID);
 
-        // Chante the review accordingly
-        const updateOneReview= async ()=>
+        // //*************************
 
-            await updateDoc(documentRef, {
-            review: reviewNumber
+        // // Chante the review accordingly
+        // const updateOneReview= async ()=>
 
-        });
+        //     await updateDoc(documentRef, {
+        //     review: reviewNumber
 
-        updateOneReview();
+        // });
+
+        // updateOneReview();
+
+        // //*************************
+
+    //DELETE ONE DOC
+
         
+    const collectionName = "reviews"
+    const docID = "user1"
 
-
+    const deleteOneDoc = async()=>{
+        await deleteDoc(doc(db, collectionName, docID));
+    }
+        
+    deleteOneDoc();
 
     })
     
