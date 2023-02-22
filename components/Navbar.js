@@ -4,7 +4,6 @@ import { isLoggedIn } from "../lib/isLoggedIn";
 
 export default function Navbar() {
 
-  
 
   return (
     <>
@@ -23,7 +22,7 @@ export default function Navbar() {
             </Link>
           </li>
           {/* <li className="nav-link"><Link href="/compare" className="text-2xl"> Compare</Link></li> */}
-          {/* <li className="nav-link"><Link href="/charts" className="text-2xl"> Charts</Link></li> */}
+          
           {
             isLoggedIn  
                         ?     

@@ -2,17 +2,27 @@ import Card from "../../components/Card";
 import Axios from "axios";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
+import { isLoggedIn } from "../../lib/isLoggedIn";
 
 export default function Filmography({ movies }) {
   return (
     <>
-      <Navbar className="min-h-[10vh]" />
 
-      <div className="grid grid-auto-rows grid-cols-1 lg:grid-cols-3 gap-6 ml-32 mr-32">
+    {/* <Link> */}
+
+      <Navbar className="min-h-[10vh]" />
+      {/* TODO why login not responding */}
+      {isLoggedIn ? 
+        <h2 className="text-red-600 font-semibold m-4 text-center text-3xl"> Log In To Add Reviews </h2>
+       : 
+        ""
+      }
+
+      <div className="grid grid-auto-rows grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ml-32 mr-32">
         {/* TODO how do i get these cells to be equal height */}
         {movies.map((movie, index) => {
           const baseURL = "https://image.tmdb.org/t/p/original/";
-          // let movie_w_backdrop_path= baseURL +`${movie.backdrop_path}`
+
           let movie_w_poster_path = baseURL + `${movie.poster_path}`;
 
           return (
@@ -33,9 +43,9 @@ export default function Filmography({ movies }) {
           );
         })}
       </div>
-      <Footer/>
-
-    </>
+      <Footer />
+      </>
+    
   );
 }
 export async function getStaticProps() {

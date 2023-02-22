@@ -32,9 +32,11 @@ export default function Card(props) {
               {overview}
             </p>
 
-            <div className="indent-4">
-              <span className="font-[600] ">Your review: ?</span>
-            </div>
+            {/* <div className="indent-4">
+              <label for="rating" className="font-[600] ">Your review</label>
+              <input id="rating" type="number" name="rating" min="0" max="10"></input>
+              
+            </div> */}
           </div>
         </div>
       </Link>

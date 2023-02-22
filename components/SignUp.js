@@ -1,20 +1,41 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { initializeApp } from "firebase/app";
+import {doc, setDoc, getFirestore,Timestamp} from "firebase/firestore"
 import React, { useState } from "react";
-import {auth} from "../lib/db"
+import {auth, firebaseConfig} from "../lib/db"
+import { useRouter } from "next/router";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter()
 
-  const signUp = (e) => {
+  const signUp = async (e) => {
     e.preventDefault();
-    createUserWithEmailAndPassword(auth, email, password)
+    await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         console.log(userCredential);
       })
       .catch((error) => {
         console.log(error);
       });
+
+          // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    
+    // Initialize Cloud Firestore and get a reference to the service
+    const db = getFirestore(app);
+
+    
+
+      const setUpUser = async () =>{
+        const userRef = doc(db, 'users', email);
+        await setDoc(userRef, { updated: Timestamp.fromDate(new Date()) }, { merge: true });
+        router.push('/filmography')
+      }
+
+      setUpUser();
+
   };
 
   return (
