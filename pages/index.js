@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Navbar from "../components/Navbar";
 import "tailwindcss/tailwind.css";
+import Footer from "../components/Footer";
 
 export default function Home() {
   return (
@@ -12,12 +13,15 @@ export default function Home() {
       </Head>
 
       <main>
+      <Navbar className="min-h-[10vh]" />
 
         <h2 className="top-title min-h-[80vh] grid place-items-center leading-12"> Bond. James Bond. <br /> <br /> Reviewed. </h2>
 
 
         {/* TODO cluster of images, charts here? */}
       </main>
+      <Footer/>
+      
     </>
   );
 }

@@ -1,14 +1,16 @@
 import Card from "../../components/Card";
-
-
 import Axios from "axios";
+import Footer from "../../components/Footer";
+import Navbar from "../../components/Navbar";
 
 export default function Filmography({ movies }) {
   return (
     <>
+      <Navbar className="min-h-[10vh]" />
+
       <div className="grid grid-auto-rows grid-cols-1 lg:grid-cols-3 gap-6 ml-32 mr-32">
         {/* TODO how do i get these cells to be equal height */}
-        {movies.map((movie) => {
+        {movies.map((movie, index) => {
           const baseURL = "https://image.tmdb.org/t/p/original/";
           // let movie_w_backdrop_path= baseURL +`${movie.backdrop_path}`
           let movie_w_poster_path = baseURL + `${movie.poster_path}`;
@@ -16,7 +18,7 @@ export default function Filmography({ movies }) {
           return (
             <>
               <Card
-                key={movie.id.toString()}
+                key={index}
                 movieId={movie.id}
                 original_title={movie.original_title}
                 overview={movie.overview}
@@ -31,6 +33,8 @@ export default function Filmography({ movies }) {
           );
         })}
       </div>
+      <Footer/>
+
     </>
   );
 }

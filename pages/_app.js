@@ -22,9 +22,7 @@ export default function MyApp({Component, pageProps}){
     </Head>
 
     <main className={libre_franklin.className}>
-      <Navbar className="min-h-[10vh]" />
       <Component {...pageProps} />
-      <Footer/>
     </main>
     </>
   )
