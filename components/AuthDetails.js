@@ -10,6 +10,9 @@ const AuthDetails = () => {
     const listen = onAuthStateChanged(auth, (user) => {
       if (user) {
         setAuthUser(user);
+        
+        
+
       } else {
         setAuthUser(null);
       }

@@ -4,7 +4,8 @@ import "tailwindcss/tailwind.css";
 import Head from 'next/head'
 import Link from 'next/link'
 import { useContext, createContext } from 'react';
-
+import { AuthContext } from '../lib/context';
+import { useState } from 'react';
 
 const libre_franklin = Libre_Franklin({style:'normal'},{subsets:["latin"]})
 
@@ -13,6 +14,8 @@ export default function MyApp({Component, pageProps}){
   // const AuthorizedContext= createContext(true)
   // const loggedIn = useContext(authorizedContext)
   
+  const [user, setUser] = useState("")
+
 
   return (
     <>
@@ -22,10 +25,11 @@ export default function MyApp({Component, pageProps}){
     </Head>
 
     {/* <AuthorizedContext.Provider value=""> */}
-
-      <main className={libre_franklin.className}>
-        <Component {...pageProps} />
-      </main>
+      <AuthContext.Provider value={user}>
+        <main className={libre_franklin.className}>
+          <Component {...pageProps} />
+        </main>
+      </AuthContext.Provider>
 
     {/* </AuthorizedContext.Provider> */}
     </>

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import { initializeApp } from "firebase/app";
-import { addDoc,collection, DocumentReference, getDocs,getDoc,getFirestore, doc, setDoc, updateDoc, deleteDoc} from "firebase/firestore";
 import {firebaseConfig} from '../lib/db'
+import { addDoc,collection, DocumentReference, getDocs,getDoc,getFirestore, doc, setDoc, updateDoc, deleteDoc} from "firebase/firestore";
 
 
 

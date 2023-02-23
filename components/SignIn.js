@@ -1,17 +1,21 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { auth } from "../lib/db";
 import { useRouter } from "next/router";
+import { AuthContext } from "../lib/context";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const {setAuthEmail, authEmail} = useContext(AuthContext)
 
   const signIn = (e) => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
+        setAuthEmail(email)
+        console.log(authEmail);
         console.log(userCredential);
         router.push('/filmography')
       })

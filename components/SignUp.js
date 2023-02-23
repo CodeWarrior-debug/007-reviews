@@ -1,20 +1,24 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import {doc, setDoc, getFirestore,Timestamp} from "firebase/firestore"
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {auth, firebaseConfig} from "../lib/db"
 import { useRouter } from "next/router";
+import { AuthContext } from "../lib/context";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [authEmail, setAuthEmail] = useState("")
   const router = useRouter()
+  const user = useContext(AuthContext)
 
   const signUp = async (e) => {
     e.preventDefault();
     await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         console.log(userCredential);
+        setAuthEmail(email)
       })
       .catch((error) => {
         console.log(error);

@@ -2,8 +2,12 @@ import Head from "next/head";
 import Navbar from "../components/Navbar";
 import "tailwindcss/tailwind.css";
 import Footer from "../components/Footer";
+import { AuthContext } from "../lib/context";
+import { useContext } from "react";
 
 export default function Home() {
+  const user = useContext(AuthContext)
+
   return (
     <>
       <Head>
@@ -16,6 +20,8 @@ export default function Home() {
       <Navbar className="min-h-[10vh]" />
 
         <h2 className="top-title min-h-[80vh] grid place-items-center leading-12"> Bond. James Bond. <br /> <br /> Reviewed. </h2>
+        <h2>{user}</h2>
+
 
 
         {/* TODO cluster of images, charts here? */}

@@ -3,9 +3,18 @@ import Link from "next/link";
 import Image from "next/image";
 import Axios from "axios";
 import numeral from "numeral";
-import { useRef } from "react";
+import { useRef,useState,useEffect } from "react";
+import { getFirestore, doc,updateDoc} from "firebase/firestore";
+import {db} from "../../lib/db"
+import { initializeApp } from "firebase/app";
+import {firebaseConfig} from '../../lib/db'
+
+
 
 const MovieId = ({ movieFacts }) => {
+  const app = initializeApp(firebaseConfig)
+  const db = getFirestore(app)
+
   const reviewRef = useRef(null);
   const baseURL = "https://image.tmdb.org/t/p/original";
   let movie_w_backdrop_path = baseURL + `${movieFacts.backdrop_path}`;
@@ -21,11 +30,71 @@ const MovieId = ({ movieFacts }) => {
   };
 
   
+  useEffect(()=>{
+        //READ ONE DOC, INPUT HERE
 
+            //     const collectionName= "cities"
+            //     const docName = "SF"
+            //     // ******************************************************
+            // const docRef = doc(db, collectionName, docName);
+
+            //     const getOneDoc=async() =>{
+            //     try {
+            //         const docSnap = await getDoc(docRef);
+            //         if(docSnap.exists()) {
+            //             // console.log(docSnap.data());
+            //             setMyDatas(
+                            
+            //                 docSnap.data()
+                        
+            //             );
+            //         } else {
+            //             console.log("Document does not exist")
+            //         }
+                
+            //     } catch(error) {
+            //         console.log(error)
+            //     }
+            
+            // }
+            // getOneDoc();
+            
+    
+
+  }, [])
 
 
   const handleClick = () => {
-    window.alert(reviewRef.current.value);
+    // window.alert(reviewRef.current.value);
+
+        //UPDATE ONE DOC
+
+        //****************************
+        const collectionName = "users"
+        const docID = "username@email.com"
+        const documentRef = doc(db, collectionName, docID);
+        const reviewString = reviewRef.current.value
+        const reviewNumber = parseFloat(reviewString)
+        const movieID = movieFacts.id
+
+        //*************************
+
+        // Change the review accordingly
+        const updateOneReview= async ()=>
+
+      // if (reviewNumber>10){
+      //   window.alert('Value should be less than or equal to 10.')
+      // }
+
+        await updateDoc(documentRef, {
+             [movieID]: reviewNumber
+
+        });
+
+        updateOneReview();
+
+        //*************************
+
   };
 
   return (
@@ -45,7 +114,7 @@ const MovieId = ({ movieFacts }) => {
         <div className="pr-24 pl-24">
           {/* MOVIE CONTENT */}
           {movieFacts.original_title === movieFacts.title ? (
-            <div key="1"></div>
+            <div></div>
           ) : (
             <p>Originally released as + {movieFacts.original_title}</p>
           )}
@@ -62,7 +131,7 @@ const MovieId = ({ movieFacts }) => {
               className="text-black text-center"
               ref={reviewRef}
             ></input>
-            <button onClick={handleClick}>Show review</button>
+            <button className="ml-4 bg-white text-black font-semibold rounded" onClick={handleClick}>Submit review</button>
           </div>
           <p> {movieFacts.tagline} </p>
           <p> {movieFacts.overview} </p>
