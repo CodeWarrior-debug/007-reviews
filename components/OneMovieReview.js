@@ -24,7 +24,7 @@ const OneMovieReview = ({ userReview, audienceReview }) => {
         {
           label: "Rating (out of 10)",
           data:  [userReview, audienceReview, Math.abs(userReview-audienceReview).toFixed(1) ],
-          backgroundColor: "#d4af37"
+          backgroundColor: "#31a354"
         },
       ],
     });
