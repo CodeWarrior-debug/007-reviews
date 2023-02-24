@@ -8,6 +8,7 @@ import { getFirestore, getDoc, doc,updateDoc} from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import {firebaseConfig} from '../../lib/db'
 var converter = require('number-to-words')
+import BarChart from "../../components/BarChart";
 
 
 
@@ -15,6 +16,7 @@ const MovieId = ({ movieFacts }) => {
 
   const [review, setReview]=useState("")
   const [myDatas, setMyDatas]=useState("")
+  const [posterOnly, setPosterOnly] = useState("")
   const app = initializeApp(firebaseConfig)
   const db = getFirestore(app)
 
@@ -38,8 +40,8 @@ const MovieId = ({ movieFacts }) => {
         const app = initializeApp(firebaseConfig)
         const db = getFirestore(app)
         const collectionName = "users"
-        const docID = "username@email.com"
-        // const numID = converter.toWords(movieFacts.id)
+        const docID = localStorage.getItem("userEmail")
+        
         
             //     // ******************************************************
             const docRef = doc(db, collectionName, docID);
@@ -48,7 +50,7 @@ const MovieId = ({ movieFacts }) => {
                 try {
                     const docSnap = await getDoc(docRef);
                     if(docSnap.exists()) {
-                        // console.log(docSnap.data());
+                        // console.log("getOneDoc: ", docSnap.data());
                     
                         const numID = converter.toWords(movieFacts.id).toString()
 
@@ -65,7 +67,7 @@ const MovieId = ({ movieFacts }) => {
                 }
                 
               }
-              getOneDoc();
+              await getOneDoc();
 
 
 
@@ -75,11 +77,21 @@ const MovieId = ({ movieFacts }) => {
 
   useEffect(()=>{
 
-    retrieveReview();
+    
+     retrieveReview();
+
+     reviewRef.current.focus()
     
 
   }, [review])
 
+  const handleViewClick = async ()=>{
+    if (posterOnly==="hidden"){
+      setPosterOnly("")
+    } else {
+      setPosterOnly("hidden")
+    }
+  }
 
   const handleUpdateClick = async () => {
     // window.alert(reviewRef.current.value);
@@ -89,7 +101,7 @@ const MovieId = ({ movieFacts }) => {
         //****************************
         setReview(reviewRef.current.value)
         const collectionName = "users"
-        const docID = "username@email.com"
+        const docID = localStorage.getItem("userEmail")
         const documentRef = doc(db, collectionName, docID);
         const reviewString = reviewRef.current.value
         const reviewNumber = parseFloat(reviewString)
@@ -125,9 +137,15 @@ const MovieId = ({ movieFacts }) => {
           <h2 className="fixed top-8 left-0 text-white text-4xl bg-blue-500">◀️ BACK</h2>
         </Link>
         <h1 className="text-5xl text-center m-8"> {movieFacts.title} </h1>
+        <button className="fixed top-8 right-0 text-white text-4xl bg-blue-500"
+        onClick={handleViewClick}>POSTER ONLY</button>
 
+        <div className={posterOnly}>
         {/* TEST AREA */}
 
+        <div>
+          <BarChart/>
+        </div>
 
         {/* TEST AREA END */}
 
@@ -238,11 +256,15 @@ const MovieId = ({ movieFacts }) => {
           <br />
         </div>
       </div>
+      </div>
     </>
   );
 };
 
 export async function getStaticPaths() {
+
+  
+
   // CRUCIAL - need to have environment variables set in  https://vercel.com/YOURID/YOURPROJECTNAME/settings/environment-variables to get them to work in all environments
   const response = await Axios.get(
     "https://api.themoviedb.org/3/collection/" +

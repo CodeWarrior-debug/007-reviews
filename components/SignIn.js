@@ -8,13 +8,14 @@ const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
-  const {setAuthEmail, authEmail} = useContext(AuthContext)
+  // const {setAuthEmail, authEmail} = useContext(AuthContext)
 
   const signIn = (e) => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        setAuthEmail(email)
+        // setAuthEmail(email)
+        localStorage.setItem("userEmail", email);
         console.log(authEmail);
         console.log(userCredential);
         router.push('/filmography')

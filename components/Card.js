@@ -6,7 +6,8 @@ export default function Card(props) {
 
   return (
     <>
-      {/* <Link href={`./filmography/${movieId}`}> */}
+      
+      {/* <Link href={`./filmography/${movieId}`} key={movieId.toString()}> */}
       <Link href={`./filmography/${movieId}`} key={movieId.toString()}>
 
         <div className="grid grid-cols-8 max-w-32 gap-2 border-4 rounded-md border-gray-900 hover:border-double">
