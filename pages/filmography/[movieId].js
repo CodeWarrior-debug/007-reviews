@@ -8,7 +8,7 @@ import { getFirestore, getDoc, doc,updateDoc} from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import {firebaseConfig} from '../../lib/db'
 var converter = require('number-to-words')
-import BarChart from "../../components/BarChart";
+import BarChartBond from "../../components/BarChartBond";
 
 
 
@@ -143,8 +143,9 @@ const MovieId = ({ movieFacts }) => {
         <div className={posterOnly}>
         {/* TEST AREA */}
 
-        <div>
-          <BarChart/>
+        <div style={{width:400,height:200}} className="bg-white">
+          
+          <BarChartBond userReview={parseFloat(review)} audienceReview={parseFloat(movieFacts.vote_average)} />
         </div>
 
         {/* TEST AREA END */}
