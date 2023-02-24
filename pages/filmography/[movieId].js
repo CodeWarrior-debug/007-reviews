@@ -17,7 +17,6 @@ const MovieId = ({ movieFacts }) => {
   const [myDatas, setMyDatas]=useState("")
   const app = initializeApp(firebaseConfig)
   const db = getFirestore(app)
-  const movieNumber= movieFacts.id
 
 
   const reviewRef = useRef(null);
@@ -34,13 +33,13 @@ const MovieId = ({ movieFacts }) => {
     return format(new Date(yearStr, mthStr, dayStr), "MMMMMMM d, yyyy");
   };
 
-  
-  useEffect(()=>{
+  const retrieveReview = async () =>{
         //READ ONE DOC, INPUT HERE
         const app = initializeApp(firebaseConfig)
         const db = getFirestore(app)
         const collectionName = "users"
         const docID = "username@email.com"
+        // const numID = converter.toWords(movieFacts.id)
         
             //     // ******************************************************
             const docRef = doc(db, collectionName, docID);
@@ -51,10 +50,10 @@ const MovieId = ({ movieFacts }) => {
                     if(docSnap.exists()) {
                         // console.log(docSnap.data());
                     
+                        const numID = converter.toWords(movieFacts.id).toString()
 
                         setMyDatas( docSnap.data() );
-                            
-                            console.log(docSnap.data())
+                        setReview(myDatas[numID])
                             
 
                     } else {
@@ -64,24 +63,31 @@ const MovieId = ({ movieFacts }) => {
                 } catch(error) {
                     console.log(error)
                 }
-                const numID = "two hundred fifty-three"
-                console.log(myDatas[numID])
-            }
-            getOneDoc();
+                
+              }
+              getOneDoc();
 
 
-            
+
+  }
+
+
+
+  useEffect(()=>{
+
+    retrieveReview();
     
 
-  }, [])
+  }, [review])
 
 
-  const handleClick = () => {
+  const handleUpdateClick = async () => {
     // window.alert(reviewRef.current.value);
 
         //UPDATE ONE DOC
 
         //****************************
+        setReview(reviewRef.current.value)
         const collectionName = "users"
         const docID = "username@email.com"
         const documentRef = doc(db, collectionName, docID);
@@ -98,14 +104,9 @@ const MovieId = ({ movieFacts }) => {
       //   window.alert('Value should be less than or equal to 10.')
       // }
 
-      
+        await updateDoc(documentRef, { [movieID]: reviewNumber });
 
-        await updateDoc(documentRef, {
-              [movieID]: reviewNumber
-
-        });
-
-        updateOneReview();
+        await updateOneReview();
 
         //*************************
 
@@ -139,7 +140,7 @@ const MovieId = ({ movieFacts }) => {
           )}
           <div>
             <label className="font-[600] mr-4 ">
-              Your review
+              Current Review = {review}
             </label>
             <input
               id="rating"
@@ -150,7 +151,7 @@ const MovieId = ({ movieFacts }) => {
               className="text-black text-center"
               ref={reviewRef}
             ></input>
-            <button className="ml-4 bg-white text-black font-semibold rounded" onClick={handleClick}>Submit review</button>
+            <button className="ml-4 bg-white text-black font-semibold rounded" onClick={handleUpdateClick}>Update Review</button>
           </div>
           <p> {movieFacts.tagline} </p>
           <p> {movieFacts.overview} </p>
