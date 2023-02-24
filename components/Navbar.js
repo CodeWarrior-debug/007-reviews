@@ -22,8 +22,13 @@ export default function Navbar() {
             </Link>
           </li>
           {/* <li className="nav-link"><Link href="/compare" className="text-2xl"> Compare</Link></li> */}
-          
-          {
+          <li className="nav-link hover:underline ">
+                              <Link href="/login" className="text-2xl">
+                                {" "}
+                                Login
+                              </Link>
+                            </li>
+          {/* {
             isLoggedIn  
                         ?     
                             <li className="nav-link hover:underline ">
@@ -39,7 +44,7 @@ export default function Navbar() {
                                 Login
                               </Link>
                             </li>
-          }
+          } */}
           
 
         </ul>
