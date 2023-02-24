@@ -4,16 +4,21 @@ import Image from "next/image";
 import Axios from "axios";
 import numeral from "numeral";
 import { useRef,useState,useEffect } from "react";
-import { getFirestore, doc,updateDoc} from "firebase/firestore";
-import {db} from "../../lib/db"
+import { getFirestore, getDoc, doc,updateDoc} from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import {firebaseConfig} from '../../lib/db'
+var converter = require('number-to-words')
 
 
 
 const MovieId = ({ movieFacts }) => {
+
+  const [review, setReview]=useState("")
+  const [myDatas, setMyDatas]=useState("")
   const app = initializeApp(firebaseConfig)
   const db = getFirestore(app)
+  const movieNumber= movieFacts.id
+
 
   const reviewRef = useRef(null);
   const baseURL = "https://image.tmdb.org/t/p/original";
@@ -32,32 +37,39 @@ const MovieId = ({ movieFacts }) => {
   
   useEffect(()=>{
         //READ ONE DOC, INPUT HERE
-
-            //     const collectionName= "cities"
-            //     const docName = "SF"
+        const app = initializeApp(firebaseConfig)
+        const db = getFirestore(app)
+        const collectionName = "users"
+        const docID = "username@email.com"
+        
             //     // ******************************************************
-            // const docRef = doc(db, collectionName, docName);
+            const docRef = doc(db, collectionName, docID);
 
-            //     const getOneDoc=async() =>{
-            //     try {
-            //         const docSnap = await getDoc(docRef);
-            //         if(docSnap.exists()) {
-            //             // console.log(docSnap.data());
-            //             setMyDatas(
+                const getOneDoc=async() =>{
+                try {
+                    const docSnap = await getDoc(docRef);
+                    if(docSnap.exists()) {
+                        // console.log(docSnap.data());
+                    
+
+                        setMyDatas( docSnap.data() );
                             
-            //                 docSnap.data()
-                        
-            //             );
-            //         } else {
-            //             console.log("Document does not exist")
-            //         }
+                            console.log(docSnap.data())
+                            
+
+                    } else {
+                        console.log("Document does not exist")
+                    }
                 
-            //     } catch(error) {
-            //         console.log(error)
-            //     }
-            
-            // }
-            // getOneDoc();
+                } catch(error) {
+                    console.log(error)
+                }
+                const numID = "two hundred fifty-three"
+                console.log(myDatas[numID])
+            }
+            getOneDoc();
+
+
             
     
 
@@ -75,7 +87,7 @@ const MovieId = ({ movieFacts }) => {
         const documentRef = doc(db, collectionName, docID);
         const reviewString = reviewRef.current.value
         const reviewNumber = parseFloat(reviewString)
-        const movieID = movieFacts.id
+        const movieID = converter.toWords(movieFacts.id)
 
         //*************************
 
@@ -86,8 +98,10 @@ const MovieId = ({ movieFacts }) => {
       //   window.alert('Value should be less than or equal to 10.')
       // }
 
+      
+
         await updateDoc(documentRef, {
-             [movieID]: reviewNumber
+              [movieID]: reviewNumber
 
         });
 
@@ -111,6 +125,11 @@ const MovieId = ({ movieFacts }) => {
         </Link>
         <h1 className="text-5xl text-center m-8"> {movieFacts.title} </h1>
 
+        {/* TEST AREA */}
+
+
+        {/* TEST AREA END */}
+
         <div className="pr-24 pl-24">
           {/* MOVIE CONTENT */}
           {movieFacts.original_title === movieFacts.title ? (
@@ -119,7 +138,7 @@ const MovieId = ({ movieFacts }) => {
             <p>Originally released as + {movieFacts.original_title}</p>
           )}
           <div>
-            <label for="rating" className="font-[600] mr-4 ">
+            <label className="font-[600] mr-4 ">
               Your review
             </label>
             <input
