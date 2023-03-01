@@ -11,18 +11,21 @@ var converter = require("number-to-words");
 import OneMovieReview from "../../components/OneMovieReview";
 
 const MovieId = ({ movieFacts }) => {
+
+  //initial states
   const [review, setReview] = useState("");
   const [myDatas, setMyDatas] = useState("");
   const [posterOnly, setPosterOnly] = useState("");
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
-
   const reviewRef = useRef(null);
+
+//reusable variables
   const baseURL = "https://image.tmdb.org/t/p/original";
   let movie_w_backdrop_path = baseURL + `${movieFacts.backdrop_path}`;
   let movie_w_poster_path = baseURL + `${movieFacts.poster_path}`;
 
-  //current strings are YYYY-MM-DD
+  //converter for datestrings, current strings are YYYY-MM-DD
   const dateStringToDate = (dateString) => {
     const yearStr = dateString.substr(0, 4);
     const mthStr = dateString.substr(5, 2);
@@ -36,15 +39,14 @@ const MovieId = ({ movieFacts }) => {
 
 
   const retrieveReview = async () => {
-    //READ ONE DOC, INPUT HERE
+    //get movie review from Firestore if it exists
+    //setup
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
     const collectionName = "users";
     const docID = localStorage.getItem("userEmail");
-
-    //     // ******************************************************
     const docRef = doc(db, collectionName, docID);
-
+    //retrieve review
     const getOneDoc = async () => {
       try {
         const docSnap = await getDoc(docRef);
@@ -66,9 +68,11 @@ const MovieId = ({ movieFacts }) => {
   };
 
   useEffect(() => {
+
     retrieveReview();
 
     reviewRef.current.focus();
+
   }, [review]);
 
   const handleViewClick = async () => {
@@ -80,7 +84,7 @@ const MovieId = ({ movieFacts }) => {
   };
 
   const handleUpdateClick = async () => {
-    // window.alert(reviewRef.current.value);
+    
 
     //UPDATE ONE DOC
 
@@ -97,13 +101,22 @@ const MovieId = ({ movieFacts }) => {
 
     // Change the review accordingly
     const updateOneReview = async () =>
-      // if (reviewNumber>10){
-      //   window.alert('Value should be less than or equal to 10.')
-      // }
+
+     { 
+      //validation condition
+      if (reviewNumber > 10 || reviewNumber < 0){
+        
+        return window.alert('Use a number equal to or between 0 and 10.')
+        // console.log(reviewNumber)
+
+      }
 
       await updateDoc(documentRef, { [movieID]: reviewNumber });
-
+    
+    
+    }
     await updateOneReview();
+
 
     //*************************
   };

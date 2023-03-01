@@ -6,6 +6,7 @@ ChartJS.register(ChartDataLabels);
 
 const OneMovieReview = ({ userReview, audienceReview }) => {
 
+  
 
   let width, height, gradient; 
 
@@ -43,10 +44,11 @@ const OneMovieReview = ({ userReview, audienceReview }) => {
           return getGradient(ctx, chartArea);
         },
         data: [
-          userReview,
+          userReview | "",
           audienceReview,
           Math.abs(userReview - audienceReview),
         ],
+
       },
     ],
   });
@@ -58,7 +60,7 @@ const OneMovieReview = ({ userReview, audienceReview }) => {
         {
           label: "Rating (out of 10)",
           data: [
-            userReview,
+            userReview.toFixed(1),
             audienceReview.toFixed(1),
             Math.abs(userReview - audienceReview).toFixed(1),
           ],

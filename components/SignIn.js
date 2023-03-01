@@ -2,7 +2,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import React, { useState, useContext } from "react";
 import { auth } from "../lib/db";
 import { useRouter } from "next/router";
-import { AuthContext } from "../lib/context";
+
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -16,8 +16,8 @@ const SignIn = () => {
       .then((userCredential) => {
         // setAuthEmail(email)
         localStorage.setItem("userEmail", email);
-        console.log(authEmail);
-        console.log(userCredential);
+        // console.log(authEmail);
+        // console.log(userCredential);
         router.push('/filmography')
       })
       .catch((error) => {
