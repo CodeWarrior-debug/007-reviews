@@ -36,6 +36,7 @@ export default function Filmography({ movies }) {
               <Card
                 key={index}
                 movieId={movie.id}
+                title={movie.title}
                 original_title={movie.original_title}
                 overview={movie.overview}
                 popularity={movie.popularity}

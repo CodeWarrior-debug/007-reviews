@@ -267,9 +267,6 @@ const MovieId = ({ movieFacts }) => {
 
 export async function getStaticPaths() {
   // CRUCIAL - need to have environment variables set in  https://vercel.com/YOURID/YOURPROJECTNAME/settings/environment-variables to get them to work in all environments
-  const spaceToUnderscore = (string) => {
-    return string.replace(/ /g, "_");
-  };
   
   const response = await Axios.get(
     "https://api.themoviedb.org/3/collection/" +
@@ -284,13 +281,15 @@ export async function getStaticPaths() {
 
   const paths = await response.map((movie) => {
     return {
-      params: { movieTitle: spaceToUnderscore(movie.title.toString()) },
+      params: { 
+                movieId: movie.id.toString()
+      },
     };
   });
 
   return {
     paths,
-    fallback: false,
+    fallback: 'blocking',
     // true attempt
   };
 }
@@ -312,6 +311,7 @@ export async function getStaticProps({ params }) {
     props: {
       movieFacts: moviesFacts,
     },
+    revalidate: 10,
   };
 }
 

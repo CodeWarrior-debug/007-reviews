@@ -3,13 +3,14 @@ import Link from "next/link";
 
 export default function Card(props) {
   const { movieId, original_title, overview, poster_path, popularity, release_date, vote_average, vote_count, } = props;
+  
+
 
   return (
     <>
       
-      {/* <Link href={`./filmography/${movieId}`} key={movieId.toString()}> */}
       <Link href={`./filmography/${movieId}`} key={movieId.toString()}>
-
+      
         <div className="grid grid-cols-8 max-w-32 gap-2 border-4 rounded-md border-gray-900 hover:border-double">
           <div className="col-span-3 flex items-center">
             <Image
@@ -33,11 +34,7 @@ export default function Card(props) {
               {overview}
             </p>
 
-            {/* <div className="indent-4">
-              <label for="rating" className="font-[600] ">Your review</label>
-              <input id="rating" type="number" name="rating" min="0" max="10"></input>
-              
-            </div> */}
+
           </div>
         </div>
       </Link>
