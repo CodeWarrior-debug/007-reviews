@@ -10,8 +10,10 @@ export default function Filmography({ movies }) {
     <>
       <div className="bg-[#161616] text-white">
         {/* <Link> */}
+        <div className="sticky">
 
         <Navbar className="min-h-[10vh]" />
+        </div>
         {/* TODO why login not responding */}
         {/* {isLoggedIn ? 
         <h2 className="text-red-600 font-semibold m-4 text-center text-3xl"> Log In To Add Reviews </h2>
