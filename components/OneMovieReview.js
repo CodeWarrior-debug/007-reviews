@@ -1,5 +1,5 @@
 import { Bar } from "react-chartjs-2";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Chart as ChartJS } from "chart.js/auto";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 ChartJS.register(ChartDataLabels);
@@ -8,20 +8,24 @@ const OneMovieReview = ({ userReview, audienceReview }) => {
 
   
 
+  const chartRef = useRef(null);
+
   let width, height, gradient; 
 
   const getGradient = (ctx, chartArea)=>{
     const chartWidth = chartArea.right - chartArea.left;
     const chartHeight = chartArea.bottom - chartArea.top;
     if (!gradient || width !== chartWidth || height !== chartHeight) {
-      // Create the gradient because this is either the first render
-      // or the size of the chart has changed
+      // Create the gradient because this is either the first render// or the size of the chart has changed
       width = chartWidth;
       height = chartHeight;
-      gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
-      gradient.addColorStop(1, 'rgba(235,209,151, 0.5)');
-      gradient.addColorStop(0.5, 'rgba(180,136,17, 0.25)');
-      gradient.addColorStop(0, 'rgba(187,155,73, 0)');
+
+      gradient = ctx.createLinearGradient(0, 0, 0, 450);
+
+
+      gradient.addColorStop(0, 'rgba(255, 0,0, 0.5)');
+      gradient.addColorStop(0.5, 'rgba(255, 0, 0, 0.25)');
+      gradient.addColorStop(1, 'rgba(255, 0, 0, 0)');
     }
   
     return gradient;
@@ -54,6 +58,15 @@ const OneMovieReview = ({ userReview, audienceReview }) => {
   });
 
   useEffect(() => {
+    // // display options below
+    const chart = chartRef.current;
+    
+    
+    // if (chart) {
+    //   console.log('CanvasRenderingContext2D', chart.ctx);
+    //   console.log('HTMLCanvasElement', chart.canvas);
+    // }
+
     setUserData({
       labels: ["Me", "TMDB Audience", "Differential"],
       datasets: [
@@ -86,25 +99,32 @@ const OneMovieReview = ({ userReview, audienceReview }) => {
   return (
     <>
       <Bar
+        ref = {chartRef}
         id="chart"
-        // style={{backgroundColor:'hsla(#00ff00, 0.5)'}}
-        style={{backgroundColor:'rgba(0,0,0, 0.0)'}}
+        // style={{backgroundColor:'rgba(0,0,0, 0.0)'}}
         data={userData}
         options={{
           maintainAspectRatio: false,
           scales: {
-            x: { grid: { display: false } },
+            x: { grid: { display: false ,           
+            } },
             y: {
-              min: 0,
-              max: 10,
-              ticks: { beginAtZero: true },
+              // min: 0,
+              // max: 10,
+              ticks: { display: false },
+              // ticks: { beginAtZero: true },
               grid: { display: false },
             },
           },
           plugins: {
+            legend:{
+              labels:{
+                color:"#FFF"
+              }
+            },
             datalabels: {
               display: true,
-              color: "black",
+              color: "white",
               align: "center",
               padding: 0,
               textStrokeWidth: 0.5,

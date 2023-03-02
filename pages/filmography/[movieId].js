@@ -148,7 +148,7 @@ const MovieId = ({ movieFacts }) => {
         <div className={posterOnly}>
           {/* TEST AREA */}
 
-          <div style={{ width: 400, height: 200 }} className="bg-white">
+          <div style={{ width: 400, height: 200 }} className="bg-[#252429]">
             <OneMovieReview
               userReview={parseFloat(review)}
               audienceReview={parseFloat(movieFacts.vote_average)}
