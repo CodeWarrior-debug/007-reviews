@@ -21,7 +21,7 @@ export default function Filmography({ movies }) {
         ""
       } */}
 
-        <div className="grid grid-auto-rows grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ml-32 mr-32">
+        <div className="grid grid-auto-rows grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6   ml-32 mr-32">
           {/* TODO how do i get these cells to be equal height */}
           {movies.map((movie, index) => {
             const baseURL = "https://image.tmdb.org/t/p/original/";
@@ -41,7 +41,7 @@ export default function Filmography({ movies }) {
                   vote_average={movie.vote_average}
                   vote_count={movie.vote_count}
                   poster_path={movie_w_poster_path}
-                  className="h-full"
+                  className="h-full max-w-[12em] max-h-[6em]"
                 />
               </>
             );
