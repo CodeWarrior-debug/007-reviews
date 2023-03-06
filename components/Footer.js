@@ -3,8 +3,9 @@ import Link from "next/link";
 const Footer = () => {
   return (
     <>
+    <br/>
       <div className=" grid place-items-center ">
-        <p className="italic text-center text-xl ">
+        <p className=" text-center text-xl font-thin">
           <Link
             target="_blank"
             href="https://icons8.com/icon/19532/007"
@@ -20,11 +21,12 @@ const Footer = () => {
           >
             Icons8
           </Link>
+          
           <br />
 
           This product uses the{" "}
 
-          <Link target="_blank" href="https://www.themoviedb.org/documentation/api" className="underline hover:font-extrabold" >
+          <Link target="_blank" href="https://www.themoviedb.org/documentation/api" className="text-red-400 hover:font-extrabold" >
 
             TMDB API
 
@@ -32,13 +34,15 @@ const Footer = () => {
 
           but is not endorsed or certified by{" "}
 
-          <Link target="_blank" href="https://www.themoviedb.org/" className="underline hover:font-extrabold" >
+          <Link target="_blank" href="https://www.themoviedb.org/" className="text-red-400 hover:font-extrabold" >
             TMDB
           </Link>
-          .
+          
         </p>
 
       </div>
+    <br/>
+
     </>
   );
 };
