@@ -10,9 +10,6 @@
   .top-title{
     @apply text-3xl text-center mt-8 mb-8
   }
-  .nav-link{
-    @apply text-3xl text-center mt-8 mb-8
-  }
   .inputBox{
     @apply border-2 border-slate-900 rounded p-2 m-4
   }

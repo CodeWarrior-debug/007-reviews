@@ -8,7 +8,7 @@ export default function Navbar() {
   return (
     <>
       <nav className= {montserrat.className}>
-        <ul className="flex flex-row justify-evenly font-bold">
+        <ul className="flex flex-row flex-wrap justify-evenly font-bold">
           <li className="nav-link hover:underline ">
             <Link href="/" className="text-2xl">
               HOME

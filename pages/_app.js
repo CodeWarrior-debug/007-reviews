@@ -26,9 +26,11 @@ export default function MyApp({Component, pageProps}){
 
     {/* <AuthorizedContext.Provider value=""> */}
       <AuthContext.Provider value={user}>
+      <>
         <main className={libre_franklin.className}>
           <Component {...pageProps} />
         </main>
+      </>
       </AuthContext.Provider>
 
     {/* </AuthorizedContext.Provider> */}
