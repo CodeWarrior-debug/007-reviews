@@ -24,7 +24,7 @@ const SignUp = () => {
         console.log(error);
       });
 
-          // Initialize Firebase
+    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     
     // Initialize Cloud Firestore and get a reference to the service
@@ -60,7 +60,7 @@ const SignUp = () => {
           onChange={(e) => setPassword(e.target.value)}
           className="inputBox"
         ></input>
-        <button type="submit" className="bg-black text-white h-11 rounded pl-4 pr-4 font-semibold m-2 ">Sign Up</button>
+        <button type="submit" className="bg-slate-600 text-white h-11 rounded pl-4 pr-4 font-semibold m-2 ">Sign Up</button>
       </form>
     </div>
   );

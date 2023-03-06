@@ -1,26 +1,27 @@
-import React from 'react'
-import AuthDetails from '../components/AuthDetails'
-import SignIn from '../components/SignIn'
-import SignUp from '../components/SignUp'
-import "../styles/Login.module.css"
-import Footer from '../components/Footer'
-import Navbar from '../components/Navbar'
+import React from "react";
+import AuthDetails from "../components/AuthDetails";
+import SignIn from "../components/SignIn";
+import SignUp from "../components/SignUp";
+import "../styles/Login.module.css";
+import Footer from "../components/Footer";
+import Navbar from "../components/Navbar";
 
 const Login = () => {
   return (
     <>
-      <Navbar className="min-h-[10vh]" />
+      <div className="bg-[#161616] text-white">
+        <Navbar />
 
-        <div className='grid place-items-center h-[80vh]'>
-            <SignIn/>
-            <SignUp/>
-            <AuthDetails/>
-            <Footer/>
-
+        <div className="grid place-items-center h-[93vh]">
+          
+          <SignIn />
+          <SignUp />
+          <AuthDetails />
 
         </div>
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

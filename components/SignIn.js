@@ -1,5 +1,5 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { auth } from "../lib/db";
 import { useRouter } from "next/router";
 
@@ -14,10 +14,7 @@ const SignIn = () => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // setAuthEmail(email)
         localStorage.setItem("userEmail", email);
-        // console.log(authEmail);
-        // console.log(userCredential);
         router.push('/filmography')
       })
       .catch((error) => {
@@ -34,16 +31,16 @@ const SignIn = () => {
           placeholder="Email..."
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="inputBox"
+          className="inputBox text-black"
         ></input>
         <input
           type="password"
           placeholder="Password..."
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="inputBox"
+          className="inputBox text-black"
         ></input>
-        <button type="submit" className="bg-black text-white h-11 rounded pl-4 pr-4 font-semibold m-2">Log In</button>
+        <button type="submit" className="bg-slate-600 text-white h-11 rounded pl-4 pr-4 font-semibold m-2">Log In</button>
         
       </form>
     </div>

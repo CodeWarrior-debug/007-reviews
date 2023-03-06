@@ -36,11 +36,12 @@ const AuthDetails = () => {
     <div className="grid place-items-center">
       {authUser ? (
         <>
-          <p className="bg-slate-300 text-2xl p-2 rounded font-semibold">{`Signed In as ${authUser.email}`}</p>
-          <button onClick={userSignOut} className="styledBtn" >Sign Out</button>
+          <p className="bg-slate-300 text-2xl text-black p-2 rounded font-semibold">{`Signed In as ${authUser.email}`}</p>
+          <br/>
+          <button onClick={userSignOut} className="bg-amber-500 text-black h-11 rounded pl-4 pr-4 font-semibold m-2" >Sign Out</button>
         </>
       ) : (
-        <p className="bg-slate-300 text-2xl p-2 rounded font-semibold">Currently Signed Out</p>
+        <p className="bg-slate-300 text-black text-2xl p-2 rounded font-semibold">Currently Signed Out</p>
       )}
     </div>
   );
