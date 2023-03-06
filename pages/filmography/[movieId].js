@@ -324,7 +324,7 @@ export async function getStaticProps({ params }) {
     props: {
       movieFacts: moviesFacts,
     },
-    revalidate: 10,
+    revalidate: 3600,
   };
 }
 
