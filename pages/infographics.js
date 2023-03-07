@@ -130,7 +130,7 @@ const Infographics = ({movies}) => {
     <>
     <div className='bg-[#161616] p-12 h-screen'>
       
-      <div className='h-48'>
+      <div className='h-96'>
 
       <Bar
         
@@ -144,9 +144,14 @@ const Infographics = ({movies}) => {
             x: { grid: {
                display: false ,
             }, 
-                         
-              maxRotation: 90,
-              minRotation: 90             
+ticks:{
+  display:true,
+  autoSkip:false,     
+  maxRotation: 90,
+  minRotation: 90,
+  maxTicksLimit:100,
+  sampleSize:30
+}           
           },
             y: {
               // min: 0,
