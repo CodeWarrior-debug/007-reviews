@@ -1,4 +1,4 @@
-import grayLine from '../../public/slate-line.svg'
+// import grayLine from '../../public/slate-line.svg'
 import cls from "classnames"
 import { format } from "date-fns";
 import Link from "next/link";
@@ -20,6 +20,7 @@ const MovieId = ({ movieFacts }) => {
 
 
   //initial states
+  const [posterDisplayLabel, setPosterDisplayLabel]=useState("Hide Details")
   const [review, setReview] = useState("");
   const [myDatas, setMyDatas] = useState("");
   const [posterOnly, setPosterOnly] = useState("");
@@ -143,9 +144,14 @@ const MovieId = ({ movieFacts }) => {
           </h2>
         </Link> */}
         
-        <h1 className="text-5xl text-center m-8">
-         {movieFacts.title}
-        </h1>
+        <div className="grid place-items-center grid-cols-3 ">
+{/* TODO make link */}
+        <Link href="/filmography" className="text-center m-8 col-span-1 bg-slate-600 text-3xl rounded-xl p-2"> &lt; RETURN </Link>
+        <h1 className="text-5xl text-center m-8 col-span-1"> {movieFacts.title} </h1>
+        <button className="text-center m-8 col-span-1 bg-slate-600 text-3xl rounded-xl p-2" onClick={handleViewClick}> {posterDisplayLabel} </button>
+        
+        </div>
+
         {/* <button
           className="fixed top-8 right-0 text-white text-4xl bg-blue-500"
           onClick={handleViewClick}
@@ -203,14 +209,31 @@ const MovieId = ({ movieFacts }) => {
 
               {/* MOVIE SPECS */}
               <div className="bg-blend-darken bg-black opacity-60 rounded-4xl w-1/2 p-4 pt-2">
+                                {/* SPEC */}
+                                <div className='mt-2'>
+                    <div className="flex flex-row">
+                      <div className="flex flex-row justify-start font-semibold w-1/2"><p>Movie</p></div>
+                      <div className="w-1/2 flex flex-row justify-end text-right font-thin mb-3">{movieFacts.title}</div>
+
+                  </div>
+
+                {/* <Divider/> */}
+                  {/* <svg className='h-1 w-4/5'> <line x1="0" y1="0" y2="0" style={{stroke:"rgb(255,255,255)", strokeWidth:2}} /> </svg> */}
+                {/* TODO fix divider to shorten on window narrow*/}
+                
+                </div> {/* SPEC END*/}
+                
+                
+                
                 {/* SPEC */}
                   <div className='mt-2'>
                     <div className="flex flex-row">
                       <div className="flex flex-row justify-start font-semibold w-1/2"><p>Run Time</p></div>
-                      <div className="w-1/2 flex flex-row justify-end text-right font-semibold mb-3">1 hrs</div>
+                      <div className="w-1/2 flex flex-row justify-end text-right font-thin mb-3">{(movieFacts.runtime / 60).toFixed(1)} HR</div>
+
                   </div>
 
-                <Divider/>
+                {/* <Divider/> */}
                   {/* <svg className='h-1 w-4/5'> <line x1="0" y1="0" y2="0" style={{stroke:"rgb(255,255,255)", strokeWidth:2}} /> </svg> */}
                 {/* TODO fix divider to shorten on window narrow*/}
                 
@@ -219,84 +242,67 @@ const MovieId = ({ movieFacts }) => {
                   <div className='mt-2'>
                     <div className="flex flex-row">
                       <div className="flex flex-row justify-start font-semibold w-1/2"><p>Release Date</p></div>
-                      <div className="w-1/2 flex flex-row justify-end text-right font-semibold mb-3">DATA</div>
+                      <div className="w-1/2 flex flex-row justify-end text-right font-thin mb-3">
+                          <p> {dateStringToDate(movieFacts.release_date)} </p>
+                        
+                      </div>
                   </div>
 
-                <Divider/>                
+                {/* <Divider/>   */}               
                 </div> {/* SPEC END*/}
                   {/* SPEC */}
                   <div className='mt-2'>
                     <div className="flex flex-row">
                       <div className="flex flex-row justify-start font-semibold w-1/2"><p>Revenue</p></div>
-                      <div className="w-1/2 flex flex-row justify-end text-right font-semibold mb-3">DATA</div>
+                      <div className="w-1/2 flex flex-row justify-end text-right font-thin mb-3">
+                       ${numeral(movieFacts.revenue).format("0,0")}
+                      </div>
                   </div>
 
-                <Divider/>                
+                {/* <Divider/>   */}               
                 </div> {/* SPEC END*/}
                   {/* SPEC */}
                   <div className='mt-2'>
                     <div className="flex flex-row">
                       <div className="flex flex-row justify-start font-semibold w-1/2"><p>Profit</p></div>
-                      <div className="w-1/2 flex flex-row justify-end text-right font-semibold mb-3">DATA</div>
+                      <div className="w-1/2 flex flex-row justify-end text-right font-thin mb-3">
+                      ${numeral(movieFacts.revenue - movieFacts.budget).format( "0,0" )}
+                      </div>
                   </div>
 
-                <Divider/>                
+                 {/* <Divider/>   */}  
                 </div> {/* SPEC END*/}
                   {/* SPEC */}
                   <div className='mt-2'>
                     <div className="flex flex-row">
                       <div className="flex flex-row justify-start font-semibold w-1/2"><p>Avg Rating</p></div>
-                      <div className="w-1/2 flex flex-row justify-end text-right font-semibold mb-3">DATA</div>
+                      <div className="w-1/2 flex flex-row justify-end text-right font-thin mb-3">{numeral(movieFacts.vote_average).format("0.0")} / 10</div>
                   </div>
 
-                <Divider/>                
+                {/* <Divider/>   */}               
                 </div> {/* SPEC END*/}
                   {/* SPEC */}
                   <div className='mt-2'>
                     <div className="flex flex-row">
                       <div className="flex flex-row justify-start font-semibold w-1/2"><p>Votes</p></div>
-                      <div className="w-1/2 flex flex-row justify-end text-right font-semibold mb-3">DATA</div>
+                      <div className="w-1/2 flex flex-row justify-end text-right font-thin mb-3">
+                      {numeral(movieFacts.vote_count).format( "0,0" )}
+                      </div>
                   </div>
 
-                <Divider/>                
+                {/* <Divider/>   */}               
                 </div> {/* SPEC END*/}
                   {/* SPEC */}
-                  <div className='mt-2'>
+                  {/* <div className='mt-2'>
                     <div className="flex flex-row">
                       <div className="flex flex-row justify-start font-semibold w-1/2"><p>SPEC</p></div>
-                      <div className="w-1/2 flex flex-row justify-end text-right font-semibold mb-3">DATA</div>
+                      <div className="w-1/2 flex flex-row justify-end text-right font-thin mb-3">DATA</div>
                   </div>
 
-                <Divider/>                
-                </div> {/* SPEC END*/}
-                  {/* SPEC */}
-                  <div className='mt-2'>
-                    <div className="flex flex-row">
-                      <div className="flex flex-row justify-start font-semibold w-1/2"><p>SPEC</p></div>
-                      <div className="w-1/2 flex flex-row justify-end text-right font-semibold mb-3">DATA</div>
-                  </div>
-
-                <Divider/>                
-                </div> {/* SPEC END*/}
-                  {/* SPEC */}
-                  <div className='mt-2'>
-                    <div className="flex flex-row">
-                      <div className="flex flex-row justify-start font-semibold w-1/2"><p>SPEC</p></div>
-                      <div className="w-1/2 flex flex-row justify-end text-right font-semibold mb-3">DATA</div>
-                  </div>
-
-                <Divider/>                
-                </div> {/* SPEC END*/}
-                  {/* SPEC */}
-                  <div className='mt-2'>
-                    <div className="flex flex-row">
-                      <div className="flex flex-row justify-start font-semibold w-1/2"><p>SPEC</p></div>
-                      <div className="w-1/2 flex flex-row justify-end text-right font-semibold mb-3">DATA</div>
-                  </div>
-
-                <Divider/>                
-                </div> {/* SPEC END*/}
+                </div>  */}
                 
+                {/* SPEC END*/}
+               
 
 
                 {/* <Image
@@ -307,39 +313,15 @@ const MovieId = ({ movieFacts }) => {
                 className=""
                 /> */}
 
-            <p className="bg-blend-lighten"> {(movieFacts.runtime / 60).toFixed(1)} hr runtime </p>
-            <p> Released {dateStringToDate(movieFacts.release_date)} </p>
+            {/* <p className="bg-blend-lighten"> {(movieFacts.runtime / 60).toFixed(1)} hr runtime </p> */}
+            {/* <p> Released {dateStringToDate(movieFacts.release_date)} </p> */}
             <br />
             {/* RECEPTION AND RATINGS */}
-            <p>
-              {" "}
-              Avg ⭐ of 10: &emsp;{" "}
-              {numeral(movieFacts.vote_average).format("0.0")}{" "}
-            </p>
-            <p>
-              {" "}
-              Votes cast: &emsp; {numeral(movieFacts.vote_count).format(
-                "0,0"
-              )}{" "}
-            </p>
-            <p>
-              {" "}
-              Revenue: &emsp; ${numeral(movieFacts.revenue).format("0,0")}{" "}
-            </p>
-            <p>
-              {" "}
-              Profit: &emsp; &emsp; $
-              {numeral(movieFacts.revenue - movieFacts.budget).format(
-                "0,0"
-              )}{" "}
-            </p>
-            <p>
-              {" "}
-              TMDB Trending Score: &emsp;{" "}
-              {numeral(movieFacts.popularity).format("0.0")}{" "}
-            </p>
+
+
+            <p> {" "} TMDB Trending Score: &emsp;{" "} {numeral(movieFacts.popularity).format("0.0")}{" "} </p>
             {/* TODO: understand popularity definition */}
-            <br />
+            
 
             {/* PRODUCTION DETAILS */}
             <p>
@@ -348,9 +330,7 @@ const MovieId = ({ movieFacts }) => {
                 "0,0"
               )}{" "}
             </p>
-            {/* <p> {movieFacts.production_companies[0]?.name} </p>
-          <p> {movieFacts.production_countries[0]?.name} </p>
-          <p> {movieFacts.genres[0].name} </p> */}
+
             <br />
 
             {/* ADDL RESOURCES */}
@@ -362,7 +342,7 @@ const MovieId = ({ movieFacts }) => {
                 {" "}
                 {movieFacts.homepage
                   ? movieFacts.original_title + "'s official homepage"
-                  : "DNE"}{" "}
+                  : "No official homepage"}
               </Link>
             </p>
             <p>
@@ -370,11 +350,11 @@ const MovieId = ({ movieFacts }) => {
                 href={
                   movieFacts.imdb_id
                     ? "https://www.imdb.com/title/" + movieFacts.imdb_id
-                    : "DNE"
+                    : "/404"
                 }
                 className="underline text-green-500 font-bold hover:text-2xl"
               >
-                {" "}
+                
                 {movieFacts.imdb_id
                   ? movieFacts.original_title + "'s IMDB page"
                   : ""}{" "}
