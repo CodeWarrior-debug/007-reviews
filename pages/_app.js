@@ -11,11 +11,6 @@ const libre_franklin = Libre_Franklin({style:'normal'},{subsets:["latin"]})
 
 export default function MyApp({Component, pageProps}){
 
-  // const AuthorizedContext= createContext(true)
-  // const loggedIn = useContext(authorizedContext)
-  
-  // const [user, setUser] = useState("")
-
 
   return (
     <>
@@ -24,14 +19,10 @@ export default function MyApp({Component, pageProps}){
       <link rel='icon' href='/favicon/favicon.ico'/>
     </Head>
 
-    {/* <AuthorizedContext.Provider value=""> */}
-      {/* <AuthContext.Provider value={user}> */}
         <main className={libre_franklin.className}>
           <Component {...pageProps} />
         </main>
-      {/* </AuthContext.Provider> */}
 
-    {/* </AuthorizedContext.Provider> */}
     </>
   )
 }

@@ -158,7 +158,8 @@ const MovieId = ({ movieFacts }) => {
         >
           POSTER ONLY
         </button> */}
-
+        {/* SPACER */}
+        <div className="h-[9vh]"></div>
         {/* WRAPPER TO SET HIDE/SHOW status */}
         <div className={cls(posterOnly, "flex flex-row flex-wrap w-screen") }>
             <div className="flex flex-row w-3/5">
@@ -167,9 +168,11 @@ const MovieId = ({ movieFacts }) => {
             {/* MOVIE CONTENT */}
 
 
+            <p> In {movieFacts.title}... </p>
+            <br/>
             <p> {movieFacts.tagline} </p>
             <br/>
-            <p> {movieFacts.overview} </p>
+            <p className="w-4/5"> {movieFacts.overview} </p>
             <br/>
                                   {/* Your Review Chart */}
           <div style={{ width: 400, height: 200 }} className="bg-[#252429]">

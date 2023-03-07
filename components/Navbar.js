@@ -30,6 +30,11 @@ export default function Navbar() {
               FILMOGRAPHY
             </Link>
           </li>
+          <li className="nav-link hover:underline ">
+            <Link href="/infographics" className="text-2xl">
+              INFOGRAPHICS
+            </Link>
+          </li>
           {/* TODO add chart comparison page <li className="nav-link"><Link href="/compare" className="text-2xl"> Compare</Link></li> */}
           {/* <li className="nav-link hover:underline ">
             <Link href="/login" className="text-2xl">

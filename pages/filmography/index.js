@@ -69,5 +69,6 @@ export async function getStaticProps() {
     props: {
       movies: response,
     },
+    revalidate:3600 //in seconds, so once per hour
   };
 }
