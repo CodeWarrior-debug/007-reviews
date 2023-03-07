@@ -7,6 +7,27 @@ import ChartDataLabels from "chartjs-plugin-datalabels";
 ChartJS.register(ChartDataLabels);
 
 const Infographics = ({movies}) => {
+
+  const [ratings,setRatings]=useState([])
+  const [titles,setTitles]=useState([])
+  const [dates,setDates]=useState([])
+  
+
+  const streamlinedData= async()=>{
+
+    setTitles(movies.map((movie)=>{ return movie.title }))
+    setDates(movies.map((movie)=>{ return movie.release_date }))
+    setRatings(movies.map((movie)=>{ return movie.vote_average }))
+
+    console.log(titles)
+
+    // setRatings(movies.map((movie)=>{
+    //  ` {title: ${movie.title}, rating: ${movie.vote_average}} `
+    // }))
+
+    // console.log(ratings);
+  }
+
   const chartRef = useRef(null);
 
   let width, height, gradient; 
@@ -30,13 +51,11 @@ const Infographics = ({movies}) => {
     return gradient;
   }
 
-  
-
   const [userData, setUserData] = useState({
     labels: ["Me", "TMDB Audience", "Some nobody"],
     datasets: [
       {
-        label: "Rating (out of 10)",
+        label: "Rating / 10",
         backgroundColor: function(context) {
           const chart = context.chart;
           const {ctx, chartArea} = chart;
@@ -63,17 +82,21 @@ const Infographics = ({movies}) => {
     // // display options below
     const chart = chartRef.current;
     
-    
     // if (chart) {
     //   console.log('CanvasRenderingContext2D', chart.ctx);
     //   console.log('HTMLCanvasElement', chart.canvas);
     // }
+    const getStreamlinedData= async()=>{
+      await streamlinedData();
+    }
 
+    getStreamlinedData();
+  
     setUserData({
       labels: ["Me", "TMDB Audience", "Differential"],
       datasets: [
         {
-          label: "Rating (out of 10)",
+          label: "Rating / 10",
           data: [
             4.5,7.8,
             Math.abs(7.8 - 4.5),
