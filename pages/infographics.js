@@ -20,6 +20,7 @@ const Infographics = ({movies}) => {
     setRatings(movies.map((movie)=>{ return movie.vote_average }))
 
     console.log(titles)
+    console.log(ratings)
 
     // setRatings(movies.map((movie)=>{
     //  ` {title: ${movie.title}, rating: ${movie.vote_average}} `
@@ -52,10 +53,11 @@ const Infographics = ({movies}) => {
   }
 
   const [userData, setUserData] = useState({
-    labels: ["Me", "TMDB Audience", "Some nobody"],
+    // labels: ["Me", "TMDB Audience", "Some nobody"],
+    labels: `${titles}`,
     datasets: [
       {
-        label: "Rating / 10",
+        label: "Rating",
         backgroundColor: function(context) {
           const chart = context.chart;
           const {ctx, chartArea} = chart;
@@ -66,13 +68,7 @@ const Infographics = ({movies}) => {
           }
           return getGradient(ctx, chartArea);
         },
-        data: [
-          4.5,7.8,
-          Math.abs(7.8 - 4.5),
-          // userReview | "",
-          // audienceReview,
-          // Math.abs(userReview - audienceReview),
-        ],
+        data: `${ratings}`,
 
       },
     ],
@@ -93,18 +89,24 @@ const Infographics = ({movies}) => {
     getStreamlinedData();
   
     setUserData({
-      labels: ["Me", "TMDB Audience", "Differential"],
+      // labels: ["Me", "TMDB Audience", "Differential"],
+    labels: `${titles}`,
+
       datasets: [
         {
-          label: "Rating / 10",
-          data: [
-            4.5,7.8,
-            Math.abs(7.8 - 4.5),
+          label: "Rating",
+        data: `${ratings}`,
 
-            // userReview.toFixed(1),
-            // audienceReview.toFixed(1),
-            // Math.abs(userReview - audienceReview).toFixed(1),
-          ],
+          // data: 
+          
+          // [
+          //   4.5,7.8,
+          //   Math.abs(7.8 - 4.5),
+
+          //   // userReview.toFixed(1),
+          //   // audienceReview.toFixed(1),
+          //   // Math.abs(userReview - audienceReview).toFixed(1),
+          // ],
           backgroundColor: function(context) {
             const chart = context.chart;
             const {ctx, chartArea} = chart;
@@ -139,12 +141,17 @@ const Infographics = ({movies}) => {
         options={{
           maintainAspectRatio: false,
           scales: {
-            x: { grid: { display: false ,           
-            } },
+            x: { grid: {
+               display: false ,
+            }, 
+                         
+              maxRotation: 90,
+              minRotation: 90             
+          },
             y: {
               // min: 0,
               // max: 10,
-              ticks: { display: false },
+              // ticks: { display: false },
               // ticks: { beginAtZero: true },
               grid: { display: false },
             },
