@@ -1,39 +1,72 @@
-import React from 'react'
-import Axios  from 'axios'
+import numeral from "numeral";
+import React from "react";
+import Axios from "axios";
 import { Bar } from "react-chartjs-2";
 import { useEffect, useState, useRef } from "react";
 import { Chart as ChartJS } from "chart.js/auto";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 ChartJS.register(ChartDataLabels);
 
-const Infographics = ({movies}) => {
+const Infographics = ({ movies }) => {
+  const [ratings, setRatings] = useState([]);
+  const [titles, setTitles] = useState([]);
+  const [dates, setDates] = useState([]);
 
-  const [ratings,setRatings]=useState([])
-  const [titles,setTitles]=useState([])
-  const [dates,setDates]=useState([])
+    //converter for datestrings, current strings are YYYY-MM-DD
+    const dateStringToDate = (dateString) => {
+      const yearStr = dateString.substr(0, 4);
+      const mthStr = dateString.substr(5, 2);
+      const dayStr = dateString.substr(8, 2);
   
+      return format(new Date(yearStr, mthStr, dayStr), "MMMMMMM d, yyyy");
+    };
 
-  const streamlinedData= async()=>{
+  const streamlinedData = async () => {
+    setTitles(
+      movies.map((movie) => {
+        return movie.title;
+      })
+    );
 
-    setTitles(movies.map((movie)=>{ return movie.title }))
-    setDates(movies.map((movie)=>{ return movie.release_date }))
-    setRatings(movies.map((movie)=>{ return movie.vote_average }))
+    const processDates=async()=>{
 
-    console.log(titles)
-    console.log(ratings)
+      const movieArr=async ()=>{
 
+       await  movies.map((movie) => {
+       return dateStringToDate(movie.release_date) ;
+     })
+
+     await movieArr();
+
+    console.log(movieArr)
+
+     return movieArr.sort((a,b)=>  a-b )
+
+      }
+    }
+      
+    setDates( processDates() );
+
+    setRatings(
+     await movies.map((movie) => {
+        return movie.vote_average;
+      })
+    );
+
+
+      
     // setRatings(movies.map((movie)=>{
     //  ` {title: ${movie.title}, rating: ${movie.vote_average}} `
     // }))
 
-    // console.log(ratings);
-  }
+    console.log(ratings);
+  };
 
   const chartRef = useRef(null);
 
-  let width, height, gradient; 
+  let width, height, gradient;
 
-  const getGradient = (ctx, chartArea)=>{
+  const getGradient = (ctx, chartArea) => {
     const chartWidth = chartArea.right - chartArea.left;
     const chartHeight = chartArea.bottom - chartArea.top;
     if (!gradient || width !== chartWidth || height !== chartHeight) {
@@ -43,25 +76,24 @@ const Infographics = ({movies}) => {
 
       gradient = ctx.createLinearGradient(0, 0, 0, 450);
 
-
-      gradient.addColorStop(0, 'rgba(255, 0,0, 0.5)');
-      gradient.addColorStop(0.5, 'rgba(255, 0, 0, 0.25)');
-      gradient.addColorStop(1, 'rgba(255, 0, 0, 0)');
+      gradient.addColorStop(0, "rgba(255, 0,0, 0.5)");
+      gradient.addColorStop(0.5, "rgba(255, 0, 0, 0.25)");
+      gradient.addColorStop(1, "rgba(255, 0, 0, 0)");
     }
-  
+
     return gradient;
-  }
+  };
 
   const [userData, setUserData] = useState({
     // labels: ["Me", "TMDB Audience", "Some nobody"],
-    labels: `${titles}`,
+    labels: `${dates}`,
     datasets: [
       {
         label: "Rating",
-        backgroundColor: function(context) {
+        backgroundColor: function (context) {
           const chart = context.chart;
-          const {ctx, chartArea} = chart;
-  
+          const { ctx, chartArea } = chart;
+
           if (!chartArea) {
             // This case happens on initial chart load
             return;
@@ -69,7 +101,6 @@ const Infographics = ({movies}) => {
           return getGradient(ctx, chartArea);
         },
         data: `${ratings}`,
-
       },
     ],
   });
@@ -77,28 +108,28 @@ const Infographics = ({movies}) => {
   useEffect(() => {
     // // display options below
     const chart = chartRef.current;
-    
+
     // if (chart) {
     //   console.log('CanvasRenderingContext2D', chart.ctx);
     //   console.log('HTMLCanvasElement', chart.canvas);
     // }
-    const getStreamlinedData= async()=>{
+    const getStreamlinedData = async () => {
       await streamlinedData();
-    }
+    };
 
     getStreamlinedData();
-  
+
     setUserData({
       // labels: ["Me", "TMDB Audience", "Differential"],
-    labels: `${titles}`,
+      labels: `${dates}`,
 
       datasets: [
         {
           label: "Rating",
-        data: `${ratings}`,
+          data: `${ratings}`,
 
-          // data: 
-          
+          // data:
+
           // [
           //   4.5,7.8,
           //   Math.abs(7.8 - 4.5),
@@ -107,10 +138,10 @@ const Infographics = ({movies}) => {
           //   // audienceReview.toFixed(1),
           //   // Math.abs(userReview - audienceReview).toFixed(1),
           // ],
-          backgroundColor: function(context) {
+          backgroundColor: function (context) {
             const chart = context.chart;
-            const {ctx, chartArea} = chart;
-    
+            const { ctx, chartArea } = chart;
+
             if (!chartArea) {
               // This case happens on initial chart load
               return;
@@ -128,61 +159,58 @@ const Infographics = ({movies}) => {
 
   return (
     <>
-    <div className='bg-[#161616] p-12 h-screen'>
-      
-      <div className='h-96'>
-
-      <Bar
-        
-        ref = {chartRef}
-        id="chart"
-        // style={{backgroundColor:'rgba(0,0,0, 0.0)'}}
-        data={userData}
-        options={{
-          maintainAspectRatio: false,
-          scales: {
-            x: { grid: {
-               display: false ,
-            }, 
-ticks:{
-  display:true,
-  autoSkip:false,     
-  maxRotation: 90,
-  minRotation: 90,
-  maxTicksLimit:100,
-  sampleSize:30
-}           
-          },
-            y: {
-              // min: 0,
-              // max: 10,
-              // ticks: { display: false },
-              // ticks: { beginAtZero: true },
-              grid: { display: false },
-            },
-          },
-          plugins: {
-            legend:{
-              labels:{
-                color:"#FFF"
-              }
-            },
-            datalabels: {
-              display: true,
-              color: "white",
-              align: "center",
-              padding: 0,
-              textStrokeWidth: 0.5,
-            },
-          },
-        }}
-      />
+      <div className="bg-[#161616] p-12 h-screen">
+        <div className="h-96">
+          <Bar
+            ref={chartRef}
+            id="chart"
+            // style={{backgroundColor:'rgba(0,0,0, 0.0)'}}
+            data={userData}
+            options={{
+              maintainAspectRatio: false,
+              scales: {
+                x: {
+                  grid: {
+                    display: false,
+                  },
+                  ticks: {
+                    display: true,
+                    autoSkip: false,
+                    maxRotation: 90,
+                    minRotation: 90,
+                    maxTicksLimit: 100,
+                    sampleSize: 30,
+                  },
+                },
+                y: {
+                  // min: 0,
+                  // max: 10,
+                  // ticks: { display: false },
+                  // ticks: { beginAtZero: true },
+                  grid: { display: false },
+                },
+              },
+              plugins: {
+                legend: {
+                  labels: {
+                    color: "#FFF",
+                  },
+                },
+                datalabels: {
+                  display: true,
+                  color: "white",
+                  align: "center",
+                  padding: 0,
+                  textStrokeWidth: 0.5,
+                },
+              },
+            }}
+          />
+        </div>
       </div>
-    </div>
     </>
   );
 };
-
 
 //   return (
 //     <>
@@ -196,7 +224,6 @@ ticks:{
 //             <h2 key={index}>{movie.original_title}</h2>
 //             </>
 //           )
-
 
 //       })}
 //     </div>
@@ -222,9 +249,8 @@ export async function getStaticProps() {
     props: {
       movies: response,
     },
-    revalidate:3600 //in seconds, so once per hour
+    revalidate: 3600, //in seconds, so once per hour
   };
 }
 
-
-export default Infographics
+export default Infographics;
