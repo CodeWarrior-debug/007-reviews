@@ -36,7 +36,7 @@ const Infographics = ({ movies }) => {
        return dateStringToDate(movie.release_date) ;
      })
 
-     await movieArr();
+     movieArr();
 
     console.log(movieArr)
 
