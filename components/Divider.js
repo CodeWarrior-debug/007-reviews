@@ -1,0 +1,13 @@
+import React from 'react'
+
+const Divider = () => {
+  return (
+    <>
+      <svg width="351" height="1" viewBox="0 0 351 1" fill="none" xmlns="http://www.w3.org/2000/svg">
+<line y1="0.5" x2="351" y2="0.5" stroke="white"/>
+</svg>
+    </>
+  )
+}
+
+export default Divider

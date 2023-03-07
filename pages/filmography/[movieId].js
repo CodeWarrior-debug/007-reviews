@@ -12,10 +12,12 @@ import { firebaseConfig } from "../../lib/db";
 var converter = require("number-to-words");
 import OneMovieReview from "../../components/OneMovieReview";
 import {Montserrat} from "@next/font/google"
+import Divider from '../../components/Divider';
 
 const montserrat = Montserrat({ style: "normal" }, { subsets: ["latin"] });
 
 const MovieId = ({ movieFacts }) => {
+
 
   //initial states
   const [review, setReview] = useState("");
@@ -140,6 +142,7 @@ const MovieId = ({ movieFacts }) => {
             ◀️ BACK
           </h2>
         </Link> */}
+        
         <h1 className="text-5xl text-center m-8">
          {movieFacts.title}
         </h1>
@@ -156,15 +159,20 @@ const MovieId = ({ movieFacts }) => {
 
           <div className="pr-24 pl-24">
             {/* MOVIE CONTENT */}
-            {movieFacts.original_title === movieFacts.title ? (
-              <div></div>
-            ) : (
-              <p>Originally released as + {movieFacts.original_title}</p>
-            )}
+
 
             <p> {movieFacts.tagline} </p>
+            <br/>
             <p> {movieFacts.overview} </p>
-            <div>
+            <br/>
+                                  {/* Your Review Chart */}
+          <div style={{ width: 400, height: 200 }} className="bg-[#252429]">
+            <OneMovieReview
+              userReview={parseFloat(review)}
+              audienceReview={parseFloat(movieFacts.vote_average)}
+            />
+          </div>
+            <div className='mt-4'>
               <label className="font-[600] mr-4 ">
                 Current Review = {review}
               </label>
@@ -194,20 +202,110 @@ const MovieId = ({ movieFacts }) => {
           <div className= {cls(montserrat.className,"flex flex-col w-2/5" )}>
 
               {/* MOVIE SPECS */}
-              <div className="bg-blend-darken bg-black opacity-60 rounded-4xl w-1/2 p-4">
-                <div className="flex flex-row">
-                    <div className="flex flex-row justify-start font-semibold w-1/3 mb-2"><p>Run Time</p></div>
-                    <div className="w-1/3"></div>
-                    <div className="w-1/3 flex flex-row justify-end text-right font-semibold">1 hrs</div>
-                </div>
+              <div className="bg-blend-darken bg-black opacity-60 rounded-4xl w-1/2 p-4 pt-2">
+                {/* SPEC */}
+                  <div className='mt-2'>
+                    <div className="flex flex-row">
+                      <div className="flex flex-row justify-start font-semibold w-1/2"><p>Run Time</p></div>
+                      <div className="w-1/2 flex flex-row justify-end text-right font-semibold mb-3">1 hrs</div>
+                  </div>
 
-                <Image
+                <Divider/>
+                  {/* <svg className='h-1 w-4/5'> <line x1="0" y1="0" y2="0" style={{stroke:"rgb(255,255,255)", strokeWidth:2}} /> </svg> */}
+                {/* TODO fix divider to shorten on window narrow*/}
+                
+                </div> {/* SPEC END*/}
+                  {/* SPEC */}
+                  <div className='mt-2'>
+                    <div className="flex flex-row">
+                      <div className="flex flex-row justify-start font-semibold w-1/2"><p>Release Date</p></div>
+                      <div className="w-1/2 flex flex-row justify-end text-right font-semibold mb-3">DATA</div>
+                  </div>
+
+                <Divider/>                
+                </div> {/* SPEC END*/}
+                  {/* SPEC */}
+                  <div className='mt-2'>
+                    <div className="flex flex-row">
+                      <div className="flex flex-row justify-start font-semibold w-1/2"><p>Revenue</p></div>
+                      <div className="w-1/2 flex flex-row justify-end text-right font-semibold mb-3">DATA</div>
+                  </div>
+
+                <Divider/>                
+                </div> {/* SPEC END*/}
+                  {/* SPEC */}
+                  <div className='mt-2'>
+                    <div className="flex flex-row">
+                      <div className="flex flex-row justify-start font-semibold w-1/2"><p>Profit</p></div>
+                      <div className="w-1/2 flex flex-row justify-end text-right font-semibold mb-3">DATA</div>
+                  </div>
+
+                <Divider/>                
+                </div> {/* SPEC END*/}
+                  {/* SPEC */}
+                  <div className='mt-2'>
+                    <div className="flex flex-row">
+                      <div className="flex flex-row justify-start font-semibold w-1/2"><p>Avg Rating</p></div>
+                      <div className="w-1/2 flex flex-row justify-end text-right font-semibold mb-3">DATA</div>
+                  </div>
+
+                <Divider/>                
+                </div> {/* SPEC END*/}
+                  {/* SPEC */}
+                  <div className='mt-2'>
+                    <div className="flex flex-row">
+                      <div className="flex flex-row justify-start font-semibold w-1/2"><p>Votes</p></div>
+                      <div className="w-1/2 flex flex-row justify-end text-right font-semibold mb-3">DATA</div>
+                  </div>
+
+                <Divider/>                
+                </div> {/* SPEC END*/}
+                  {/* SPEC */}
+                  <div className='mt-2'>
+                    <div className="flex flex-row">
+                      <div className="flex flex-row justify-start font-semibold w-1/2"><p>SPEC</p></div>
+                      <div className="w-1/2 flex flex-row justify-end text-right font-semibold mb-3">DATA</div>
+                  </div>
+
+                <Divider/>                
+                </div> {/* SPEC END*/}
+                  {/* SPEC */}
+                  <div className='mt-2'>
+                    <div className="flex flex-row">
+                      <div className="flex flex-row justify-start font-semibold w-1/2"><p>SPEC</p></div>
+                      <div className="w-1/2 flex flex-row justify-end text-right font-semibold mb-3">DATA</div>
+                  </div>
+
+                <Divider/>                
+                </div> {/* SPEC END*/}
+                  {/* SPEC */}
+                  <div className='mt-2'>
+                    <div className="flex flex-row">
+                      <div className="flex flex-row justify-start font-semibold w-1/2"><p>SPEC</p></div>
+                      <div className="w-1/2 flex flex-row justify-end text-right font-semibold mb-3">DATA</div>
+                  </div>
+
+                <Divider/>                
+                </div> {/* SPEC END*/}
+                  {/* SPEC */}
+                  <div className='mt-2'>
+                    <div className="flex flex-row">
+                      <div className="flex flex-row justify-start font-semibold w-1/2"><p>SPEC</p></div>
+                      <div className="w-1/2 flex flex-row justify-end text-right font-semibold mb-3">DATA</div>
+                  </div>
+
+                <Divider/>                
+                </div> {/* SPEC END*/}
+                
+
+
+                {/* <Image
                 src={grayLine}
                 width={100}
                 height={8}
                 alt="dividing line"
                 className=""
-                />
+                /> */}
 
             <p className="bg-blend-lighten"> {(movieFacts.runtime / 60).toFixed(1)} hr runtime </p>
             <p> Released {dateStringToDate(movieFacts.release_date)} </p>
@@ -285,13 +383,7 @@ const MovieId = ({ movieFacts }) => {
             </div>
             <br />
             
-                      {/* Your Review Chart */}
-          <div style={{ width: 400, height: 200 }} className="bg-[#252429]">
-            <OneMovieReview
-              userReview={parseFloat(review)}
-              audienceReview={parseFloat(movieFacts.vote_average)}
-            />
-          </div>
+
             {/* TODO: find place for poster */}
 
             {/* <Image
