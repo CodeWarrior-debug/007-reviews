@@ -1,3 +1,5 @@
+import grayLine from '../../public/slate-line.svg'
+import cls from "classnames"
 import { format } from "date-fns";
 import Link from "next/link";
 import Image from "next/image";
@@ -9,6 +11,9 @@ import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "../../lib/db";
 var converter = require("number-to-words");
 import OneMovieReview from "../../components/OneMovieReview";
+import {Montserrat} from "@next/font/google"
+
+const montserrat = Montserrat({ style: "normal" }, { subsets: ["latin"] });
 
 const MovieId = ({ movieFacts }) => {
 
@@ -23,7 +28,7 @@ const MovieId = ({ movieFacts }) => {
 //reusable variables
   const baseURL = "https://image.tmdb.org/t/p/original";
   let movie_w_backdrop_path = baseURL + `${movieFacts.backdrop_path}`;
-  let movie_w_poster_path = baseURL + `${movieFacts.poster_path}`;
+  // let movie_w_poster_path = baseURL + `${movieFacts.poster_path}`;
 
   //converter for datestrings, current strings are YYYY-MM-DD
   const dateStringToDate = (dateString) => {
@@ -126,36 +131,28 @@ const MovieId = ({ movieFacts }) => {
       <Image
         src={movie_w_backdrop_path}
         fill
-        alt="good_pic"
+        alt="movie_backdrop_pic"
         className="-z-10"
       />
       <div className="text-white text-xl">
-        <Link href="/filmography">
+        {/* <Link href="/filmography">
           <h2 className="fixed top-8 left-0 text-white text-4xl bg-blue-500">
             ◀️ BACK
           </h2>
-        </Link>
+        </Link> */}
         <h1 className="text-5xl text-center m-8">
          {movieFacts.title}
         </h1>
-        <button
+        {/* <button
           className="fixed top-8 right-0 text-white text-4xl bg-blue-500"
           onClick={handleViewClick}
         >
           POSTER ONLY
-        </button>
+        </button> */}
 
-        <div className={posterOnly}>
-          {/* TEST AREA */}
-
-          <div style={{ width: 400, height: 200 }} className="bg-[#252429]">
-            <OneMovieReview
-              userReview={parseFloat(review)}
-              audienceReview={parseFloat(movieFacts.vote_average)}
-            />
-          </div>
-
-          {/* TEST AREA END */}
+        {/* WRAPPER TO SET HIDE/SHOW status */}
+        <div className={cls(posterOnly, "flex flex-row flex-wrap w-screen") }>
+            <div className="flex flex-row w-3/5">
 
           <div className="pr-24 pl-24">
             {/* MOVIE CONTENT */}
@@ -164,6 +161,9 @@ const MovieId = ({ movieFacts }) => {
             ) : (
               <p>Originally released as + {movieFacts.original_title}</p>
             )}
+
+            <p> {movieFacts.tagline} </p>
+            <p> {movieFacts.overview} </p>
             <div>
               <label className="font-[600] mr-4 ">
                 Current Review = {review}
@@ -184,9 +184,32 @@ const MovieId = ({ movieFacts }) => {
                 Update Review
               </button>
             </div>
-            <p> {movieFacts.tagline} </p>
-            <p> {movieFacts.overview} </p>
-            <p> {(movieFacts.runtime / 60).toFixed(1)} hr runtime </p>
+            </div>
+            </div>
+
+          
+          
+
+
+          <div className= {cls(montserrat.className,"flex flex-col w-2/5" )}>
+
+              {/* MOVIE SPECS */}
+              <div className="bg-blend-darken bg-black opacity-60 rounded-4xl w-1/2 p-4">
+                <div className="flex flex-row">
+                    <div className="flex flex-row justify-start font-semibold w-1/3 mb-2"><p>Run Time</p></div>
+                    <div className="w-1/3"></div>
+                    <div className="w-1/3 flex flex-row justify-end text-right font-semibold">1 hrs</div>
+                </div>
+
+                <Image
+                src={grayLine}
+                width={100}
+                height={8}
+                alt="dividing line"
+                className=""
+                />
+
+            <p className="bg-blend-lighten"> {(movieFacts.runtime / 60).toFixed(1)} hr runtime </p>
             <p> Released {dateStringToDate(movieFacts.release_date)} </p>
             <br />
             {/* RECEPTION AND RATINGS */}
@@ -259,21 +282,32 @@ const MovieId = ({ movieFacts }) => {
                   : ""}{" "}
               </Link>
             </p>
+            </div>
             <br />
-
+            
+                      {/* Your Review Chart */}
+          <div style={{ width: 400, height: 200 }} className="bg-[#252429]">
+            <OneMovieReview
+              userReview={parseFloat(review)}
+              audienceReview={parseFloat(movieFacts.vote_average)}
+            />
+          </div>
             {/* TODO: find place for poster */}
 
-            <Image
+            {/* <Image
               src={movie_w_poster_path}
               height={500}
               width={333}
               alt={movieFacts.title + " poster"}
               className="z-10"
-            />
+            /> */}
             <br />
           </div>
+          </div>
+
+
+
         </div>
-      </div>
     </>
   );
 };
