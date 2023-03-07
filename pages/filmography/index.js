@@ -41,7 +41,8 @@ export default function Filmography({ movies }) {
                   vote_average={movie.vote_average}
                   vote_count={movie.vote_count}
                   poster_path={movie_w_poster_path}
-                  className="h-full max-w-[12em] max-h-[6em]"
+                  className="h-full max-w-[12em] max-h-[196px]"
+                  
                 />
               </>
             );

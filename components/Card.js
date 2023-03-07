@@ -7,14 +7,14 @@ const redhatdisplay = Red_Hat_Display({ style: "normal" }, { subsets: ["latin"] 
 const plusjakartasans = Plus_Jakarta_Sans({ style: "normal" }, { subsets: ["latin"] });
 
 export default function Card(props) {
-  const { movieId, original_title, overview, poster_path, popularity, release_date, vote_average, vote_count } = props;
+  const { movieId, original_title, overview, poster_path, release_date, vote_average,} = props;
   
 
 
   return (
     <>
       
-      <Link href={`./filmography/${movieId}`} key={movieId.toString()} className="bg-[rgb(176,176,176)] rounded-2xl hover:scale-105">
+      <Link href={`./filmography/${movieId}`} key={movieId.toString()} className="bg-[rgb(176,176,176)] rounded-2xl hover:scale-105 hover:bg-[rgb(200,200,200)] ">
       
         <div className="grid grid-cols-8 max-w-32 gap-2 border-4 rounded-md border-none  ">
 
