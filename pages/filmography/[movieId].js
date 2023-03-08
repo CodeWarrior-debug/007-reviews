@@ -145,11 +145,9 @@ const MovieId = ({ movieFacts }) => {
         </Link> */}
         
         <div className="grid place-items-center grid-cols-3 ">
-{/* TODO make link */}
-        <Link href="/filmography" className="text-center m-8 col-span-1 bg-slate-600 text-3xl rounded-xl p-2"> &lt; RETURN </Link>
-        <h1 className="text-5xl text-center m-8 col-span-1"> {movieFacts.title} </h1>
-        <button className="text-center m-8 col-span-1 bg-slate-600 text-3xl rounded-xl p-2" onClick={handleViewClick}> {posterDisplayLabel} </button>
-        
+          <Link href="/filmography" className="text-center m-8 col-span-1 bg-slate-600 text-3xl rounded-xl p-2"> &lt; RETURN </Link>
+          <h1 className="text-5xl text-center m-8 col-span-1"> {movieFacts.title} </h1>
+          <button className="text-center m-8 col-span-1 bg-slate-600 text-3xl rounded-xl p-2" onClick={handleViewClick}> {posterDisplayLabel} </button>
         </div>
 
         {/* <button

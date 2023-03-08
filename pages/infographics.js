@@ -1,18 +1,25 @@
-// import numeral from "numeral";
-import {faker} from "@faker-js/faker"
+import Link from "next/link"
+import cls from "classnames"
+import Footer from "../components/Footer";
 import React from "react";
 import Axios from "axios";
-import {DateTime } from "luxon"
-import "chartjs-adapter-luxon"
-import { Bar, LinearScale, BarElement, Title, Tooltip, Legend, } from "react-chartjs-2";
-import { useEffect, useState, useRef } from "react";
+// import {DateTime } from "luxon"
+// import "chartjs-adapter-luxon"
+import { Bar } from "react-chartjs-2";
+import { useEffect,  useRef } from "react";
 import { Chart as ChartJS } from "chart.js/auto";
 import ChartDataLabels from "chartjs-plugin-datalabels";
+import { Montserrat } from "@next/font/google";
 ChartJS.register(ChartDataLabels);
 
+const montserrat = Montserrat({style:"normal"},{subsets:"latin"})
+
 const Infographics = ({ movies }) => {
-  const [ratings, setRatings] = useState([]);
-  const [titles, setTitles] = useState([]);
+
+  useEffect(()=>{
+    console.log(movies)
+  })
+
   // const [dates, setDates] = useState([]);
 
     //converter for datestrings, current strings are YYYY-MM-DD
@@ -25,7 +32,9 @@ const Infographics = ({ movies }) => {
     // };
 
   const streamlinedData = async () => {
-    setTitles(await movies.map((movie) => { return movie.title; }) );
+    // setTitles(await movies.map((movie) => { return movie.title; }) );
+    // setX(await movies.map((movie) => { return movie.budget} ));
+    // setRatings(await movies.map((movie) => { return movie.vote_average} ));
 
     // const processDates=async()=>{
 
@@ -54,11 +63,11 @@ const Infographics = ({ movies }) => {
 
     // console.log(ratings);
     // console.log(titles);
-    // console.log(dates);
+    // console.log(x);
 
   };
 
-  const chartRef = useRef(null);
+  // const chartRef = useRef(null);
 
   let width, height, gradient;
 
@@ -80,31 +89,61 @@ const Infographics = ({ movies }) => {
     return gradient;
   };
 
-  const [userData, setUserData] = useState({});
+  // const [userData, setUserData] = useState({});
 
-  useEffect(() => {
-    // // display options below
-    const chart = chartRef.current;
+  // useEffect(() => {
+  //   // // display options below
+  //   const chart = chartRef.current;
 
-    // if (chart) {
-    //   console.log('CanvasRenderingContext2D', chart.ctx);
-    //   console.log('HTMLCanvasElement', chart.canvas);
-    // }
-    const getStreamlinedData = async () => {
-      await streamlinedData();
-    };
+  //   // if (chart) {
+  //   //   console.log('CanvasRenderingContext2D', chart.ctx);
+  //   //   console.log('HTMLCanvasElement', chart.canvas);
+  //   // }
+  //   const getStreamlinedData = async () => {
+  //     await streamlinedData();
+  //   };
 
-    getStreamlinedData();
+  //   getStreamlinedData();
 
-    setUserData({
-      // labels: ["Me", "TMDB Audience", "Differential"],
-      labels: `${titles}}`,
+  //  }, []);
 
-      datasets: [
+
+
+  const optionsRatings = {
+    responsive: true,
+    scales:{
+      x:{
+        ticks:
         {
-          label: "Rating",
-          data: `${ratings}`,
+          color:'#C0C2C9',
+          font: {
+            size:10
+          }
+        }
+      }
+    },
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      datalabels:{
+        color:"#fff"
+      },
+      title: {
+        display: true,
+        text: '007 Reviews by Movie',
+        color:'#fff'
+      },
+    },
+    
+  };
 
+  const dataRatings = {
+    labels: movies.map(movie=>movie.original_title),
+    datasets: [
+      {
+        data: movies.map(movie=>movie.vote_average.toFixed(1)),
+        label:"Rating 0-10",
           backgroundColor: function (context) {
             const chart = context.chart;
             const { ctx, chartArea } = chart;
@@ -115,128 +154,155 @@ const Infographics = ({ movies }) => {
             }
             return getGradient(ctx, chartArea);
           },
-          // backgroundColor: gradient,
           pointBackgroundColor: "white",
           borderWidth: 0,
-          borderColor: "#911215",
-        },
-      ],
-    });
-  }, []);
-
-  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'top',
-      },
-      title: {
-        display: true,
-        text: 'Chart.js Bar Chart',
-      },
-    },
-  };
-
-  const data = {
-    labels,
-    datasets: [
-      {
-        label: 'Dataset 1',
-        data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-      },
-      {
-        label: 'Dataset 2',
-        data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-        backgroundColor: 'rgba(53, 162, 235, 0.5)',
+          borderColor: "#911215",        
       },
     ],
   };
 
+  const optionsVotes = {
+    responsive: true,
+    scales:{
+      x:{
+        ticks:{color:'#C0C2C9',
+        font: {
+          size:10
+        }}
+      }
+    },
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      datalabels:{
+        color:"#fff"
+      },
+      title: {
+        display: true,
+        text: '007 Votes by Movie (TMDB)',
+        color:'#fff'
+      },
+    },
+  };
+
+  const dataVotes = {
+    labels: movies.map(movie=>movie.original_title),
+    datasets: [
+      {
+        data: movies.map(movie=>(movie.vote_count)),
+        label:"# TMDB Votes",
+        backgroundColor: function (context) {
+          const chart = context.chart;
+          const { ctx, chartArea } = chart;
+
+          if (!chartArea) {
+            // This case happens on initial chart load
+            return;
+          }
+          return getGradient(ctx, chartArea);
+        },
+        pointBackgroundColor: "white",
+        borderWidth: 0,
+        borderColor: "#911215",  
+      },
+    ],
+  };
+
+  
+  const optionsPopularity = {
+    responsive: true,
+    scales:{
+      x:{
+        ticks:{
+          color:'#C0C2C9',
+          font: {
+            size:10
+          }
+        }
+      }
+    },
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      datalabels:{
+        color:"#fff"
+      },
+      title: {
+        display: true,
+        text: '007 Trending Score (TMDB) by Movie',
+        color:'#fff'
+      },
+    },
+  };
+
+  const dataPopularity = {
+    labels: movies.map(movie=>movie.original_title),
+    datasets: [
+      {
+        data: movies.map(movie=>movie.popularity.toFixed(1)),
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        label:"Popularity Now 0-100",
+        backgroundColor: function (context) {
+          const chart = context.chart;
+          const { ctx, chartArea } = chart;
+
+          if (!chartArea) {
+            // This case happens on initial chart load
+            return;
+          }
+          return getGradient(ctx, chartArea);
+        },
+        pointBackgroundColor: "white",
+        borderWidth: 0,
+        borderColor: "#911215",  
+      },
+    ],
+  };
+
+
+
   return (
-    <>
-      <div className="bg-[#161616] p-12 h-full">
-        <div className="h-96">
+      <>
+        <div className="bg-[#161616] p-12 h-full min-h-screen text-white grid grid-cols-12">
+          <div className="col-span-2"> 
+          <Link href="/" className="text-center m-8 col-span-1 bg-slate-600 text-3xl rounded-xl p-2"> &lt; RETURN </Link>
+          
+          </div>
+        {/* <div className="grid place-items-center grid-cols-3 ">
+          <Link href="/filmography" className="text-center m-8 col-span-1 bg-slate-600 text-3xl rounded-xl p-2"> &lt; RETURN </Link>
+          <h1 className="text-5xl text-center m-8 col-span-1"> {movieFacts.title} </h1>
+          <button className="text-center m-8 col-span-1 bg-slate-600 text-3xl rounded-xl p-2" onClick={handleViewClick}> {posterDisplayLabel} </button>
+        </div> */}
 
-        <Bar options={options} data={data}/>
-      </div>
-      </div>
-</>)
+        <div className="col-span-8">
+
+            <h1 className={cls(montserrat.className, "text-5xl font-extrabold mb-12 text-center")}  >007 INFOGRAPHICS</h1>
+
+            <div className="grid place-items-center grid-cols-3 ">
+          
+        </div>
+
+            <Bar options={optionsRatings} data={dataRatings} className="max-h-72 mb-12"/>
+            <Bar options={optionsVotes} data={dataVotes} className="max-h-72 mb-12"/>
+            <Bar options={optionsPopularity} data={dataPopularity} className="max-h-72 mb-12"/>
+
+            <Footer />
+
+
+        </div>
+
+          <div className="col-span-1"></div>
+
+          
+        
+        </div>
+  </>
+)
 }
-          {/* <Bar
-            ref={chartRef}
-            id="chart"
-            data={userData}
-            options={{
-              maintainAspectRatio: false,
-              scales: {
-                x: {
-                  type:"linear",
-                  // time:{
-                  //   min:new Date('01-01-1950').valueOf(),
-                  //   max:new Date().valueOf(),
-                  //   displayFormats:{
-                  //     day: "yyyy-MM-dd"
-                  //   },
-                  //   unit:"day"
-                  },
-                  // adapters:{
-                  // },
-                  grid: {
-                    display: false,
-                  },
-                  ticks: {
-                    display: true,
-                    autoSkip: false,
-                    maxRotation: 90,
-                    minRotation: 90,
-                    maxTicksLimit: 100,
-                    sampleSize: 30,
-                  },
-                },
-                y: {
-                  grid: { display: false },
-                },
-              plugins: {
-                legend: {
-                  labels: {
-                    color: "#FFF",
-                  },
-                },
-                datalabels: {
-                  display: true,
-                  color: "white",
-                  align: "center",
-                  padding: 0,
-                  textStrokeWidth: 0.5,
-                },
-              },
-            }}
-          />
-        </div>  */}
-
-      
-      {/* <ul> */}
-
-        {/* {dates.map((date,index)=>{
-          return <li key={index} className="text-white">{date} </li>
-        })}
-      </ul>
-      <ul> */}
-
-{/* {titles.map((title,index)=>{
-  return <li key={index} className="text-white">{title} </li>
-})} */}
 
 
-{/* {ratings.map((rating,index)=>{
-  return <li key={index} className="text-white">{rating} </li>
-})} */}
-{/* </ul> */}
-
-    
 
 export async function getStaticProps() {
   const response = await Axios.get(
