@@ -1,7 +1,10 @@
-import numeral from "numeral";
+// import numeral from "numeral";
+import {faker} from "@faker-js/faker"
 import React from "react";
 import Axios from "axios";
-import { Bar } from "react-chartjs-2";
+import {DateTime } from "luxon"
+import "chartjs-adapter-luxon"
+import { Bar, LinearScale, BarElement, Title, Tooltip, Legend, } from "react-chartjs-2";
 import { useEffect, useState, useRef } from "react";
 import { Chart as ChartJS } from "chart.js/auto";
 import ChartDataLabels from "chartjs-plugin-datalabels";
@@ -10,48 +13,38 @@ ChartJS.register(ChartDataLabels);
 const Infographics = ({ movies }) => {
   const [ratings, setRatings] = useState([]);
   const [titles, setTitles] = useState([]);
-  const [dates, setDates] = useState([]);
+  // const [dates, setDates] = useState([]);
 
     //converter for datestrings, current strings are YYYY-MM-DD
-    const dateStringToDate = (dateString) => {
-      const yearStr = dateString.substr(0, 4);
-      const mthStr = dateString.substr(5, 2);
-      const dayStr = dateString.substr(8, 2);
+    // const dateStringToDate = (dateString) => {
+    //   const yearStr = dateString.substr(0, 4);
+    //   const mthStr = dateString.substr(5, 2);
+    //   const dayStr = dateString.substr(8, 2);
   
-      return format(new Date(yearStr, mthStr, dayStr), "MMMMMMM d, yyyy");
-    };
+    //   return format(new Date(yearStr, mthStr, dayStr), "MMMMMMM d, yyyy");
+    // };
 
   const streamlinedData = async () => {
-    setTitles(
-      movies.map((movie) => {
-        return movie.title;
-      })
-    );
+    setTitles(await movies.map((movie) => { return movie.title; }) );
 
-    const processDates=async()=>{
+    // const processDates=async()=>{
 
-      const movieArr=async ()=>{
+    //   const movieArr=async ()=>{
 
-       await  movies.map((movie) => {
-       return dateStringToDate(movie.release_date) ;
-     })
+    // setDates( await  movies.map((movie) => { return movie.release_date  ; }))
 
-     movieArr();
+    //  movieArr();
 
-    console.log(movieArr)
+    // console.log(movieArr)
 
-     return movieArr.sort((a,b)=>  a-b )
+    //  return movieArr.sort((a,b)=>  a-b )
 
-      }
-    }
+    //   }
+    // }
       
-    setDates( processDates() );
+    // setDates( processDates() );
 
-    setRatings(
-     await movies.map((movie) => {
-        return movie.vote_average;
-      })
-    );
+    setRatings( await movies.map((movie) => { return movie.vote_average; }) );
 
 
       
@@ -59,7 +52,10 @@ const Infographics = ({ movies }) => {
     //  ` {title: ${movie.title}, rating: ${movie.vote_average}} `
     // }))
 
-    console.log(ratings);
+    // console.log(ratings);
+    // console.log(titles);
+    // console.log(dates);
+
   };
 
   const chartRef = useRef(null);
@@ -84,26 +80,7 @@ const Infographics = ({ movies }) => {
     return gradient;
   };
 
-  const [userData, setUserData] = useState({
-    // labels: ["Me", "TMDB Audience", "Some nobody"],
-    labels: `${dates}`,
-    datasets: [
-      {
-        label: "Rating",
-        backgroundColor: function (context) {
-          const chart = context.chart;
-          const { ctx, chartArea } = chart;
-
-          if (!chartArea) {
-            // This case happens on initial chart load
-            return;
-          }
-          return getGradient(ctx, chartArea);
-        },
-        data: `${ratings}`,
-      },
-    ],
-  });
+  const [userData, setUserData] = useState({});
 
   useEffect(() => {
     // // display options below
@@ -121,23 +98,13 @@ const Infographics = ({ movies }) => {
 
     setUserData({
       // labels: ["Me", "TMDB Audience", "Differential"],
-      labels: `${dates}`,
+      labels: `${titles}}`,
 
       datasets: [
         {
           label: "Rating",
           data: `${ratings}`,
 
-          // data:
-
-          // [
-          //   4.5,7.8,
-          //   Math.abs(7.8 - 4.5),
-
-          //   // userReview.toFixed(1),
-          //   // audienceReview.toFixed(1),
-          //   // Math.abs(userReview - audienceReview).toFixed(1),
-          // ],
           backgroundColor: function (context) {
             const chart = context.chart;
             const { ctx, chartArea } = chart;
@@ -157,19 +124,66 @@ const Infographics = ({ movies }) => {
     });
   }, []);
 
+  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Chart.js Bar Chart',
+      },
+    },
+  };
+
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: 'Dataset 1',
+        data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      },
+      {
+        label: 'Dataset 2',
+        data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+        backgroundColor: 'rgba(53, 162, 235, 0.5)',
+      },
+    ],
+  };
+
   return (
     <>
-      <div className="bg-[#161616] p-12 h-screen">
+      <div className="bg-[#161616] p-12 h-full">
         <div className="h-96">
-          <Bar
+
+        <Bar options={options} data={data}/>
+      </div>
+      </div>
+</>)
+}
+          {/* <Bar
             ref={chartRef}
             id="chart"
-            // style={{backgroundColor:'rgba(0,0,0, 0.0)'}}
             data={userData}
             options={{
               maintainAspectRatio: false,
               scales: {
                 x: {
+                  type:"linear",
+                  // time:{
+                  //   min:new Date('01-01-1950').valueOf(),
+                  //   max:new Date().valueOf(),
+                  //   displayFormats:{
+                  //     day: "yyyy-MM-dd"
+                  //   },
+                  //   unit:"day"
+                  },
+                  // adapters:{
+                  // },
                   grid: {
                     display: false,
                   },
@@ -183,13 +197,8 @@ const Infographics = ({ movies }) => {
                   },
                 },
                 y: {
-                  // min: 0,
-                  // max: 10,
-                  // ticks: { display: false },
-                  // ticks: { beginAtZero: true },
                   grid: { display: false },
                 },
-              },
               plugins: {
                 legend: {
                   labels: {
@@ -206,32 +215,28 @@ const Infographics = ({ movies }) => {
               },
             }}
           />
-        </div>
-      </div>
-    </>
-  );
-};
+        </div>  */}
 
-//   return (
-//     <>
-//     <div>
+      
+      {/* <ul> */}
 
-// <div>
+        {/* {dates.map((date,index)=>{
+          return <li key={index} className="text-white">{date} </li>
+        })}
+      </ul>
+      <ul> */}
 
-//       {movies.map((movie,index)=>{
-//           return(
-//             <>
-//             <h2 key={index}>{movie.original_title}</h2>
-//             </>
-//           )
+{/* {titles.map((title,index)=>{
+  return <li key={index} className="text-white">{title} </li>
+})} */}
 
-//       })}
-//     </div>
-// </div>
-//     </>
 
-//   )
-// }
+{/* {ratings.map((rating,index)=>{
+  return <li key={index} className="text-white">{rating} </li>
+})} */}
+{/* </ul> */}
+
+    
 
 export async function getStaticProps() {
   const response = await Axios.get(
