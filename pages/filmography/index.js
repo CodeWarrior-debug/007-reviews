@@ -10,7 +10,7 @@ export default function Filmography({ movies }) {
     <>
       <div className="bg-[#161616] text-white">
         {/* <Link> */}
-        <div className="sticky">
+        <div className=" relative ">
 
         <Navbar className="min-h-[10vh]" />
         </div>
