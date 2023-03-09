@@ -133,6 +133,7 @@ const MovieId = ({ movieFacts }) => {
 
   return (
     <>
+      
 
       <Image
         src={movie_w_backdrop_path}
@@ -141,6 +142,7 @@ const MovieId = ({ movieFacts }) => {
         className="-z-10 aspect-[16/9] "
         priority
       />
+      
       <div className="text-white text-xl">
         
         <div className="grid place-items-center grid-cols-3 grid-flow-row ">

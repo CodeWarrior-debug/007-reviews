@@ -10,19 +10,13 @@ export default function Filmography({ movies }) {
     <>
       <div className="bg-[#161616] text-white">
         {/* <Link> */}
-        <div className=" relative ">
+        <div className=" sticky top-0 bg-[#161616] z-20">
 
         <Navbar className="min-h-[10vh]" />
         </div>
-        {/* TODO why login not responding */}
-        {/* {isLoggedIn ? 
-        <h2 className="text-red-600 font-semibold m-4 text-center text-3xl"> Log In To Add Reviews </h2>
-       : 
-        ""
-      } */}
+
 
         <div className="flex flex-row justify-center flex-wrap flex-auto gap-4 ml-[10%] mr-[10%]">
-          {/* TODO how do i get these cells to be equal height */}
           {movies.map((movie, index) => {
             const baseURL = "https://image.tmdb.org/t/p/original/";
 
@@ -34,12 +28,9 @@ export default function Filmography({ movies }) {
                   key={index}
                   movieId={movie.id}
                   title={movie.title}
-                  // original_title={movie.original_title}
                   overview={movie.overview}
-                  // popularity={movie.popularity}
                   release_date={movie.release_date}
                   vote_average={movie.vote_average}
-                  // vote_count={movie.vote_count}
                   poster_path={movie_w_poster_path}
                   className="h-full max-w-[12em] max-h-[196px]"
                   
