@@ -21,7 +21,7 @@ export default function Filmography({ movies }) {
         ""
       } */}
 
-        <div className="flex flex-row flex-wrap flex-auto gap-4 ml-[10%] mr-[10%]">
+        <div className="flex flex-row justify-center flex-wrap flex-auto gap-4 ml-[10%] mr-[10%]">
           {/* TODO how do i get these cells to be equal height */}
           {movies.map((movie, index) => {
             const baseURL = "https://image.tmdb.org/t/p/original/";
