@@ -58,14 +58,12 @@ const OneMovieReview = ({ userReview, audienceReview }) => {
   });
 
   useEffect(() => {
+    // const chart = chartRef.current;
     // // display options below
-    const chart = chartRef.current;
-    
-    
-    // if (chart) {
-    //   console.log('CanvasRenderingContext2D', chart.ctx);
-    //   console.log('HTMLCanvasElement', chart.canvas);
-    // }
+      // if (chart) {
+      //   console.log('CanvasRenderingContext2D', chart.ctx);
+      //   console.log('HTMLCanvasElement', chart.canvas);
+      // }
 
     setUserData({
       labels: ["Me", "TMDB Audience", "Differential"],
@@ -101,7 +99,6 @@ const OneMovieReview = ({ userReview, audienceReview }) => {
       <Bar
         ref = {chartRef}
         id="chart"
-        // style={{backgroundColor:'rgba(0,0,0, 0.0)'}}
         data={userData}
         options={{
           maintainAspectRatio: false,

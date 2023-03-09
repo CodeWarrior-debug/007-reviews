@@ -27,7 +27,7 @@ export default function Navbar() {
           </li>
           <li className="nav-link hover:underline ">
             <Link href="/filmography" className="text-2xl">
-              FILMOGRAPHY
+              CINEMATOGRAPHY
             </Link>
           </li>
           <li className="nav-link hover:underline ">
@@ -35,29 +35,13 @@ export default function Navbar() {
               INFOGRAPHICS
             </Link>
           </li>
-          {/* TODO add chart comparison page <li className="nav-link"><Link href="/compare" className="text-2xl"> Compare</Link></li> */}
-          {/* <li className="nav-link hover:underline ">
-            <Link href="/login" className="text-2xl">
-              SIGN IN
-            </Link>
-          </li> */}
-          {/* TODO add  */}
-          {isLoggedIn ? (
-            <li className="nav-link hover:underline ">
-            <Link href="/login" className="text-2xl">
-              {" "}
-              SIGN OUT
-            </Link>
-          </li>
-
-          ) : (
-            <li className="nav-link hover:underline ">
+          <li className="nav-link hover:underline ">
               <Link href="/login" className="text-2xl">
                 {" "}
-                SIGN IN
+                SIGN IN/OUT
               </Link>
             </li>
-          )}
+
         </ul>
       </nav>
     </>

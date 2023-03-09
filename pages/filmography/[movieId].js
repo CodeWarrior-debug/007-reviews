@@ -75,9 +75,13 @@ const MovieId = ({ movieFacts }) => {
 
   useEffect(() => {
 
-    retrieveReview();
+    if (localStorage.getItem("userEmail")){
+      retrieveReview();
 
-    reviewRef.current.focus();
+      reviewRef.current.focus();
+    }
+
+
 
   }, [review]);
 
@@ -129,57 +133,51 @@ const MovieId = ({ movieFacts }) => {
 
   return (
     <>
+
       <Image
         src={movie_w_backdrop_path}
         fill
         alt="movie_backdrop_pic"
-        className="-z-10"
+        className="-z-10 aspect-[16/9] "
+        priority
       />
       <div className="text-white text-xl">
-        {/* <Link href="/filmography">
-          <h2 className="fixed top-8 left-0 text-white text-4xl bg-blue-500">
-            ◀️ BACK
-          </h2>
-        </Link> */}
         
-        <div className="grid place-items-center grid-cols-3 ">
+        <div className="grid place-items-center grid-cols-3 grid-flow-row ">
           <Link href="/filmography" className="text-center m-8 col-span-1 bg-slate-600 text-3xl rounded-xl p-2"> &lt; RETURN </Link>
-          <h1 className="text-5xl text-center m-8 col-span-1"> {movieFacts.title} </h1>
+          <h1 className={cls("text-5xl text-center m-8 col-span-1 font-extrabold bg-blend-darken bg-black opacity-70 rounded-3xl p-4 uppercase", montserrat.className)} > {movieFacts.title} </h1>
           <button className="text-center m-8 col-span-1 bg-slate-600 text-3xl rounded-xl p-2" onClick={handleViewClick}> {posterDisplayLabel} </button>
         </div>
 
-        {/* <button
-          className="fixed top-8 right-0 text-white text-4xl bg-blue-500"
-          onClick={handleViewClick}
-        >
-          POSTER ONLY
-        </button> */}
+
         {/* SPACER */}
         <div className="h-[9vh]"></div>
+
         {/* WRAPPER TO SET HIDE/SHOW status */}
         <div className={cls(posterOnly, "flex flex-row flex-wrap w-screen") }>
             <div className="flex flex-row w-3/5">
 
-          <div className="pr-24 pl-24">
+          <div className="pr-24 pl-24 grid place-items-center ">
             {/* MOVIE CONTENT */}
-
+          <div className="bg-blend-darken bg-black opacity-70 rounded-3xl w-4/5 p-4 mb-4">
 
             <p> In {movieFacts.title}... </p>
             <br/>
             <p> {movieFacts.tagline} </p>
             <br/>
-            <p className="w-4/5"> {movieFacts.overview} </p>
-            <br/>
-                                  {/* Your Review Chart */}
-          <div style={{ width: 400, height: 200 }} className="bg-[#252429]">
+            <p className=""> {movieFacts.overview} </p>
+          </div>
+            {/* Your Review Chart */}
+            
+          <div style={{ width: 400, height: 200 }} className="bg-[#252429] rounded-2xl">
             <OneMovieReview
               userReview={parseFloat(review)}
               audienceReview={parseFloat(movieFacts.vote_average)}
             />
           </div>
-            <div className='mt-4'>
-              <label className="font-[600] mr-4 ">
-                Current Review = {review}
+            <div className='mt-4 bg-blend-darken bg-[#252429] rounded p-2 w-3/10'>
+              <label className="font-[600] mr-4 text-base">
+                Your Review = {review}
               </label>
               <input
                 id="rating"
@@ -187,15 +185,19 @@ const MovieId = ({ movieFacts }) => {
                 name="rating"
                 min="0"
                 max="10"
-                className="text-black text-center"
+                className="text-black text-center rounded"
                 ref={reviewRef}
               ></input>
               <button
-                className="ml-4 bg-white text-black font-semibold rounded"
+                className="ml-4 bg-white text-black font-semibold text-base p-1 hover:bg-slate-400 hover:text-white rounded"
                 onClick={handleUpdateClick}
               >
                 Update Review
               </button>
+              
+            </div>
+            <div className='mt-4 bg-blend-darken bg-[#252429] rounded p-2 w-2/5'>
+             <h3 className="font-[600] text-white text-base text-center">Reviews Will Save If Signed In. &emsp; &emsp;   <Link href="/login" className="underline"> SIGN IN </Link> </h3>
             </div>
             </div>
             </div>
@@ -207,17 +209,14 @@ const MovieId = ({ movieFacts }) => {
           <div className= {cls(montserrat.className,"flex flex-col w-2/5" )}>
 
               {/* MOVIE SPECS */}
-              <div className="bg-blend-darken bg-black opacity-60 rounded-4xl w-1/2 p-4 pt-2">
+              <div className="bg-blend-darken bg-black opacity-70 rounded-3xl w-1/2 p-4 pt-2">
                                 {/* SPEC */}
                                 <div className='mt-2'>
-                    <div className="flex flex-row">
+                    <div className="flex flex-row flex-wrap">
                       <div className="flex flex-row justify-start font-semibold w-1/2"><p>Movie</p></div>
-                      <div className="w-1/2 flex flex-row justify-end text-right font-thin mb-3">{movieFacts.title}</div>
-
+                      <div className="w-1/2 flex flex-row justify-end text-right font-base mb-3">{movieFacts.title}</div>
                   </div>
 
-                {/* </> */}
-                  {/* <svg className='h-1 w-4/5'> <line x1="0" y1="0" y2="0" style={{stroke:"rgb(255,255,255)", strokeWidth:2}} /> </svg> */}
                 
                 </div> {/* SPEC END*/}
                 
@@ -227,18 +226,17 @@ const MovieId = ({ movieFacts }) => {
                   <div className='mt-2'>
                     <div className="flex flex-row">
                       <div className="flex flex-row justify-start font-semibold w-1/2"><p>Run Time</p></div>
-                      <div className="w-1/2 flex flex-row justify-end text-right font-thin mb-3">{(movieFacts.runtime / 60).toFixed(1)} HR</div>
+                      <div className="w-1/2 flex flex-row justify-end text-right font-base mb-3">{(movieFacts.runtime / 60).toFixed(1)} HR</div>
 
                   </div>
 
-                  {/* <svg className='h-1 w-4/5'> <line x1="0" y1="0" y2="0" style={{stroke:"rgb(255,255,255)", strokeWidth:2}} /> </svg> */}
                 
                 </div> {/* SPEC END*/}
                   {/* SPEC */}
                   <div className='mt-2'>
                     <div className="flex flex-row">
                       <div className="flex flex-row justify-start font-semibold w-1/2"><p>Release Date</p></div>
-                      <div className="w-1/2 flex flex-row justify-end text-right font-thin mb-3">
+                      <div className="w-1/2 flex flex-row justify-end text-right font-base mb-3">
                           <p> {dateStringToDate(movieFacts.release_date)} </p>
                         
                       </div>
@@ -249,7 +247,7 @@ const MovieId = ({ movieFacts }) => {
                   <div className='mt-2'>
                     <div className="flex flex-row">
                       <div className="flex flex-row justify-start font-semibold w-1/2"><p>Revenue</p></div>
-                      <div className="w-1/2 flex flex-row justify-end text-right font-thin mb-3">
+                      <div className="w-1/2 flex flex-row justify-end text-right font-base mb-3">
                        ${numeral(movieFacts.revenue).format("0,0")}
                       </div>
                   </div>
@@ -259,7 +257,7 @@ const MovieId = ({ movieFacts }) => {
                   <div className='mt-2'>
                     <div className="flex flex-row">
                       <div className="flex flex-row justify-start font-semibold w-1/2"><p>Profit</p></div>
-                      <div className="w-1/2 flex flex-row justify-end text-right font-thin mb-3">
+                      <div className="w-1/2 flex flex-row justify-end text-right font-base mb-3">
                       ${numeral(movieFacts.revenue - movieFacts.budget).format( "0,0" )}
                       </div>
                   </div>
@@ -269,7 +267,7 @@ const MovieId = ({ movieFacts }) => {
                   <div className='mt-2'>
                     <div className="flex flex-row">
                       <div className="flex flex-row justify-start font-semibold w-1/2"><p>Avg Rating</p></div>
-                      <div className="w-1/2 flex flex-row justify-end text-right font-thin mb-3">{numeral(movieFacts.vote_average).format("0.0")} / 10</div>
+                      <div className="w-1/2 flex flex-row justify-end text-right font-base mb-3">{numeral(movieFacts.vote_average).format("0.0")} / 10</div>
                   </div>
 
                 </div> {/* SPEC END*/}
@@ -277,35 +275,16 @@ const MovieId = ({ movieFacts }) => {
                   <div className='mt-2'>
                     <div className="flex flex-row">
                       <div className="flex flex-row justify-start font-semibold w-1/2"><p>Votes</p></div>
-                      <div className="w-1/2 flex flex-row justify-end text-right font-thin mb-3">
+                      <div className="w-1/2 flex flex-row justify-end text-right font-base mb-3">
                       {numeral(movieFacts.vote_count).format( "0,0" )}
                       </div>
                   </div>
 
-                </div> {/* SPEC END*/}
-                  {/* SPEC */}
-                  {/* <div className='mt-2'>
-                    <div className="flex flex-row">
-                      <div className="flex flex-row justify-start font-semibold w-1/2"><p>SPEC</p></div>
-                      <div className="w-1/2 flex flex-row justify-end text-right font-thin mb-3">DATA</div>
-                  </div>
-
-                </div>  */}
-                
-                {/* SPEC END*/}
+                </div> 
                
 
 
-                {/* <Image
-                src={grayLine}
-                width={100}
-                height={8}
-                alt="dividing line"
-                className=""
-                /> */}
-
-            {/* <p className="bg-blend-lighten"> {(movieFacts.runtime / 60).toFixed(1)} hr runtime </p> */}
-            {/* <p> Released {dateStringToDate(movieFacts.release_date)} </p> */}
+  
             <br />
             {/* RECEPTION AND RATINGS */}
 
@@ -332,8 +311,8 @@ const MovieId = ({ movieFacts }) => {
               >
                 {" "}
                 {movieFacts.homepage
-                  ? movieFacts.original_title + "'s official homepage"
-                  : "No official homepage"}
+                  ? "Official Homepage"
+                  : ""}
               </Link>
             </p>
             <p>
@@ -347,7 +326,7 @@ const MovieId = ({ movieFacts }) => {
               >
                 
                 {movieFacts.imdb_id
-                  ? movieFacts.original_title + "'s IMDB page"
+                  ? "IMDB Infopage"
                   : ""}{" "}
               </Link>
             </p>
@@ -357,13 +336,7 @@ const MovieId = ({ movieFacts }) => {
 
             {/* TODO: find place for poster */}
 
-            {/* <Image
-              src={movie_w_poster_path}
-              height={500}
-              width={333}
-              alt={movieFacts.title + " poster"}
-              className="z-10"
-            /> */}
+
             <br />
           </div>
           </div>
@@ -386,7 +359,6 @@ export async function getStaticPaths() {
   )
     .then((res) => res.data.parts)
     .catch((err) => console.log("error: ", err));
-
   // console.log("response: ", response)
 
   const paths = await response.map((movie) => {

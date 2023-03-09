@@ -120,6 +120,10 @@ const Infographics = ({ movies }) => {
             size:10
           }
         }
+      },
+        y:{
+            min:0,
+            max:10
       }
     },
     plugins: {
@@ -267,7 +271,7 @@ const Infographics = ({ movies }) => {
       <>
         <div className="bg-[#161616] p-12 h-full min-h-screen text-white grid grid-cols-12">
           <div className="col-span-2"> 
-          <Link href="/" className="text-center m-8 col-span-1 bg-slate-600 text-3xl rounded-xl p-2"> &lt; RETURN </Link>
+          <Link href="/" className="text-center m-8 col-span-1 bg-slate-600 text-3xl rounded-xl p-2"> &lt; HOME </Link>
           
           </div>
         {/* <div className="grid place-items-center grid-cols-3 ">
