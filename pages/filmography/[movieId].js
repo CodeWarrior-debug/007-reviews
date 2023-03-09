@@ -1,6 +1,5 @@
-// import grayLine from '../../public/slate-line.svg'
+import {format} from "date-fns"
 import cls from "classnames"
-import { format } from "date-fns";
 import Link from "next/link";
 import Image from "next/image";
 import Axios from "axios";
@@ -12,7 +11,6 @@ import { firebaseConfig } from "../../lib/db";
 var converter = require("number-to-words");
 import OneMovieReview from "../../components/OneMovieReview";
 import {Montserrat} from "@next/font/google"
-import Divider from '../../components/Divider';
 
 const montserrat = Montserrat({ style: "normal" }, { subsets: ["latin"] });
 
@@ -218,9 +216,8 @@ const MovieId = ({ movieFacts }) => {
 
                   </div>
 
-                {/* <Divider/> */}
+                {/* </> */}
                   {/* <svg className='h-1 w-4/5'> <line x1="0" y1="0" y2="0" style={{stroke:"rgb(255,255,255)", strokeWidth:2}} /> </svg> */}
-                {/* TODO fix divider to shorten on window narrow*/}
                 
                 </div> {/* SPEC END*/}
                 
@@ -234,9 +231,7 @@ const MovieId = ({ movieFacts }) => {
 
                   </div>
 
-                {/* <Divider/> */}
                   {/* <svg className='h-1 w-4/5'> <line x1="0" y1="0" y2="0" style={{stroke:"rgb(255,255,255)", strokeWidth:2}} /> </svg> */}
-                {/* TODO fix divider to shorten on window narrow*/}
                 
                 </div> {/* SPEC END*/}
                   {/* SPEC */}
@@ -249,7 +244,6 @@ const MovieId = ({ movieFacts }) => {
                       </div>
                   </div>
 
-                {/* <Divider/>   */}               
                 </div> {/* SPEC END*/}
                   {/* SPEC */}
                   <div className='mt-2'>
@@ -260,7 +254,6 @@ const MovieId = ({ movieFacts }) => {
                       </div>
                   </div>
 
-                {/* <Divider/>   */}               
                 </div> {/* SPEC END*/}
                   {/* SPEC */}
                   <div className='mt-2'>
@@ -271,7 +264,6 @@ const MovieId = ({ movieFacts }) => {
                       </div>
                   </div>
 
-                 {/* <Divider/>   */}  
                 </div> {/* SPEC END*/}
                   {/* SPEC */}
                   <div className='mt-2'>
@@ -280,7 +272,6 @@ const MovieId = ({ movieFacts }) => {
                       <div className="w-1/2 flex flex-row justify-end text-right font-thin mb-3">{numeral(movieFacts.vote_average).format("0.0")} / 10</div>
                   </div>
 
-                {/* <Divider/>   */}               
                 </div> {/* SPEC END*/}
                   {/* SPEC */}
                   <div className='mt-2'>
@@ -291,7 +282,6 @@ const MovieId = ({ movieFacts }) => {
                       </div>
                   </div>
 
-                {/* <Divider/>   */}               
                 </div> {/* SPEC END*/}
                   {/* SPEC */}
                   {/* <div className='mt-2'>
