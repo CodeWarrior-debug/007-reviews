@@ -138,7 +138,8 @@ const MovieId = ({ movieFacts }) => {
 
   return (
     <>
-  <div className="relative">
+  <div className="relative ">
+  {/* <div className="relative hidden lg:block"> */}
 
       <Image
         src={movie_w_backdrop_path}
@@ -151,7 +152,7 @@ const MovieId = ({ movieFacts }) => {
       <div className="text-white text-xl">
         
         <div className="grid place-items-center grid-cols-3 grid-flow-row ">
-          <Link href="/filmography" className="text-center m-8 col-span-1 bg-slate-600 text-3xl rounded-xl p-2"> &lt; RETURN </Link>
+          <Link href="/filmography" className="text-center m-8 col-span-1 bg-slate-600 text-3xl rounded-xl p-2"> &lt; Return </Link>
           <h1 className={cls("text-5xl text-center m-8 col-span-1 font-extrabold bg-blend-darken bg-black opacity-70 rounded-3xl p-4 uppercase", montserrat.className)} > {movieFacts.title} </h1>
           <button className="text-center m-8 col-span-1 bg-slate-600 text-3xl rounded-xl p-2" onClick={handleViewClick}> {posterDisplayLabel} </button>
         </div>
@@ -226,9 +227,9 @@ isLoggedIn?
               <div className="bg-blend-darken bg-black opacity-70 rounded-3xl w-1/2 p-4 pt-2">
                                 {/* SPEC */}
                                 <div className='mt-2'>
-                    <div className="flex flex-row flex-wrap">
-                      <div className="flex flex-row justify-start font-semibold w-1/2"><p>Movie</p></div>
-                      <div className="w-1/2 flex flex-row justify-end text-right font-base mb-3">{movieFacts.title}</div>
+                    <div className="grid grid-cols-2 justify-items-stretch">
+                      <div className="grid col-span-1 justify-self-start"><p>Movie</p></div>
+                      <div className="grid col-span-1 justify-self-end">{movieFacts.title}</div>
                   </div>
 
                 
@@ -238,9 +239,9 @@ isLoggedIn?
                 
                 {/* SPEC */}
                   <div className='mt-2'>
-                    <div className="flex flex-row">
-                      <div className="flex flex-row justify-start font-semibold w-1/2"><p>Run Time</p></div>
-                      <div className="w-1/2 flex flex-row justify-end text-right font-base mb-3">{(movieFacts.runtime / 60).toFixed(1)} HR</div>
+                    <div className="grid grid-cols-2 justify-items-stretch">
+                      <div className="grid col-span-1 justify-self-start"><p>Run Time</p></div>
+                      <div className="grid col-span-1 justify-self-end">{(movieFacts.runtime / 60).toFixed(1)} HR</div>
 
                   </div>
 
@@ -248,9 +249,9 @@ isLoggedIn?
                 </div> {/* SPEC END*/}
                   {/* SPEC */}
                   <div className='mt-2'>
-                    <div className="flex flex-row">
-                      <div className="flex flex-row justify-start font-semibold w-1/2"><p>Release Date</p></div>
-                      <div className="w-1/2 flex flex-row justify-end text-right font-base mb-3">
+                    <div className="grid grid-cols-2 justify-items-stretch">
+                      <div className="grid col-span-1 justify-self-start"><p>Release Date</p></div>
+                      <div className="grid col-span-1 justify-self-end">
                           <p> {dateStringToDate(movieFacts.release_date)} </p>
                         
                       </div>
@@ -259,9 +260,9 @@ isLoggedIn?
                 </div> {/* SPEC END*/}
                   {/* SPEC */}
                   <div className='mt-2'>
-                    <div className="flex flex-row">
-                      <div className="flex flex-row justify-start font-semibold w-1/2"><p>Revenue</p></div>
-                      <div className="w-1/2 flex flex-row justify-end text-right font-base mb-3">
+                    <div className="grid grid-cols-2 justify-items-stretch">
+                      <div className="grid col-span-1 justify-self-start"><p>Revenue</p></div>
+                      <div className="grid col-span-1 justify-self-end">
                        ${numeral(movieFacts.revenue).format("0,0")}
                       </div>
                   </div>
@@ -269,9 +270,9 @@ isLoggedIn?
                 </div> {/* SPEC END*/}
                   {/* SPEC */}
                   <div className='mt-2'>
-                    <div className="flex flex-row">
-                      <div className="flex flex-row justify-start font-semibold w-1/2"><p>Profit</p></div>
-                      <div className="w-1/2 flex flex-row justify-end text-right font-base mb-3">
+                    <div className="grid grid-cols-2 justify-items-stretch">
+                      <div className="grid col-span-1 justify-self-start"><p>Profit</p></div>
+                      <div className="grid col-span-1 justify-self-end">
                       ${numeral(movieFacts.revenue - movieFacts.budget).format( "0,0" )}
                       </div>
                   </div>
@@ -279,22 +280,42 @@ isLoggedIn?
                 </div> {/* SPEC END*/}
                   {/* SPEC */}
                   <div className='mt-2'>
-                    <div className="flex flex-row">
-                      <div className="flex flex-row justify-start font-semibold w-1/2"><p>Avg Rating</p></div>
-                      <div className="w-1/2 flex flex-row justify-end text-right font-base mb-3">{numeral(movieFacts.vote_average).format("0.0")} / 10</div>
+                    <div className="grid grid-cols-2 justify-items-stretch">
+                      <div className="grid col-span-1 justify-self-start"><p>Avg Rating</p></div>
+                      <div className="grid col-span-1 justify-self-end">{numeral(movieFacts.vote_average).format("0.0")} / 10</div>
                   </div>
 
                 </div> {/* SPEC END*/}
                   {/* SPEC */}
                   <div className='mt-2'>
-                    <div className="flex flex-row">
-                      <div className="flex flex-row justify-start font-semibold w-1/2"><p>Votes</p></div>
-                      <div className="w-1/2 flex flex-row justify-end text-right font-base mb-3">
+                    <div className="grid grid-cols-2 justify-items-stretch">
+                      <div className="grid col-span-1 justify-self-start"><p>Votes</p></div>
+                      <div className="basis-1/2  flex flex-row justify-end text-right font-base mb-3">
                       {numeral(movieFacts.vote_count).format( "0,0" )}
                       </div>
                   </div>
 
                 </div> 
+
+                                  {/* SPEC TEST*/}
+                                  {/* <div className='mt-2'>
+                    <div className="flex flex-row flex-wrap justify-around">
+                      <div ><p>Avg Rating</p></div>
+                      <div >{numeral(movieFacts.vote_average).format("0.0")} / 10</div>
+                  </div>
+
+                </div>  */}
+                {/* SPEC END TEST */}
+
+
+                                                  {/* SPEC TEST*/}
+                    <div className='mt-2'>
+                    <div className="grid grid-cols-2 justify-items-stretch">
+                      <div className="grid col-span-1 justify-self-start"><p>Avg Rating</p></div>
+                      <div className="grid col-span-1 justify-self-end">{numeral(movieFacts.vote_average).format("0.0")} / 10</div>
+                  </div>
+
+                </div> {/* SPEC END TEST*/}
                
 
 
@@ -359,6 +380,50 @@ isLoggedIn?
 
         </div>
   </div>
+
+<div className=" lg:hidden" >
+  <div className="relative min-h-[4vw] flex flex-col justify-center">
+  <div className="flex flex-row justify-center items-center">
+          <Link href="/filmography" className="text-center m-8 bg-slate-600 text-3xl text-white rounded-xl p-2 basis-full"> Return </Link>
+          <h1 className={cls("text-5xl text-center m-8  font-extrabold bg-blend-darken text-white bg-black opacity-70 basis-full rounded-3xl p-4 uppercase", montserrat.className)} > {movieFacts.title} </h1>
+          <button className="text-center m-8  bg-slate-600 text-3xl rounded-xl p-2 basis-full text-white" onClick={handleViewClick}> {posterDisplayLabel} </button>
+        </div>
+
+
+    <Image
+        src={movie_w_backdrop_path}
+        fill
+        alt="movie_backdrop_pic"
+        className="-z-10 aspect-[16/9] min-h-screen"
+        priority
+      />                  
+  </div>
+
+   {/* WRAPPER TO SET HIDE/SHOW status */}
+   <div className={cls(posterOnly, "flex flex-row flex-wrap justify-center w-screen") }>
+            <div className="flex flex-row justify-center">
+
+          <div className="pr-24 pl-24 grid place-items-center ">
+            {/* MOVIE CONTENT */}
+          <div className="bg-blend-darken text-white bg-black opacity-70 rounded-3xl w-3/5 p-4 mb-4 ">
+
+            <p> In {movieFacts.title}... </p>
+            <br/>
+            <p> {movieFacts.tagline} </p>
+            <br/>
+            <p className=""> {movieFacts.overview} </p>
+          </div>
+          </div>
+          </div>
+
+
+
+
+
+
+          {/* END WRAPPER */}
+          </div>
+          </div>
 
     </>
   );

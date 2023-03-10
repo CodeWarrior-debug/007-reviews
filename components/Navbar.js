@@ -20,22 +20,22 @@ export default function Navbar() {
     <>
       <nav className={montserrat.className}>
         <ul className="flex flex-row flex-wrap justify-evenly font-bold">
-          <li className="nav-link hover:underline ">
+          <li className="text-3xl text-center mt-8 mb-8 hover:underline ">
             <Link href="/" className="text-2xl">
               HOME
             </Link>
           </li>
-          <li className="nav-link hover:underline ">
+          <li className="text-3xl text-center mt-8 mb-8 hover:underline ">
             <Link href="/filmography" className="text-2xl">
               CINEMATOGRAPHY
             </Link>
           </li>
-          <li className="nav-link hover:underline ">
+          <li className="text-3xl text-center mt-8 mb-8 hover:underline ">
             <Link href="/infographics" className="text-2xl">
               INFOGRAPHICS
             </Link>
           </li>
-          <li className="nav-link hover:underline ">
+          <li className="text-3xl text-center mt-8 mb-8 hover:underline ">
               <Link href="/login" className="text-2xl">
                 {" "}
                 SIGN IN/OUT

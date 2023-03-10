@@ -36,14 +36,14 @@ const SignIn = () => {
           placeholder="Email..."
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="inputBox text-black"
+          className="border-2 border-slate-900 rounded p-2 m-4 text-black"
         ></input>
         <input
           type="password"
           placeholder="Password..."
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="inputBox text-black"
+          className="border-2 border-slate-900 rounded p-2 m-4 text-black"
         ></input>
         <button type="submit" className="bg-slate-600 text-white h-11 rounded pl-4 pr-4 font-semibold m-2">Log In</button>
         

@@ -8,32 +8,12 @@
 @layer components{
 
 
-  .nav-link{
-    @apply text-3xl text-center mt-8 mb-8
-  }
-  .inputBox{
-    @apply border-2 border-slate-900 rounded p-2 m-4
-  }
+
+
 
 
 }
 
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
-}
 
 
 
