@@ -152,18 +152,18 @@ const MovieId = ({ movieFacts }) => {
       <div className="text-white text-xl">
         
         <div className="grid place-items-center grid-cols-3 grid-flow-row ">
-          <Link href="/filmography" className="text-center m-8 col-span-1 bg-slate-600 text-3xl rounded-xl p-2"> &lt; Return </Link>
+          <Link href="/filmography" className="text-center m-8 col-span-1 bg-slate-600 text-3xl rounded-xl p-2"> Return Home </Link>
           <h1 className={cls("text-5xl text-center m-8 col-span-1 font-extrabold bg-blend-darken bg-black opacity-70 rounded-3xl p-4 uppercase", montserrat.className)} > {movieFacts.title} </h1>
           <button className="text-center m-8 col-span-1 bg-slate-600 text-3xl rounded-xl p-2" onClick={handleViewClick}> {posterDisplayLabel} </button>
         </div>
 
 
         {/* SPACER */}
-        <div className="h-[9vh]"></div>
+        <div className="h-[4vh]"></div>
 
         {/* WRAPPER TO SET HIDE/SHOW status */}
-        <div className={cls(posterOnly, "flex flex-row flex-wrap w-screen") }>
-            <div className="flex flex-row w-3/5">
+        <div className={cls(posterOnly, "flex flex-row flex-wrap justify-center w-screen") }>
+            <div className="flex flex-row w-full mvID1:w-3/5">
 
           <div className="pr-24 pl-24 grid place-items-center ">
             {/* MOVIE CONTENT */}
@@ -177,13 +177,13 @@ const MovieId = ({ movieFacts }) => {
           </div>
             {/* Your Review Chart */}
             
-          <div style={{ width: 400, height: 200 }} className="bg-[#252429] rounded-2xl">
+          <div  className="bg-[#252429] rounded-2xl w-[85%] mvID1:w-[400px] mvID1:h-[200px]">
             <OneMovieReview
               userReview={parseFloat(review)}
               audienceReview={parseFloat(movieFacts.vote_average)}
             />
           </div>
-            <div className='mt-4 bg-blend-darken bg-[#252429] rounded p-2 w-3/10'>
+            <div className='mt-4 bg-blend-darken bg-[#252429] rounded p-2 mb-8 w-3/10'>
               <label className="font-[600] mr-4 text-base">
                 Your Review = {review}
               </label>
@@ -209,7 +209,7 @@ const MovieId = ({ movieFacts }) => {
 isLoggedIn? 
              ""
              :
-            <div className='mt-4 bg-blend-darken bg-[#252429] rounded p-2 w-2/5'>
+            <div className='mt-4 bg-blend-darken bg-[#252429] rounded p-2 w-full mvID1:w-2/5 '>
              <h3 className="font-[600] text-white text-base text-center">Reviews Will Save If Signed In. &emsp; &emsp;   <Link href="/login" className="underline"> SIGN IN </Link> </h3>
             </div>
              
@@ -221,15 +221,15 @@ isLoggedIn?
           
 
 
-          <div className= {cls(montserrat.className,"flex flex-col w-2/5" )}>
+          <div className= {cls(montserrat.className,"flex flex-col w-full mvID1:w-2/5 min-w-[349px] justify-center items-center" )}>
 
               {/* MOVIE SPECS */}
-              <div className="bg-blend-darken bg-black opacity-70 rounded-3xl w-1/2 p-4 pt-2">
+              <div className="bg-blend-darken bg-black opacity-70 rounded-3xl w-1/2 p-4 pt-2 min-w-[143px] flex flex-col items-between">
                                 {/* SPEC */}
                                 <div className='mt-2'>
-                    <div className="grid grid-cols-2 justify-items-stretch">
-                      <div className="grid col-span-1 justify-self-start"><p>Movie</p></div>
-                      <div className="grid col-span-1 justify-self-end">{movieFacts.title}</div>
+                    <div className="flex flex-row flex-wrap justify-between">
+                      <div className="font-semibold"><p>Movie</p></div>
+                      <div className="mb-3">{movieFacts.title}</div>
                   </div>
 
                 
@@ -239,9 +239,9 @@ isLoggedIn?
                 
                 {/* SPEC */}
                   <div className='mt-2'>
-                    <div className="grid grid-cols-2 justify-items-stretch">
-                      <div className="grid col-span-1 justify-self-start"><p>Run Time</p></div>
-                      <div className="grid col-span-1 justify-self-end">{(movieFacts.runtime / 60).toFixed(1)} HR</div>
+                    <div className="flex flex-row flex-wrap justify-between">
+                      <div className="font-semibold"><p>Run Time</p></div>
+                      <div className="mb-3">{(movieFacts.runtime / 60).toFixed(1)} HR</div>
 
                   </div>
 
@@ -249,9 +249,9 @@ isLoggedIn?
                 </div> {/* SPEC END*/}
                   {/* SPEC */}
                   <div className='mt-2'>
-                    <div className="grid grid-cols-2 justify-items-stretch">
-                      <div className="grid col-span-1 justify-self-start"><p>Release Date</p></div>
-                      <div className="grid col-span-1 justify-self-end">
+                    <div className="flex flex-row flex-wrap justify-between">
+                      <div className="font-semibold"><p>Release Date</p></div>
+                      <div className="mb-3">
                           <p> {dateStringToDate(movieFacts.release_date)} </p>
                         
                       </div>
@@ -260,9 +260,9 @@ isLoggedIn?
                 </div> {/* SPEC END*/}
                   {/* SPEC */}
                   <div className='mt-2'>
-                    <div className="grid grid-cols-2 justify-items-stretch">
-                      <div className="grid col-span-1 justify-self-start"><p>Revenue</p></div>
-                      <div className="grid col-span-1 justify-self-end">
+                    <div className="flex flex-row flex-wrap justify-between">
+                      <div className="font-semibold"><p>Revenue</p></div>
+                      <div className="mb-3">
                        ${numeral(movieFacts.revenue).format("0,0")}
                       </div>
                   </div>
@@ -270,76 +270,71 @@ isLoggedIn?
                 </div> {/* SPEC END*/}
                   {/* SPEC */}
                   <div className='mt-2'>
-                    <div className="grid grid-cols-2 justify-items-stretch">
-                      <div className="grid col-span-1 justify-self-start"><p>Profit</p></div>
-                      <div className="grid col-span-1 justify-self-end">
+                    <div className="flex flex-row flex-wrap justify-between">
+                      <div className="font-semibold"><p>Profit</p></div>
+                      <div className="mb-3">
                       ${numeral(movieFacts.revenue - movieFacts.budget).format( "0,0" )}
                       </div>
                   </div>
+            {/* RECEPTION AND RATINGS */}
 
                 </div> {/* SPEC END*/}
                   {/* SPEC */}
                   <div className='mt-2'>
-                    <div className="grid grid-cols-2 justify-items-stretch">
-                      <div className="grid col-span-1 justify-self-start"><p>Avg Rating</p></div>
-                      <div className="grid col-span-1 justify-self-end">{numeral(movieFacts.vote_average).format("0.0")} / 10</div>
+                    <div className="flex flex-row flex-wrap justify-between">
+                      <div className="font-semibold "><p>Avg Rating</p></div>
+                      <div className="mb-3 ">{numeral(movieFacts.vote_average).format("0.0")} / 10</div>
                   </div>
 
                 </div> {/* SPEC END*/}
                   {/* SPEC */}
                   <div className='mt-2'>
-                    <div className="grid grid-cols-2 justify-items-stretch">
-                      <div className="grid col-span-1 justify-self-start"><p>Votes</p></div>
-                      <div className="basis-1/2  flex flex-row justify-end text-right font-base mb-3">
+                    <div className="flex flex-row flex-wrap justify-between">
+                      <div className="font-semibold"><p>Votes</p></div>
+                      <div className="mb-3">
                       {numeral(movieFacts.vote_count).format( "0,0" )}
                       </div>
                   </div>
 
                 </div> 
 
-                                  {/* SPEC TEST*/}
-                                  {/* <div className='mt-2'>
-                    <div className="flex flex-row flex-wrap justify-around">
-                      <div ><p>Avg Rating</p></div>
-                      <div >{numeral(movieFacts.vote_average).format("0.0")} / 10</div>
-                  </div>
 
-                </div>  */}
-                {/* SPEC END TEST */}
+                  {/* SPEC */}
 
 
-                                                  {/* SPEC TEST*/}
+
                     <div className='mt-2'>
-                    <div className="grid grid-cols-2 justify-items-stretch">
-                      <div className="grid col-span-1 justify-self-start"><p>Avg Rating</p></div>
-                      <div className="grid col-span-1 justify-self-end">{numeral(movieFacts.vote_average).format("0.0")} / 10</div>
+                    <div className="flex flex-row flex-wrap justify-between">
+                      <div className="font-semibold"><p>TMDB Trend Score</p></div>
+                      <div className="mb-3"> {numeral(movieFacts.popularity).format("0.0")} / 100</div>
                   </div>
 
-                </div> {/* SPEC END TEST*/}
+                </div> 
                
+                  {/* SPEC END*/}
 
 
   
-            <br />
-            {/* RECEPTION AND RATINGS */}
-
-
-            <p> {" "} TMDB Trending Score: &emsp;{" "} {numeral(movieFacts.popularity).format("0.0")}{" "} </p>
-            {/* TODO: understand popularity definition */}
-            
-
             {/* PRODUCTION DETAILS */}
-            <p>
-              {" "}
-              Movie Budget: &emsp; ${numeral(movieFacts.budget).format(
-                "0,0"
-              )}{" "}
-            </p>
+
+                  {/* SPEC*/}
+
+            <div className='mt-2'>
+                    <div className="flex flex-row flex-wrap justify-between">
+                      <div className="font-semibold"><p>Movie Budget</p></div>
+                      <div className="mb-3"> {numeral(movieFacts.budget).format( "0,0" )}</div>
+                  </div>
+
+                </div> 
+                  {/* SPEC END*/}
+
+   
+
 
             <br />
 
             {/* ADDL RESOURCES */}
-            <p>
+            <p className="text-center" >
               <Link
                 href={movieFacts.homepage ? movieFacts.homepage : "DNE"}
                 className="underline text-blue-500 font-bold hover:text-2xl"
@@ -350,7 +345,9 @@ isLoggedIn?
                   : ""}
               </Link>
             </p>
-            <p>
+            <br/>
+            <p className="text-center" >
+            
               <Link
                 href={
                   movieFacts.imdb_id
@@ -366,13 +363,6 @@ isLoggedIn?
               </Link>
             </p>
             </div>
-            <br />
-            
-
-            
-
-
-            <br />
           </div>
           </div>
 
@@ -381,7 +371,9 @@ isLoggedIn?
         </div>
   </div>
 
-<div className=" lg:hidden" >
+{/* ***********************************************************MOBILE VIEW**************************************** */}
+
+{/* <div className=" lg:hidden" >
   <div className="relative min-h-[4vw] flex flex-col justify-center">
   <div className="flex flex-row justify-center items-center">
           <Link href="/filmography" className="text-center m-8 bg-slate-600 text-3xl text-white rounded-xl p-2 basis-full"> Return </Link>
@@ -397,14 +389,14 @@ isLoggedIn?
         className="-z-10 aspect-[16/9] min-h-screen"
         priority
       />                  
-  </div>
+  </div> */}
 
    {/* WRAPPER TO SET HIDE/SHOW status */}
-   <div className={cls(posterOnly, "flex flex-row flex-wrap justify-center w-screen") }>
+   {/* <div className={cls(posterOnly, "flex flex-row flex-wrap justify-center w-screen") }>
             <div className="flex flex-row justify-center">
 
           <div className="pr-24 pl-24 grid place-items-center ">
-            {/* MOVIE CONTENT */}
+            
           <div className="bg-blend-darken text-white bg-black opacity-70 rounded-3xl w-3/5 p-4 mb-4 ">
 
             <p> In {movieFacts.title}... </p>
@@ -421,9 +413,10 @@ isLoggedIn?
 
 
 
-          {/* END WRAPPER */}
-          </div>
-          </div>
+          
+          </div> */}
+          {/* </div>
+          </div> */}
 
     </>
   );
