@@ -210,13 +210,18 @@ const MovieId = ({ movieFacts }) => {
                 className="text-black text-center text-sm mvID2:text-base rounded h-8 w-8 mvID2:h-8 mvID2:w-12"
                 ref={reviewRef}
               ></input>
-              <button
+              {/* <button
                 className="ml-1 mvID4:ml-2 bg-white text-black  font-semibold text-xs mvID2:text-sm p-1 hover:bg-slate-800 hover:text-white "
                 onClick={handleUpdateClick}
               >
                 Update Review
+              </button> */}
+<button
+                className="ml-4 bg-white text-black font-semibold rounded"
+                onClick={handleUpdateClick}
+              >
+                Update Review
               </button>
-              
             </div>
             
               {
