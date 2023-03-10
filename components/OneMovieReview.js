@@ -104,7 +104,12 @@ const OneMovieReview = ({ userReview, audienceReview }) => {
           maintainAspectRatio: false,
           scales: {
             x: { grid: { display: false ,           
-            } },
+            } ,
+          ticks:{
+            font:16,
+            color:"white"
+          }
+          },
             y: {
               // min: 0,
               // max: 10,

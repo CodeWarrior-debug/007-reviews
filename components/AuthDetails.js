@@ -26,7 +26,7 @@ const AuthDetails = () => {
   const userSignOut = () => {
     signOut(auth)
       .then(() => {
-        localStorage.removeItem("userEmail");
+        localStorage.clear()
         console.log("sign out successful");
       })
       .catch((error) => console.log(error));

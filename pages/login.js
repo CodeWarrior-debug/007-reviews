@@ -2,7 +2,6 @@ import React from "react";
 import AuthDetails from "../components/AuthDetails";
 import SignIn from "../components/SignIn";
 import SignUp from "../components/SignUp";
-import "../styles/Login.module.css";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 
