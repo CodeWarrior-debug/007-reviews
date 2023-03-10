@@ -11,6 +11,7 @@ import { firebaseConfig } from "../../lib/db";
 var converter = require("number-to-words");
 import OneMovieReview from "../../components/OneMovieReview";
 import {Montserrat} from "@next/font/google"
+import Navbar from "../../components/Navbar"
 
 const montserrat = Montserrat({ style: "normal" }, { subsets: ["latin"] });
 
@@ -88,8 +89,10 @@ const MovieId = ({ movieFacts }) => {
   const handleViewClick = async () => {
     if (posterOnly === "hidden") {
       setPosterOnly("");
+      setPosterDisplayLabel("Hide Details")
     } else {
       setPosterOnly("hidden");
+      setPosterDisplayLabel("Show Details")
     }
   };
 
@@ -133,7 +136,7 @@ const MovieId = ({ movieFacts }) => {
 
   return (
     <>
-      
+      <Navbar className="bg-black z-20"/>
 
       <Image
         src={movie_w_backdrop_path}
