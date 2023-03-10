@@ -5,6 +5,9 @@ module.exports = {
   theme: {
     screens:{
       "mvID1":"875px",
+      "mvID2":"555px",
+      "mvID3":"455px",
+      "mvID4":"390px"
     },
     extend: {},
   },

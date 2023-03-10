@@ -152,9 +152,9 @@ const MovieId = ({ movieFacts }) => {
       <div className="text-white text-xl">
         
         <div className="grid place-items-center grid-cols-3 grid-flow-row ">
-          <Link href="/filmography" className="text-center m-8 col-span-1 bg-slate-600 text-3xl rounded-xl p-2"> Return Home </Link>
-          <h1 className={cls("text-5xl text-center m-8 col-span-1 font-extrabold bg-blend-darken bg-black opacity-70 rounded-3xl p-4 uppercase", montserrat.className)} > {movieFacts.title} </h1>
-          <button className="text-center m-8 col-span-1 bg-slate-600 text-3xl rounded-xl p-2" onClick={handleViewClick}> {posterDisplayLabel} </button>
+          <Link href="/filmography" className="text-center m-8 col-span-1 bg-slate-600 text-xs  mvID3:text-base mvID2:text-xl mvID1:text-3xl rounded-xl p-2"> Return Home </Link>
+          <h1 className={cls(" text-base m-2 mvID3:text-xl mvID2:text-3xl mvID1:text-5xl text-center mvID2:m-8 col-span-1 font-extrabold bg-blend-darken bg-black opacity-70 rounded-3xl p-2 mvID3:p-4 uppercase", montserrat.className)} > {movieFacts.title} </h1>
+          <button className="text-center m-8 col-span-1 bg-slate-600 text-xs  mvID3:text-base mvID2:text-xl mvID1:text-3xl rounded-xl p-2" onClick={handleViewClick}> {posterDisplayLabel} </button>
         </div>
 
 
@@ -165,7 +165,7 @@ const MovieId = ({ movieFacts }) => {
         <div className={cls(posterOnly, "flex flex-row flex-wrap justify-center w-screen") }>
             <div className="flex flex-row w-full mvID1:w-3/5">
 
-          <div className="pr-24 pl-24 grid place-items-center ">
+          <div className=" pr-8 pl-8 mvID3:pr-24 mvID3:pl-24 grid place-items-center ">
             {/* MOVIE CONTENT */}
           <div className="bg-blend-darken bg-black opacity-70 rounded-3xl w-4/5 p-4 mb-4">
 
@@ -184,7 +184,7 @@ const MovieId = ({ movieFacts }) => {
             />
           </div>
             <div className='mt-4 bg-blend-darken bg-[#252429] rounded p-2 mb-8 w-3/10'>
-              <label className="font-[600] mr-4 text-base">
+              <label className="font-[600] mr-4 text-sm mvID2:text-base">
                 Your Review = {review}
               </label>
               <input
@@ -193,11 +193,11 @@ const MovieId = ({ movieFacts }) => {
                 name="rating"
                 min="0"
                 max="10"
-                className="text-black text-center rounded"
+                className=" text-black text-center w-12 text-sm mvID2:text-base h-8 rounded mvID2:h-fit  mvID2:w-fit"
                 ref={reviewRef}
               ></input>
               <button
-                className="ml-4 bg-white text-black font-semibold text-base p-1 hover:bg-slate-400 hover:text-white rounded"
+                className="ml-4 bg-white text-black font-semibold text-base mvID2:text-base p-1 hover:bg-slate-400 hover:text-white rounded"
                 onClick={handleUpdateClick}
               >
                 Update Review
@@ -322,7 +322,7 @@ isLoggedIn?
             <div className='mt-2'>
                     <div className="flex flex-row flex-wrap justify-between">
                       <div className="font-semibold"><p>Movie Budget</p></div>
-                      <div className="mb-3"> {numeral(movieFacts.budget).format( "0,0" )}</div>
+                      <div className="mb-3"> ${numeral(movieFacts.budget).format( "0,0" )}</div>
                   </div>
 
                 </div> 
