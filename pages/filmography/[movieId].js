@@ -168,7 +168,7 @@ const MovieId = ({ movieFacts }) => {
 
           <div className=" pr-8 pl-8 mvID3:pr-24 mvID3:pl-24 grid place-items-center ">
             {/* MOVIE CONTENT */}
-          <div className="bg-blend-darken bg-black opacity-70 rounded-3xl w-4/5 p-4 ">
+          <div className="bg-blend-darken bg-black opacity-70 rounded-3xl w-4/5 p-4 mb-8">
 
             <p> In {movieFacts.title}... </p>
             <br/>
@@ -198,7 +198,7 @@ const MovieId = ({ movieFacts }) => {
             />
           </div>
             <div className='mt-4 bg-blend-darken bg-[#252429] rounded p-2 mb-8 w-3/10'>
-              <label className="font-[600] mr-4 text-sm mvID2:text-base">
+              <label className="font-[600] mr-1 mvID4:mr-2 text-xs mvID2:text-sm">
                 Your Review = {review}
               </label>
               <input
@@ -207,11 +207,12 @@ const MovieId = ({ movieFacts }) => {
                 name="rating"
                 min="0"
                 max="10"
-                className=" text-black text-center w-12 text-sm mvID2:text-base h-8 rounded mvID2:h-fit  mvID2:w-fit"
+                className=" text-black text-center text-sm mvID2:text-base rounded h-8 w-8 mvID2:h-8 mvID2:w-12"
                 ref={reviewRef}
               ></input>
               <button
-                className="ml-4 bg-white text-black font-semibold text-base mvID2:text-base p-1 hover:bg-slate-400 hover:text-white rounded"
+                // className="ml-1 mvID4:ml-4 bg-white text-black font-semibold  text-sm mvID2:text-base p-1 hover:bg-slate-400 hover:text-white h-fit w-fit"
+                className="ml-1 mvID4:ml-2 bg-white text-black   font-semibold  text-xs mvID2:text-sm p-1 hover:bg-slate-800 hover:text-white h-fit w-fit"
                 onClick={handleUpdateClick}
               >
                 Update Review
@@ -239,7 +240,7 @@ isLoggedIn?
             {/* IS this blocking the mobile view? */}
 
               {/* MOVIE SPECS */}
-              <div className="bg-blend-darken bg-black opacity-70 rounded-3xl w-1/2 p-4 pt-2 min-w-[143px] flex flex-col items-between">
+              <div className="bg-blend-darken bg-black opacity-70 rounded-3xl w-1/2 p-4 pt-2 min-w-[143px] flex flex-col mb-16 items-between">
             {/* IS this blocking the mobile view? */}
 
                                 {/* SPEC */}
