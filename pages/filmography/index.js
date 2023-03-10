@@ -9,10 +9,11 @@ export default function Filmography({ movies }) {
   return (
     <>
       <div className="bg-[#161616] text-white">
-        {/* <Link> */}
-        <div className=" sticky top-0 bg-[#161616] z-20">
+        
+          <div className=" sticky top-0 bg-[#161616] z-20">
 
-        <Navbar className="min-h-[10vh]" />
+          {/* <Navbar className="md:min-h-[5vh] lg:min-h-[10vh]" /> */}
+          <Navbar  />
         </div>
 
 

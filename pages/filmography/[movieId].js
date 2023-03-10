@@ -23,6 +23,7 @@ const MovieId = ({ movieFacts }) => {
   const [review, setReview] = useState("");
   const [myDatas, setMyDatas] = useState("");
   const [posterOnly, setPosterOnly] = useState("");
+  const [isLoggedIn,setIsLoggedIn]=useState(false)
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
   const reviewRef = useRef(null);
@@ -136,7 +137,7 @@ const MovieId = ({ movieFacts }) => {
 
   return (
     <>
-      <Navbar className="bg-black z-20"/>
+  <div className="relative">
 
       <Image
         src={movie_w_backdrop_path}
@@ -201,9 +202,16 @@ const MovieId = ({ movieFacts }) => {
               </button>
               
             </div>
+            
+              {
+isLoggedIn? 
             <div className='mt-4 bg-blend-darken bg-[#252429] rounded p-2 w-2/5'>
              <h3 className="font-[600] text-white text-base text-center">Reviews Will Save If Signed In. &emsp; &emsp;   <Link href="/login" className="underline"> SIGN IN </Link> </h3>
             </div>
+             
+             :
+             ""
+              }
             </div>
             </div>
 
@@ -349,6 +357,8 @@ const MovieId = ({ movieFacts }) => {
 
 
         </div>
+  </div>
+
     </>
   );
 };

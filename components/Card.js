@@ -14,7 +14,8 @@ export default function Card(props) {
   return (
     <>
       
-      <Link href={`./filmography/${movieId}`} key={movieId.toString()} className="bg-[rgb(176,176,176)] rounded-2xl hover:scale-105 hover:bg-[rgb(200,200,200)] aspect-[380/196] max-h-[11rem]">
+      <Link href={`./filmography/${movieId}`} 
+      key={movieId.toString()} className="bg-[rgb(176,176,176)] rounded-2xl hover:scale-105 hover:bg-[rgb(200,200,200)] aspect-[380/196] max-h-[11rem]">
       
         <div className="grid grid-cols-8 max-w-32 gap-2 rounded-md border-none  ">
 
@@ -24,9 +25,8 @@ export default function Card(props) {
               fill
               alt={title}
               className="bg-cover rounded-l-2xl min-h-[11rem] max-h-[11rem]"
-              // sizes="(max-width: 768px) 100vw,
-              // (max-width: 1200px) 50vw,
-              // 33vw"
+              sizes={100}
+
             />
           </div>
 
@@ -38,7 +38,6 @@ export default function Card(props) {
                 <div className="tracking-wider"> {release_date} </div>
                 <div className="tracking-wider"> {vote_average.toFixed(1)} ★ </div>
               </div>
-            {/* <p className={cls(redhatdisplay.className,"text-[rgb(80,80,80)] text-sm font-medium overflow-clip" )} */}
             <p className={cls(redhatdisplay.className,"overflow-clip text-[rgb(80,80,80)] h-28 text-sm leading-tight hover:overflow-y-auto p-2 pl-0" )}
             >
               {overview}
