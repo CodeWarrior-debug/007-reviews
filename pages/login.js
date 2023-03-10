@@ -2,7 +2,6 @@ import React from "react";
 import AuthDetails from "../components/AuthDetails";
 import SignIn from "../components/SignIn";
 import SignUp from "../components/SignUp";
-import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 
 const Login = () => {

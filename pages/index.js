@@ -57,7 +57,7 @@ export default function Home() {
             {/* NEXT IMAGE WITH WRAPPER BELOW */}
             <div className="h-[46rem] aspect-[2/3] relative ">
               {" "}
-              <Image src={poster} fill alt="Bond Collection Poster" priority className="rounded-2xl"/>
+              <Image src={poster} fill alt="Bond Collection Poster" priority className="rounded-2xl" sizes={100}/>
             </div>
             <p className="text-center leading-loose text-7xl font-thin uppercase">007 Reviews</p>
           </div>

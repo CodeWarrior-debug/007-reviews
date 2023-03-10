@@ -31,7 +31,6 @@ const MovieId = ({ movieFacts }) => {
 //reusable variables
   const baseURL = "https://image.tmdb.org/t/p/original";
   let movie_w_backdrop_path = baseURL + `${movieFacts.backdrop_path}`;
-  // let movie_w_poster_path = baseURL + `${movieFacts.poster_path}`;
 
   //converter for datestrings, current strings are YYYY-MM-DD
   const dateStringToDate = (dateString) => {
@@ -122,7 +121,6 @@ const MovieId = ({ movieFacts }) => {
       if (reviewNumber > 10 || reviewNumber < 0){
         
         return window.alert('Use a number equal to or between 0 and 10.')
-        // console.log(reviewNumber)
 
       }
 
@@ -138,13 +136,15 @@ const MovieId = ({ movieFacts }) => {
 
   return (
     <>
-  <div className="relative golden-bg -z-30 mvID2:bg-[#161616] mvID2:-z-20  ">
+  {/* <div className="relative golden-bg -z-30 mvID2:bg-[#161616] mvID2:-z-20  "> */}
+  <div className="relative golden-bg -z-20 mvID2:bg-[#161616] ">
   
 
       <Image
         src={movie_w_backdrop_path}
         fill
         alt="movie_backdrop_pic"
+        // className="hidden mvID2:block -z-10 aspect-[16/9] min-h-screen"
         className="hidden mvID2:block -z-10 aspect-[16/9] min-h-screen"
         priority
       />
@@ -207,12 +207,11 @@ const MovieId = ({ movieFacts }) => {
                 name="rating"
                 min="0"
                 max="10"
-                className=" text-black text-center text-sm mvID2:text-base rounded h-8 w-8 mvID2:h-8 mvID2:w-12"
+                className="text-black text-center text-sm mvID2:text-base rounded h-8 w-8 mvID2:h-8 mvID2:w-12"
                 ref={reviewRef}
               ></input>
               <button
-                // className="ml-1 mvID4:ml-4 bg-white text-black font-semibold  text-sm mvID2:text-base p-1 hover:bg-slate-400 hover:text-white h-fit w-fit"
-                className="ml-1 mvID4:ml-2 bg-white text-black   font-semibold  text-xs mvID2:text-sm p-1 hover:bg-slate-800 hover:text-white h-fit w-fit"
+                className="ml-1 mvID4:ml-2 bg-white text-black  font-semibold text-xs mvID2:text-sm p-1 hover:bg-slate-800 hover:text-white "
                 onClick={handleUpdateClick}
               >
                 Update Review
@@ -354,7 +353,7 @@ isLoggedIn?
             {/* ADDL RESOURCES */}
             <p className="text-center" >
               <Link
-                href={movieFacts.homepage ? movieFacts.homepage : "DNE"}
+                href={movieFacts.homepage ? movieFacts.homepage : ""}
                 className="underline text-blue-500 font-bold hover:text-2xl"
               >
                 {" "}

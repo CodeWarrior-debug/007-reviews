@@ -20,9 +20,9 @@ export default function MyApp({Component, pageProps}){
 
     
 
-        <main className={libre_franklin.className}>
+        {/* <main className={libre_franklin.className}> */}
           <Component {...pageProps} />
-        </main>
+        {/* </main> */}
 
 
     
