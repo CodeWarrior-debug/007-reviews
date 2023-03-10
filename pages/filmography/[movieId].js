@@ -138,14 +138,14 @@ const MovieId = ({ movieFacts }) => {
 
   return (
     <>
-  <div className="relative ">
-  {/* <div className="relative hidden lg:block"> */}
+  <div className="relative golden-bg -z-30 mvID2:bg-[#161616] mvID2:-z-20  ">
+  
 
       <Image
         src={movie_w_backdrop_path}
         fill
         alt="movie_backdrop_pic"
-        className="-z-10 aspect-[16/9] min-h-screen"
+        className="hidden mvID2:block -z-10 aspect-[16/9] min-h-screen"
         priority
       />
       
@@ -161,13 +161,14 @@ const MovieId = ({ movieFacts }) => {
         {/* SPACER */}
         <div className="h-[4vh]"></div>
 
+
         {/* WRAPPER TO SET HIDE/SHOW status */}
         <div className={cls(posterOnly, "flex flex-row flex-wrap justify-center w-screen") }>
             <div className="flex flex-row w-full mvID1:w-3/5">
 
           <div className=" pr-8 pl-8 mvID3:pr-24 mvID3:pl-24 grid place-items-center ">
             {/* MOVIE CONTENT */}
-          <div className="bg-blend-darken bg-black opacity-70 rounded-3xl w-4/5 p-4 mb-4">
+          <div className="bg-blend-darken bg-black opacity-70 rounded-3xl w-4/5 p-4 ">
 
             <p> In {movieFacts.title}... </p>
             <br/>
@@ -175,6 +176,19 @@ const MovieId = ({ movieFacts }) => {
             <br/>
             <p className=""> {movieFacts.overview} </p>
           </div>
+{/* IMAGE ON SMALL SCREENS */}
+  <div className="h-64 mvID2:hidden grid place-items-center"> 
+  <Image
+        src={movie_w_backdrop_path}
+        width={360}
+        height={640}
+        alt="movie_backdrop_pic_small"
+        className="mvID2:hidden aspect-[16/9] rounded-xl"
+        priority
+      />
+          </div>
+
+
             {/* Your Review Chart */}
             
           <div  className="bg-[#252429] rounded-2xl w-[85%] mvID1:w-[400px] mvID1:h-[200px]">
@@ -221,10 +235,13 @@ isLoggedIn?
           
 
 
-          <div className= {cls(montserrat.className,"flex flex-col w-full mvID1:w-2/5 min-w-[349px] justify-center items-center" )}>
+          <div className= {cls(montserrat.className,"flex flex-col w-full mvID1:w-2/5 mvID1:min-w-[349px] justify-center items-center" )}>
+            {/* IS this blocking the mobile view? */}
 
               {/* MOVIE SPECS */}
               <div className="bg-blend-darken bg-black opacity-70 rounded-3xl w-1/2 p-4 pt-2 min-w-[143px] flex flex-col items-between">
+            {/* IS this blocking the mobile view? */}
+
                                 {/* SPEC */}
                                 <div className='mt-2'>
                     <div className="flex flex-row flex-wrap justify-between">
@@ -371,52 +388,6 @@ isLoggedIn?
         </div>
   </div>
 
-{/* ***********************************************************MOBILE VIEW**************************************** */}
-
-{/* <div className=" lg:hidden" >
-  <div className="relative min-h-[4vw] flex flex-col justify-center">
-  <div className="flex flex-row justify-center items-center">
-          <Link href="/filmography" className="text-center m-8 bg-slate-600 text-3xl text-white rounded-xl p-2 basis-full"> Return </Link>
-          <h1 className={cls("text-5xl text-center m-8  font-extrabold bg-blend-darken text-white bg-black opacity-70 basis-full rounded-3xl p-4 uppercase", montserrat.className)} > {movieFacts.title} </h1>
-          <button className="text-center m-8  bg-slate-600 text-3xl rounded-xl p-2 basis-full text-white" onClick={handleViewClick}> {posterDisplayLabel} </button>
-        </div>
-
-
-    <Image
-        src={movie_w_backdrop_path}
-        fill
-        alt="movie_backdrop_pic"
-        className="-z-10 aspect-[16/9] min-h-screen"
-        priority
-      />                  
-  </div> */}
-
-   {/* WRAPPER TO SET HIDE/SHOW status */}
-   {/* <div className={cls(posterOnly, "flex flex-row flex-wrap justify-center w-screen") }>
-            <div className="flex flex-row justify-center">
-
-          <div className="pr-24 pl-24 grid place-items-center ">
-            
-          <div className="bg-blend-darken text-white bg-black opacity-70 rounded-3xl w-3/5 p-4 mb-4 ">
-
-            <p> In {movieFacts.title}... </p>
-            <br/>
-            <p> {movieFacts.tagline} </p>
-            <br/>
-            <p className=""> {movieFacts.overview} </p>
-          </div>
-          </div>
-          </div>
-
-
-
-
-
-
-          
-          </div> */}
-          {/* </div>
-          </div> */}
 
     </>
   );
