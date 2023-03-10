@@ -11,7 +11,7 @@ import { firebaseConfig } from "../../lib/db";
 var converter = require("number-to-words");
 import OneMovieReview from "../../components/OneMovieReview";
 import {Montserrat} from "@next/font/google"
-import Navbar from "../../components/Navbar"
+// import Navbar from "../../components/Navbar"
 
 const montserrat = Montserrat({ style: "normal" }, { subsets: ["latin"] });
 
@@ -79,13 +79,14 @@ const MovieId = ({ movieFacts }) => {
 
     if (localStorage.getItem("userEmail")){
       retrieveReview();
+      setIsLoggedIn(true)
 
       reviewRef.current.focus();
     }
 
 
 
-  }, [review]);
+  }, []);
 
   const handleViewClick = async () => {
     if (posterOnly === "hidden") {
@@ -143,7 +144,7 @@ const MovieId = ({ movieFacts }) => {
         src={movie_w_backdrop_path}
         fill
         alt="movie_backdrop_pic"
-        className="-z-10 aspect-[16/9] "
+        className="-z-10 aspect-[16/9] min-h-screen"
         priority
       />
       
@@ -205,12 +206,12 @@ const MovieId = ({ movieFacts }) => {
             
               {
 isLoggedIn? 
+             ""
+             :
             <div className='mt-4 bg-blend-darken bg-[#252429] rounded p-2 w-2/5'>
              <h3 className="font-[600] text-white text-base text-center">Reviews Will Save If Signed In. &emsp; &emsp;   <Link href="/login" className="underline"> SIGN IN </Link> </h3>
             </div>
              
-             :
-             ""
               }
             </div>
             </div>
@@ -347,7 +348,7 @@ isLoggedIn?
             <br />
             
 
-            {/* TODO: find place for poster */}
+            
 
 
             <br />
