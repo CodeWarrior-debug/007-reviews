@@ -136,9 +136,8 @@ const MovieId = ({ movieFacts }) => {
 return (
   <>
 
-<div className="relative golden-bg -z-20">
-{/* bg-black */}
-{/* bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 */}
+<div className="relative bg-black  ">
+
     <Image
       src={movie_w_backdrop_path}
       fill
