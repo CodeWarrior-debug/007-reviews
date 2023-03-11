@@ -219,7 +219,7 @@ const Infographics = ({ movies }) => {
         <div className="col-span-12 w-full grid grid-col place-items-center">
 
           <h3 className={cls(montserrat.className, "text-white text-center mvID3:hidden")} > Use Landscape On Smaller Devices </h3>
-          <h3 className={cls(montserrat.className, "text-white text-center mvID3:hidden mb-8")} > Hover/Touch Graphs For Details </h3>
+          <h3 className={cls(montserrat.className, "text-white text-center mb-8")} > Hover/Touch Graphs For Details </h3>
 
             <Bar options={optionsRatings} data={dataRatings} className="w-[80%] max-w-[1080px] mb-12"/>
             <Bar options={optionsVotes} data={dataVotes} className="w-[80%] max-w-[1080px] mb-12"/>
