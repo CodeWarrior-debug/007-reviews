@@ -27,7 +27,8 @@ export default function Card(props) {
               width={123}
               height={176}
               sizes="(max-width: 5160px) 20vw"
-
+              blur
+              // blurDataURL={poster_path}
             />
           </div>
 

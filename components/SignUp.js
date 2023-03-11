@@ -1,17 +1,17 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import {doc, setDoc, getFirestore,Timestamp} from "firebase/firestore"
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import {auth, firebaseConfig} from "../lib/db"
 import { useRouter } from "next/router";
-import { AuthContext } from "../lib/context";
+// import { AuthContext } from "../lib/context";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [authEmail, setAuthEmail] = useState("")
   const router = useRouter()
-  const user = useContext(AuthContext)
+  // const user = useContext(AuthContext)
 
   const signUp = async (e) => {
     e.preventDefault();
@@ -33,8 +33,11 @@ const SignUp = () => {
     
 
       const setUpUser = async () =>{
+  
+        e.preventDefault();
         const userRef = doc(db, 'users', email);
         await setDoc(userRef, { updated: Timestamp.fromDate(new Date()) }, { merge: true });
+        localStorage.setItem("userEmail", email);
         router.push('/filmography')
       }
 

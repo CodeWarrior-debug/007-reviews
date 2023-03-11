@@ -3,16 +3,14 @@ import Axios from "axios";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 
-
-
 export default function Filmography({ movies }) {
   return (
     <>
-      <div className="bg-[#161616] text-white">
+      <div className="bg-[#161616] text-white ">
         
-          <div className=" sticky top-0 bg-[#161616] z-20">
+          <div className=" sticky top-0 bg-[#161616] z-20 mb-8">
 
-          {/* <Navbar className="md:min-h-[5vh] lg:min-h-[10vh]" /> */}
+          
           <Navbar  />
         </div>
 
