@@ -22,10 +22,11 @@ export default function Card(props) {
           <div className="col-span-3 flex items-center shrink-0 relative">
             <Image
               src={poster_path}
-              fill
               alt={title}
               className="bg-cover rounded-l-2xl min-h-[11rem] max-h-[11rem]"
-              sizes={100}
+              width={123}
+              height={176}
+              sizes="(max-width: 5160px) 20vw"
 
             />
           </div>
