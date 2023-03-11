@@ -131,22 +131,24 @@ const MovieId = ({ movieFacts }) => {
     
     }
     await updateOneReview();
+};
 
+return (
+  <>
 
-    //*************************
-  };
+<div className="relative golden-bg -z-20">
+{/* bg-black */}
+{/* bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 */}
+    <Image
+      src={movie_w_backdrop_path}
+      fill
+      alt="movie_backdrop_pic"
+      className="hidden mvID2:block -z-10 aspect-[16/9] min-h-screen"
+      priority
+    />
 
-  return (
-    <>
-  <div className="relative ">
-  {/* <div className="relative hidden lg:block"> */}
-      <Image
-        src={movie_w_backdrop_path}
-        fill
-        alt="movie_backdrop_pic"
-        className="-z-10 aspect-[16/9] min-h-screen"
-        priority
-      />
+    
+
       <div className="text-white text-xl">  
  {/* DONE Works */}<div className="text-white text-xl">
         <div className="grid place-items-center grid-cols-3 grid-flow-row ">

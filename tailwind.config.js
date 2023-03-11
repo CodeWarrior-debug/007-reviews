@@ -9,7 +9,11 @@ module.exports = {
       "mvID3":"455px",
       "mvID4":"390px"
     },
-    extend: {},
+    extend: {
+      backgroundImage:{
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+      }
+    },
   },
   plugins: [],
 }
