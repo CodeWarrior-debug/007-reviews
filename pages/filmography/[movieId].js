@@ -139,9 +139,9 @@ return (
  
  
  
- {/* <div className="text-white text-xl mvID2:bg-transparent relative -z-20"> */}
- {/* <div className="text-white text-xl bg-[#161616] relative -z-20"> */}
- <div className="text-white text-xl bg-[#161616] ">
+ 
+ 
+ <div className="text-white text-xl relative bg-[#161616] mvID2:bg-transparent">
       <Image
       src={movie_w_backdrop_path}
       fill
@@ -379,8 +379,12 @@ isLoggedIn?
             </p>
         </div>
         </div>
-        <Footer/>
+        <div className="bg-blend-darken bg-black opacity-70 rounded-3xl p-2">
+
+        <Footer />
         </div>
+        </div>
+        
 
 
 {/* ENTER NEW STUFF ABOVE HERE */}
