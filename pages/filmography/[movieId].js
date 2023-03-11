@@ -12,7 +12,7 @@ import { firebaseConfig } from "../../lib/db";
 var converter = require("number-to-words");
 import OneMovieReview from "../../components/OneMovieReview";
 import {Montserrat} from "@next/font/google"
-// import Navbar from "../../components/Navbar"
+
 
 const montserrat = Montserrat({ style: "normal" }, { subsets: ["latin"] });
 
@@ -34,7 +34,7 @@ const MovieId = ({ movieFacts }) => {
   let movie_w_backdrop_path = baseURL + `${movieFacts.backdrop_path}`;
   // let movie_w_poster_path = baseURL + `${movieFacts.poster_path}`;
 
-  //converter for datestrings, current strings are YYYY-MM-DD
+  //reformat for datestrings, current strings are YYYY-MM-DD
   const dateStringToDate = (dateString) => {
     const yearStr = dateString.substr(0, 4);
     const mthStr = dateString.substr(5, 2);
@@ -133,7 +133,7 @@ const MovieId = ({ movieFacts }) => {
     }
     await updateOneReview();
 };
-
+// DISPLAY STARTS
 return (
   <>
  
