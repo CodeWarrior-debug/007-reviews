@@ -47,19 +47,19 @@ export default function Home() {
       </Head>
 
       <main className={cls(montserrat.className,"bg-[#161616] text-white h-full min-h-screen")} >
-        <div className="sticky top-0 bg-[#161616]">
+        <div className="sticky top-0 z-10 bg-[#161616]">
         <Navbar  />
         </div>
 
         <div className="min-h-[76vh] grid place-items-center">
-          <div>
-            <p className="text-center leading-loose text-7xl uppercase font-thin">James Bond</p>
+          <div className="flex flex-col items-center">
+            <p className="text-5xl text-center leading-loose md:text-7xl uppercase font-thin">James Bond</p>
             {/* NEXT IMAGE WITH WRAPPER BELOW */}
-            <div className="h-[46rem] aspect-[2/3] relative ">
+            <div className="h-[24rem] lg:h-[46rem] aspect-[2/3] relative flex flex-row justify-center">
               {" "}
               <Image src={poster} fill alt="Bond Collection Poster" priority className="rounded-2xl" sizes={100}/>
             </div>
-            <p className="text-center leading-loose text-7xl font-thin uppercase">007 Reviews</p>
+            <p className=" text-5xl text-center leading-loose md:text-7xl font-thin uppercase">007 Reviews</p>
           </div>
         </div>
 
