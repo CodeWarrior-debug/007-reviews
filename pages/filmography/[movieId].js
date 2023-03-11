@@ -379,7 +379,7 @@ isLoggedIn?
             </p>
         </div>
         </div>
-        <div className="bg-blend-darken bg-black opacity-70 rounded-3xl p-2">
+        <div className="bg-blend-darken bg-[#161616] opacity-70 rounded-3xl p-2 mb-8">
 
         <Footer />
         </div>

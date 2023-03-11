@@ -1,4 +1,3 @@
-import Link from "next/link"
 import cls from "classnames"
 import Footer from "../components/Footer";
 import React from "react";
@@ -204,25 +203,21 @@ const Infographics = ({ movies }) => {
   };
 
 
-
+// DISPLAY STARTS
   return (
       <>
-        <div className="bg-[#161616] p-12 h-full min-h-screen text-white grid grid-cols-12">
+        <div className="bg-[#161616] p-12 h-full min-h-screen w-full text-white grid grid-cols-12">
           <div className="col-span-12"> 
-          <Navbar/>
+          <Navbar className ="mb-8"/>
+          <h1 className={cls(montserrat.className, "text-5xl font-extrabold mt-8 mb-12 text-center")}  >007 INFOGRAPHICS</h1>
+
           </div>
           <div className="col-span-1"> 
           
           </div>
-        {/* <div className="grid place-items-center grid-cols-3 ">
-          <Link href="/filmography" className="text-center m-8 col-span-1 bg-slate-600 text-3xl rounded-xl p-2"> &lt; RETURN </Link>
-          <h1 className="text-5xl text-center m-8 col-span-1"> {movieFacts.title} </h1>
-          <button className="text-center m-8 col-span-1 bg-slate-600 text-3xl rounded-xl p-2" onClick={handleViewClick}> {posterDisplayLabel} </button>
-        </div> */}
 
         <div className="col-span-10">
 
-            <h1 className={cls(montserrat.className, "text-5xl font-extrabold mt-8 mb-12 text-center")}  >007 INFOGRAPHICS</h1>
 
             <div className="grid place-items-center grid-cols-4 ">
           
