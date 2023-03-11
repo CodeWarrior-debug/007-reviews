@@ -1,3 +1,4 @@
+import Footer from "../../components/Footer"
 import {format} from "date-fns"
 import cls from "classnames"
 import Link from "next/link";
@@ -135,33 +136,24 @@ const MovieId = ({ movieFacts }) => {
 
 return (
   <>
-
-{/* <div className="relative bg-black -z-20 "> */}
-
-    {/* <Image
+ 
+ 
+ 
+ {/* <div className="text-white text-xl mvID2:bg-transparent relative -z-20"> */}
+ <div className="text-white text-xl bg-[#161616] relative -z-20">
+      <Image
       src={movie_w_backdrop_path}
       fill
       alt="movie_backdrop_pic"
-      className="hidden mvID3:flex mvID2: -z-10 aspect-[16/9] min-h-screen"
+      className="hidden mvID2:flex -z-10 fixed top-0 left-0 aspect-[16/9] min-h-screen bg-[#161616]"
       priority
-    /> */}
-
-    
-
-      {/* <div className="text-white text-xl">   */}
- {/* DONE Works */}
- 
- 
- <div className="text-white text-xl">
-        <div className="grid place-items-center grid-cols-3 grid-flow-row ">
+    />
+        <div className="grid place-items-center grid-cols-3 grid-flow-row mb-16">
           <Link href="/filmography" className="text-center m-8 col-span-1 bg-slate-600 text-xs  mvID3:text-base mvID2:text-xl mvID1:text-3xl rounded-xl p-2"> Return Home </Link>
           <h1 className={cls(" text-base m-2 mvID3:text-xl mvID2:text-3xl mvID1:text-5xl text-center mvID2:m-8 col-span-1 font-extrabold bg-blend-darken bg-black opacity-70 rounded-3xl p-2 mvID3:p-4 uppercase", montserrat.className)} > {movieFacts.title} </h1>
           <button className="text-center m-8 col-span-1 bg-slate-600 text-xs  mvID3:text-base mvID2:text-xl mvID1:text-3xl rounded-xl p-2" onClick={handleViewClick}> {posterDisplayLabel} </button>
         </div>
-                {/* SPACER */}
-                <div className="h-[4vh]"></div> 
         
-                {/* keep spacer?? */}
 {/* WRAPPER TO SET HIDE/SHOW status */}
 <div className={cls(posterOnly, "flex flex-row flex-wrap justify-center w-screen") }>
 <div className="flex flex-row w-full mvID1:w-3/5">
@@ -199,9 +191,7 @@ return (
               audienceReview={parseFloat(movieFacts.vote_average)}
             />
           </div>
-          {/* <div className='mt-4 bg-blend-darken bg-[#252429] rounded p-2 mb-8 w-3/10'> */}
           <div className='mt-4 bg-blend-darken bg-[#252429] rounded p-2 mb-8 w-5/10'>
-              {/* <label className="font-[600] mr-1 mvID4:mr-2 text-xs mvID2:text-sm"> */}
               <label className="font-[600] mr-1 mvID4:mr-2 text-xs mvID2:text-sm">
                 Your Review = {review}
               </label>
@@ -212,11 +202,9 @@ return (
                 min="0"
                 max="10"
                 className=" text-black text-center  rounded h-12 w-24 "
-                // className=" text-black text-center text-sm mvID2:text-base rounded h-8 w-8 mvID2:h-8 mvID2:w-12"
                 ref={reviewRef}
               ></input>
               <div
-                // className="ml-1 mvID4:ml-4 bg-white text-black font-semibold  text-sm mvID2:text-base p-1 hover:bg-slate-400 hover:text-white h-fit w-fit"
                 className="ml-1 mvID4:ml-2 bg-white text-black z-60  font-semibold  text-xs mvID2:text-sm p-1 cursor-pointer hover:bg-slate-800 hover:text-white h-fit w-fit"
                 onClick={handleUpdateClick} 
               >
@@ -234,8 +222,8 @@ isLoggedIn?
             </div>
             
         }
-        </div>{/* Probably lands on line 230 */}
-</div> {/* Probably lands on line 231 */}
+        </div>
+</div> 
 
 
 
@@ -388,16 +376,16 @@ isLoggedIn?
                   : ""}{" "}
               </Link>
             </p>
-        </div>{/* Probably lands on line 385 */}
-        </div>{/* Probably lands on line 386 */}
-        </div>{/* Probably lands on line 387 */}
+        </div>
+        </div>
+        <Footer/>
+        </div>
 
 
 {/* ENTER NEW STUFF ABOVE HERE */}
-</div> {/* Probably lands on line 386-7 */}
-
+</div> 
 {/* </div> */}
-        {/* </div> */}
+
     </>
   );
 };

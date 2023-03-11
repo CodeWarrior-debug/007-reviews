@@ -21,7 +21,7 @@ export default function MyApp({Component, pageProps}){
 
     
 
-        <main className={cls(libre_franklin.className, "-z-30")}>
+        <main className={cls(libre_franklin.className)}>
           <Component className="z-0" {...pageProps} />
         </main>
 
