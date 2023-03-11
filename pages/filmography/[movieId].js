@@ -136,7 +136,7 @@ const MovieId = ({ movieFacts }) => {
 return (
   <>
 
-<div className="relative bg-black  ">
+<div className="relative bg-black -z-20 ">
 
     <Image
       src={movie_w_backdrop_path}
