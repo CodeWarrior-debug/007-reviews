@@ -140,7 +140,6 @@ const MovieId = ({ movieFacts }) => {
     <>
   <div className="relative ">
   {/* <div className="relative hidden lg:block"> */}
-
       <Image
         src={movie_w_backdrop_path}
         fill
@@ -148,7 +147,6 @@ const MovieId = ({ movieFacts }) => {
         className="-z-10 aspect-[16/9] min-h-screen"
         priority
       />
-      
       <div className="text-white text-xl">  
  {/* DONE Works */}<div className="text-white text-xl">
         <div className="grid place-items-center grid-cols-3 grid-flow-row ">
@@ -156,25 +154,25 @@ const MovieId = ({ movieFacts }) => {
           <h1 className={cls(" text-base m-2 mvID3:text-xl mvID2:text-3xl mvID1:text-5xl text-center mvID2:m-8 col-span-1 font-extrabold bg-blend-darken bg-black opacity-70 rounded-3xl p-2 mvID3:p-4 uppercase", montserrat.className)} > {movieFacts.title} </h1>
           <button className="text-center m-8 col-span-1 bg-slate-600 text-xs  mvID3:text-base mvID2:text-xl mvID1:text-3xl rounded-xl p-2" onClick={handleViewClick}> {posterDisplayLabel} </button>
         </div>
-        
                 {/* SPACER */}
                 <div className="h-[4vh]"></div> 
+        
                 {/* keep spacer?? */}
 {/* WRAPPER TO SET HIDE/SHOW status */}
 <div className={cls(posterOnly, "flex flex-row flex-wrap justify-center w-screen") }>
 <div className="flex flex-row w-full mvID1:w-3/5">
-<div className=" pr-8 pl-8 mvID3:pr-24 mvID3:pl-24 grid place-items-center ">
     
+<div className=" pr-8 pl-8 mvID3:pr-24 mvID3:pl-24 grid place-items-center ">
+            {/* MOVIE CONTENT */}
           <div className="bg-blend-darken bg-black opacity-70 rounded-3xl w-4/5 p-4 mb-8">
-
+          
             <p> In {movieFacts.title}... </p>
             <br/>
             <p> {movieFacts.tagline} </p>
             <br/>
             <p className=""> {movieFacts.overview} </p>
           </div>
-          
-          
+
           
           {/* IMAGE ON SMALL SCREENS */}
   <div className="h-64 mvID2:hidden grid place-items-center"> 
@@ -187,15 +185,16 @@ const MovieId = ({ movieFacts }) => {
         priority
       />
           </div>
+            
+
             {/* Your Review Chart */}
-            {/* WHY NOT UPDATING????? */}
+                
             <div  className="bg-[#252429] rounded-2xl w-[85%] mvID1:w-[400px] mvID1:h-[200px]">
             <OneMovieReview
               userReview={parseFloat(review)}
               audienceReview={parseFloat(movieFacts.vote_average)}
             />
           </div>
-
           <div className='mt-4 bg-blend-darken bg-[#252429] rounded p-2 mb-8 w-3/10'>
               <label className="font-[600] mr-1 mvID4:mr-2 text-xs mvID2:text-sm">
                 Your Review = {review}
@@ -218,6 +217,7 @@ const MovieId = ({ movieFacts }) => {
               </button>
               
             </div>
+
             {
 isLoggedIn? 
              ""
@@ -226,17 +226,16 @@ isLoggedIn?
              <h3 className="font-[600] text-white text-base text-center">Reviews Will Save If Signed In. &emsp; &emsp;   <Link href="/login" className="underline"> SIGN IN </Link> </h3>
             </div>
             
-            
         }
         </div>{/* Probably lands on line 230 */}
 </div> {/* Probably lands on line 231 */}
 
+
+
+
+
+
 <div className= {cls(montserrat.className,"flex flex-col w-full mvID1:w-2/5 mvID1:min-w-[349px] justify-center items-center" )}>   
-
-
-
-
-
 
 
 
@@ -385,10 +384,9 @@ isLoggedIn?
         </div>{/* Probably lands on line 385 */}
         </div>{/* Probably lands on line 386 */}
         </div>{/* Probably lands on line 387 */}
-{/* WHY IS REVIEW NOT LOADING???? */}
+
 
 {/* ENTER NEW STUFF ABOVE HERE */}
-        
 </div> {/* Probably lands on line 386-7 */}
 
 </div>
