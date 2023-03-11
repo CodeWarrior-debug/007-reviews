@@ -150,7 +150,7 @@ return (
       priority
     />
         <div className="grid place-items-center grid-cols-3 grid-flow-row mb-16">
-          <Link href="/filmography" className="text-center m-8 col-span-1 bg-slate-600 text-xs  mvID3:text-base mvID2:text-xl mvID1:text-3xl rounded-xl p-2"> Return Home </Link>
+          <Link href="/filmography" className="text-center m-8 col-span-1 bg-slate-600 text-xs  mvID3:text-base mvID2:text-xl mvID1:text-3xl rounded-xl p-2"> Films List </Link>
           <h1 className={cls(" text-base m-2 mvID3:text-xl mvID2:text-3xl mvID1:text-5xl text-center mvID2:m-8 col-span-1 font-extrabold bg-blend-darken bg-black opacity-70 rounded-3xl p-2 mvID3:p-4 uppercase", montserrat.className)} > {movieFacts.title} </h1>
           <button className="text-center m-8 col-span-1 bg-slate-600 text-xs  mvID3:text-base mvID2:text-xl mvID1:text-3xl rounded-xl p-2" onClick={handleViewClick}> {posterDisplayLabel} </button>
         </div>

@@ -54,14 +54,14 @@ const SignUp = () => {
           placeholder="Enter your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="border-2 border-slate-900 rounded p-2 m-4"
+          className="border-2 text-black border-slate-900 rounded p-2 m-4"
         ></input>
         <input
           type="password"
           placeholder="Enter your password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="border-2 border-slate-900 rounded p-2 m-4"
+          className="border-2 text-black border-slate-900 rounded p-2 m-4"
         ></input>
         <button type="submit" className="bg-slate-600 text-white h-11 rounded pl-4 pr-4 font-semibold m-2 ">Sign Up</button>
       </form>
