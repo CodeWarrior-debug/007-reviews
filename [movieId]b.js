@@ -174,6 +174,8 @@ return(
             <br/>
             <p className=""> {movieFacts.overview} </p>
           </div>
+
+          {/* DONE TO HERE 7.15 */}
 {/* IMAGE ON SMALL SCREENS */}
   <div className="h-64 mvID2:hidden grid place-items-center"> 
   <Image
@@ -235,6 +237,8 @@ isLoggedIn?
 
 
           <div className= {cls(montserrat.className,"flex flex-col w-full mvID1:w-2/5 mvID1:min-w-[349px] justify-center items-center" )}>
+            {/* DONE TO HERE 7.35 */}
+            
             {/* IS this blocking the mobile view? */}
 
               {/* MOVIE SPECS */}
@@ -348,7 +352,7 @@ isLoggedIn?
 
 
             <br />
-
+{/* DONE TO HERE 7.42 */}
             {/* ADDL RESOURCES */}
             <p className="text-center" >
               <Link
