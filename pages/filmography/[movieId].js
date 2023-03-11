@@ -140,7 +140,8 @@ return (
  
  
  {/* <div className="text-white text-xl mvID2:bg-transparent relative -z-20"> */}
- <div className="text-white text-xl bg-[#161616] relative -z-20">
+ {/* <div className="text-white text-xl bg-[#161616] relative -z-20"> */}
+ <div className="text-white text-xl bg-[#161616] ">
       <Image
       src={movie_w_backdrop_path}
       fill
@@ -191,7 +192,7 @@ return (
               audienceReview={parseFloat(movieFacts.vote_average)}
             />
           </div>
-          <div className='mt-4 bg-blend-darken bg-[#252429] rounded p-2 mb-8 w-5/10'>
+          <div className='mt-4 bg-blend-darken bg-[#252429] rounded p-2 mb-8 w-76 flex flex-row items-center'>
               <label className="font-[600] mr-1 mvID4:mr-2 text-xs mvID2:text-sm">
                 Your Review = {review}
               </label>
@@ -201,15 +202,15 @@ return (
                 name="rating"
                 min="0"
                 max="10"
-                className=" text-black text-center  rounded h-12 w-24 "
+                className=" text-black text-center text-sm font-semibold rounded h-6 w-10 "
                 ref={reviewRef}
               ></input>
-              <div
-                className="ml-1 mvID4:ml-2 bg-white text-black z-60  font-semibold  text-xs mvID2:text-sm p-1 cursor-pointer hover:bg-slate-800 hover:text-white h-fit w-fit"
+              <button
+                className="ml-1 mvID4:ml-2 bg-white text-black z-60  font-semibold  text-xs mvID2:text-sm p-1 cursor-pointer hover:bg-slate-800 hover:text-white rounded w-28"
                 onClick={handleUpdateClick} 
               >
                 Update Review
-              </div>
+              </button>
               
             </div>
 
