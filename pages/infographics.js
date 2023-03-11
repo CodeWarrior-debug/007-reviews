@@ -206,33 +206,31 @@ const Infographics = ({ movies }) => {
 // DISPLAY STARTS
   return (
       <>
-        <div className="bg-[#161616] p-12 h-full min-h-screen w-full text-white grid grid-cols-12">
+        <div className="bg-[#161616] p-12 h-full min-h-screen w-full text-white grid grid-cols-12 ">
           <div className="col-span-12"> 
           <Navbar className ="mb-8"/>
           <h1 className={cls(montserrat.className, "text-5xl font-extrabold mt-8 mb-12 text-center")}  >007 INFOGRAPHICS</h1>
 
           </div>
-          <div className="col-span-1"> 
+          <div className="col-span-0 "> 
           
           </div>
 
-        <div className="col-span-10">
+        <div className="col-span-12 w-full grid grid-col place-items-center">
 
+          <h3 className={cls(montserrat.className, "text-white text-center mvID3:hidden")} > Use Landscape On Smaller Devices </h3>
+          <h3 className={cls(montserrat.className, "text-white text-center mvID3:hidden mb-8")} > Hover/Touch Graphs For Details </h3>
 
-            <div className="grid place-items-center grid-cols-4 ">
-          
-        </div>
-
-            <Bar options={optionsRatings} data={dataRatings} className="max-h-80 mb-12"/>
-            <Bar options={optionsVotes} data={dataVotes} className="max-h-80 mb-12"/>
-            <Bar options={optionsPopularity} data={dataPopularity} className="max-h-80 mb-12"/>
+            <Bar options={optionsRatings} data={dataRatings} className="w-[80%] max-w-[1080px] mb-12"/>
+            <Bar options={optionsVotes} data={dataVotes} className="w-[80%] max-w-[1080px] mb-12"/>
+            <Bar options={optionsPopularity} data={dataPopularity} className="w-[80%] max-w-[1080px] mb-12"/>
 
             <Footer />
 
 
         </div>
 
-          <div className="col-span-1"></div>
+          <div className="col-span-0 "></div>
 
           
         
