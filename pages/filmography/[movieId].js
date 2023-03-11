@@ -151,15 +151,29 @@ const MovieId = ({ movieFacts }) => {
       
       <div className="text-white text-xl">
         
+ {/* DONE Works */}<div className="text-white text-xl">
+        
         <div className="grid place-items-center grid-cols-3 grid-flow-row ">
-          <Link href="/filmography" className="text-center m-8 col-span-1 bg-slate-600 text-3xl rounded-xl p-2"> Return Home </Link>
-          <h1 className={cls("text-5xl text-center m-8 col-span-1 font-extrabold bg-blend-darken bg-black opacity-70 rounded-3xl p-4 uppercase", montserrat.className)} > {movieFacts.title} </h1>
-          <button className="text-center m-8 col-span-1 bg-slate-600 text-3xl rounded-xl p-2" onClick={handleViewClick}> {posterDisplayLabel} </button>
+          <Link href="/filmography" className="text-center m-8 col-span-1 bg-slate-600 text-xs  mvID3:text-base mvID2:text-xl mvID1:text-3xl rounded-xl p-2"> Return Home </Link>
+          <h1 className={cls(" text-base m-2 mvID3:text-xl mvID2:text-3xl mvID1:text-5xl text-center mvID2:m-8 col-span-1 font-extrabold bg-blend-darken bg-black opacity-70 rounded-3xl p-2 mvID3:p-4 uppercase", montserrat.className)} > {movieFacts.title} </h1>
+          <button className="text-center m-8 col-span-1 bg-slate-600 text-xs  mvID3:text-base mvID2:text-xl mvID1:text-3xl rounded-xl p-2" onClick={handleViewClick}> {posterDisplayLabel} </button>
         </div>
+        
+                {/* SPACER */}
+                <div className="h-[4vh]"></div> 
+                {/* keep spacer?? */}
+{/* WRAPPER TO SET HIDE/SHOW status */}
+<div className={cls(posterOnly, "flex flex-row flex-wrap justify-center w-screen") }>
+<div className="flex flex-row w-full mvID1:w-3/5">
+
+</div> {/* Probably lands on line 281 */}
+{/* ENTER NEW STUFF ABOVE HERE */}
+
+        </div>{/* Probably lands on line 383 */}
+        </div>{/* Probably lands on line 387 */}
+        
 
 
-        {/* SPACER */}
-        <div className="h-[4vh]"></div>
 
         {/* WRAPPER TO SET HIDE/SHOW status */}
         <div className={cls(posterOnly, "flex flex-row flex-wrap justify-center w-screen") }>

@@ -135,9 +135,9 @@ const MovieId = ({ movieFacts }) => {
 
 return(
     <>
-  <div className="relative golden-bg -z-30 mvID2:bg-[#161616] mvID2:-z-20  ">
+    {/* TODO */}<div className="relative golden-bg -z-30 mvID2:bg-[#161616] mvID2:-z-20  ">
   
-<div className="relative">
+{/* TODO */} <div className="relative">
       <Image
         src={movie_w_backdrop_path}
         fill
@@ -149,11 +149,11 @@ return(
 
       <div className="text-white text-xl">
         
-        <div className="grid place-items-center grid-cols-3 grid-flow-row ">
+        {/* <div className="grid place-items-center grid-cols-3 grid-flow-row ">
           <Link href="/filmography" className="text-center m-8 col-span-1 bg-slate-600 text-xs  mvID3:text-base mvID2:text-xl mvID1:text-3xl rounded-xl p-2"> Return Home </Link>
           <h1 className={cls(" text-base m-2 mvID3:text-xl mvID2:text-3xl mvID1:text-5xl text-center mvID2:m-8 col-span-1 font-extrabold bg-blend-darken bg-black opacity-70 rounded-3xl p-2 mvID3:p-4 uppercase", montserrat.className)} > {movieFacts.title} </h1>
           <button className="text-center m-8 col-span-1 bg-slate-600 text-xs  mvID3:text-base mvID2:text-xl mvID1:text-3xl rounded-xl p-2" onClick={handleViewClick}> {posterDisplayLabel} </button>
-        </div>
+        </div> */}
 
 
         {/* SPACER */}
