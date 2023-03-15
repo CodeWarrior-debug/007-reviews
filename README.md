@@ -2,7 +2,7 @@
 
 # 
 
-<img src="https://github.com/CodeWarrior-debug/sandbox-linked/blob/main/otherRepoStorage/007-Reviews.gif?raw=true" width="300" height="200">
+<img src="https://github.com/CodeWarrior-debug/sandbox-linked/blob/main/otherRepoStorage/007-Reviews.gif?raw=true" width="1200" height="800">
 
 
 
