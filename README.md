@@ -1,10 +1,6 @@
-<!-- ![](https://github.com/CodeWarrior-debug/sandbox-linked/blob/main/otherRepoStorage/007-Reviews.gif?raw=true) -->
+## Desktop Click-Thru
 
-# 
-
-<img src="https://github.com/CodeWarrior-debug/sandbox-linked/blob/main/otherRepoStorage/007-Reviews.gif?raw=true" width="1244" height="700">
-
-
+<img src="https://github.com/CodeWarrior-debug/sandbox-linked/blob/main/otherRepoStorage/007-Reviews.gif?raw=true" width="1066" height="600">
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
