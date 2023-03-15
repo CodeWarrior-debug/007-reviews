@@ -1,6 +1,8 @@
 <!-- ![](https://github.com/CodeWarrior-debug/sandbox-linked/blob/main/otherRepoStorage/007-Reviews.gif?raw=true) -->
 
-# <img src="https://github.com/CodeWarrior-debug/sandbox-linked/blob/main/otherRepoStorage/007-Reviews.gif?raw=true" width="300px" height="200px"
+# 
+
+<img src="https://github.com/CodeWarrior-debug/sandbox-linked/blob/main/otherRepoStorage/007-Reviews.gif?raw=true" width="300" height="200">
 
 
 
