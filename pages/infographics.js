@@ -61,8 +61,8 @@ const Infographics = ({ movies }) => {
       datalabels:{
         color:"#fff",
         rotation:270,
-        align: 'end',
-        offset: '15'
+        align: 'center',
+        // offset: '15'
       },
       title: {
         display: true,
@@ -173,8 +173,8 @@ const Infographics = ({ movies }) => {
       datalabels:{
         color:"#fff",
         rotation:270,
-        align: 'end',
-        offset: '10'
+        align: 'center',
+        // offset: '10'
       },
       title: {
         display: true,
