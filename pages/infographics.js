@@ -215,9 +215,9 @@ const Infographics = ({ movies }) => {
 // DISPLAY STARTS
   return (
       <>
+          <Navbar className ="mb-8"/>
         <div className="bg-[#161616] p-12 h-full min-h-screen w-full text-white grid grid-cols-12 ">
           <div className="col-span-12"> 
-          <Navbar className ="mb-8"/>
           <h1 className={cls(montserrat.className, "text-2xl md:text-5xl font-extrabold mt-8 mb-12 text-center")}  >007 INFOGRAPHICS</h1>
 
           </div>
