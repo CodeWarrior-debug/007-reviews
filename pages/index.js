@@ -53,13 +53,13 @@ export default function Home() {
 
         <div className="min-h-[76vh] grid place-items-center">
           <div className="flex flex-col items-center">
-            <p className="text-5xl text-center leading-loose md:text-7xl uppercase font-thin">James Bond</p>
+            <p className="text-5xl text-center leading-loose md:text-7xl uppercase font-extrabold text-transparent bg-gradient-to-r bg-clip-text from-[#BF953F] via-[#FCF6ba] to-[#AA771c] ">James Bond</p>
             {/* NEXT IMAGE WITH WRAPPER BELOW */}
             <div className="h-[24rem] lg:h-[46rem] aspect-[2/3] relative flex flex-row justify-center">
               {" "}
               <Image src={poster} fill alt="Bond Collection Poster" priority className="rounded-2xl" sizes={100}/>
             </div>
-            <p className=" text-5xl text-center leading-loose md:text-7xl font-thin uppercase">007 Reviews</p>
+            <p className="text-5xl leading-loose text-center uppercase md:text-7xl font-extrabold text-transparent bg-gradient-to-r bg-clip-text from-[#BF953F] via-[#FCF6ba] to-[#AA771c]">007 Reviews</p>
           </div>
         </div>
 
