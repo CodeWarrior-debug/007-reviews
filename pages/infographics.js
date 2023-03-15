@@ -218,7 +218,7 @@ const Infographics = ({ movies }) => {
           <Navbar className ="mb-8"/>
         <div className="bg-[#161616] p-12 h-full min-h-screen w-full text-white grid grid-cols-12 ">
           <div className="col-span-12"> 
-          <h1 className={cls(montserrat.className, "text-2xl md:text-5xl font-extrabold mt-8 mb-12 text-center")}  >007 INFOGRAPHICS</h1>
+          <h1 className={cls(montserrat.className, "text-xl mvID4:text-4xl font-extrabold mt-8 mb-12 text-center")}  >007 INFOGRAPHICS</h1>
 
           </div>
           <div className="col-span-0 "> 
@@ -230,9 +230,9 @@ const Infographics = ({ movies }) => {
           <h3 className={cls(montserrat.className, "text-white text-center mb-2 mvID3:hidden animate-pulse")} > Use Landscape On Smaller Devices </h3>
           <h3 className={cls(montserrat.className, "text-white text-center mb-8 animate-pulse")} > Hover/Touch Graphs For Details </h3>
 
-            <Bar options={optionsRatings} data={dataRatings} className="w-[80%] max-w-[1080px] mb-12"/>
-            <Bar options={optionsVotes} data={dataVotes} className="w-[80%] max-w-[1080px] mb-12"/>
-            <Bar options={optionsPopularity} data={dataPopularity} className="w-[80%] max-w-[1080px] mb-12"/>
+            <Bar options={optionsRatings} data={dataRatings} className="w-[80%] max-h-[500px] max-w-[1040px] mb-12"/>
+            <Bar options={optionsVotes} data={dataVotes} className="w-[80%] max-w-[1040px] max-h-[500px] mb-12"/>
+            <Bar options={optionsPopularity} data={dataPopularity} className="w-[80%] max-w-[1040px] max-h-[500px] mb-12"/>
 
             <Footer />
 
