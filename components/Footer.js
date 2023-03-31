@@ -4,8 +4,8 @@ const Footer = () => {
   return (
     <>
     <br/>
-      <div className=" grid place-items-center ">
-        <p className=" text-center text-xl font-thin">
+      <div className="grid place-items-center">
+        <p className="text-xl font-thin text-center ">
           <Link
             target="_blank"
             href="https://icons8.com/icon/19532/007"
@@ -34,10 +34,13 @@ const Footer = () => {
 
           but is not endorsed or certified by{" "}
 
-          <Link target="_blank" href="https://www.themoviedb.org/" className="text-red-400 hover:font-extrabold" >
+          <Link target="_blank"  href="https://www.themoviedb.org/" className="text-red-400 hover:font-extrabold" >
             TMDB
           </Link>
+
+
           
+        <p>A  <Link  target="_blank" href="https://github.com/CodeWarrior-debug" className="text-blue-400 underline">CodeWarrior-debug</Link> production. View repository on  <Link  target="_blank" href="https://github.com/CodeWarrior-debug/007-reviews" className="text-blue-400 underline" >GitHub</Link> </p>
         </p>
 
       </div>
