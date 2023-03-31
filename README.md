@@ -1,5 +1,5 @@
 # 007-Reviews
-http://007-reviews.vercel.app/
+http://007-reviews.com
 
 ## Desktop Click-Thru
 
