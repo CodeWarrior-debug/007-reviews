@@ -4,6 +4,7 @@ import {Libre_Franklin} from '@next/font/google'
 import "tailwindcss/tailwind.css";
 import Head from 'next/head'
 import cls from 'classnames'
+import {Analytics} from '@vercel/analytics/react'
 
 
 
@@ -23,6 +24,7 @@ export default function MyApp({Component, pageProps}){
 
         <main className={cls(libre_franklin.className)}>
           <Component className="z-0" {...pageProps} />
+          <Analytics />
         </main>
 
 
