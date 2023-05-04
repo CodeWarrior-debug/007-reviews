@@ -106,6 +106,7 @@ const MovieId = ({ movieFacts }) => {
 
     //****************************
     setReview(reviewRef.current.value);
+    const dialog = document.querySelector("dialog")
     const collectionName = "users";
     const docID = localStorage.getItem("userEmail");
     const documentRef = doc(db, collectionName, docID);
@@ -119,10 +120,25 @@ const MovieId = ({ movieFacts }) => {
     const updateOneReview = async () =>
 
      { 
-      //validation condition
+      //validation condition  -  using new dialog element for modal - https://blog.webdevsimplified.com/2023-04/html-dialog/
       if (reviewNumber > 10 || reviewNumber < 0){
         
-        return window.alert('Use a number equal to or between 0 and 10.')
+        dialog.show()
+        setTimeout(function(){
+          dialog.close()
+        },3000)
+        // setTimeout(function(){
+        //   dialog.show()
+          
+        // },3000)
+
+        // setInterval(function(){
+        //   dialog.show()
+          
+        // },3000)
+        
+        // dialog.close()
+        // return window.alert('Use a number equal to or between 0 and 10.')
         // console.log(reviewNumber)
 
       }
@@ -137,7 +153,9 @@ const MovieId = ({ movieFacts }) => {
 return (
   <>
  
- 
+ <dialog>
+  <span> Use a number equal to or between 0 and 10.</span>
+ </dialog>
  
  
  
@@ -149,12 +167,12 @@ return (
       className="hidden mvID2:flex -z-10 fixed top-0 left-0 aspect-[16/9] min-h-screen bg-[#161616]"
       priority
     />
-        <div className="grid place-items-center grid-cols-3 grid-flow-row mb-16">
-          <Link href="/filmography" className="text-center m-8 col-span-1 bg-slate-600 text-xs  mvID3:text-base mvID2:text-xl mvID1:text-3xl rounded-xl p-2"> Films List </Link>
+        <div className="grid grid-flow-row grid-cols-3 mb-16 place-items-center">
+          <Link href="/filmography" className="col-span-1 p-2 m-8 text-xs text-center bg-slate-600 mvID3:text-base mvID2:text-xl mvID1:text-3xl rounded-xl"> Films List </Link>
           <h1 className={cls(" text-base m-2 mvID3:text-xl mvID2:text-3xl mvID1:text-5xl text-center mvID2:m-8 col-span-1 font-extrabold bg-blend-darken bg-black opacity-70 rounded-3xl p-2 mvID3:p-4 uppercase", montserrat.className)} > {movieFacts.title} </h1>
           
           <div className="col-span-1" >
-              <button className="hidden mvID2:block text-center m-8 bg-slate-600 text-xs  mvID3:text-base mvID2:text-xl mvID1:text-3xl rounded-xl p-2" onClick={handleViewClick}> {posterDisplayLabel} </button>
+              <button className="hidden p-2 m-8 text-xs text-center mvID2:block bg-slate-600 mvID3:text-base mvID2:text-xl mvID1:text-3xl rounded-xl" onClick={handleViewClick}> {posterDisplayLabel} </button>
           </div>
           </div>
         
@@ -163,9 +181,9 @@ return (
 <div className={cls(posterOnly, "flex flex-row flex-wrap justify-center w-screen") }>
 <div className="flex flex-row w-full mvID1:w-3/5">
     
-<div className=" pr-8 pl-8 mvID3:pr-24 mvID3:pl-24 grid place-items-center ">
+<div className="grid pl-8 pr-8 mvID3:pr-24 mvID3:pl-24 place-items-center">
             {/* MOVIE CONTENT */}
-          <div className="bg-blend-darken bg-black opacity-70 rounded-3xl w-4/5 p-4 mb-8">
+          <div className="w-4/5 p-4 mb-8 bg-black bg-blend-darken opacity-70 rounded-3xl">
           
             <p> In {movieFacts.title}... </p>
             <br/>
@@ -176,7 +194,7 @@ return (
 
           
           {/* IMAGE ON SMALL SCREENS */}
-  <div className="h-64 mvID2:hidden grid place-items-center"> 
+  <div className="grid h-64 mvID2:hidden place-items-center"> 
   <Image
         src={movie_w_backdrop_path}
         width={360}
@@ -206,11 +224,11 @@ return (
                 name="rating"
                 min="0"
                 max="10"
-                className=" text-black text-center text-sm font-semibold rounded h-6 w-10 "
+                className="w-10 h-6 text-sm font-semibold text-center text-black rounded "
                 ref={reviewRef}
               ></input>
               <button
-                className="ml-1 mvID4:ml-2 bg-white text-black z-60  font-semibold  text-xs mvID2:text-sm p-1 cursor-pointer hover:bg-slate-800 hover:text-white rounded w-28"
+                className="p-1 ml-1 text-xs font-semibold text-black bg-white rounded cursor-pointer mvID4:ml-2 z-60 mvID2:text-sm hover:bg-slate-800 hover:text-white w-28"
                 onClick={handleUpdateClick} 
               >
                 Update Review
@@ -356,7 +374,7 @@ isLoggedIn?
             <p className="text-center" >
               <Link
                 href={movieFacts.homepage ? movieFacts.homepage : "DNE"}
-                className="underline text-blue-500 font-bold hover:text-2xl"
+                className="font-bold text-blue-500 underline hover:text-2xl"
               >
                 {" "}
                 {movieFacts.homepage
@@ -373,7 +391,7 @@ isLoggedIn?
                     ? "https://www.imdb.com/title/" + movieFacts.imdb_id
                     : "/404"
                 }
-                className="underline text-green-500 font-bold hover:text-2xl"
+                className="font-bold text-green-500 underline hover:text-2xl"
               >
                 
                 {movieFacts.imdb_id

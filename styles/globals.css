@@ -7,9 +7,19 @@
 
 @layer components{
 
+  dialog {
+    z-index: 10;
+    margin-top: 10px;
+    background:rgb(0,255,0);
+    border: none;
+    border-radius: 1rem;
+    font-weight:bolder;
+    color:fuchsia;
+  }
 
-
-
+  dialog::backdrop {
+    background-color:rgb(0,255,0);
+  }
 
 
 }
