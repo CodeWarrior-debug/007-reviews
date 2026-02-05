@@ -5,11 +5,11 @@ import Axios from "axios";
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 import ChartDataLabels from "chartjs-plugin-datalabels";
-import { Montserrat } from "@next/font/google";
+import { Montserrat } from "next/font/google";
 import Navbar from "../components/Navbar"
 ChartJS.register(ChartDataLabels);
 
-const montserrat = Montserrat({style:"normal"},{subsets:"latin"})
+const montserrat = Montserrat({ style: "normal", subsets: ["latin"] })
 
 const Infographics = ({ movies }) => {
 

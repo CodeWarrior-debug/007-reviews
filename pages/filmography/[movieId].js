@@ -11,10 +11,10 @@ import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "../../lib/db";
 var converter = require("number-to-words");
 import OneMovieReview from "../../components/OneMovieReview";
-import {Montserrat} from "@next/font/google"
+import {Montserrat} from "next/font/google"
 
 
-const montserrat = Montserrat({ style: "normal" }, { subsets: ["latin"] });
+const montserrat = Montserrat({ style: "normal", subsets: ["latin"] });
 
 const MovieId = ({ movieFacts }) => {
 

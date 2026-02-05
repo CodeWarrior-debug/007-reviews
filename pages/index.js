@@ -5,10 +5,10 @@ import "tailwindcss/tailwind.css";
 import Footer from "../components/Footer";
 import Axios from "axios";
 import Image from "next/image";
-import { Montserrat } from "@next/font/google";
+import { Montserrat } from "next/font/google";
 import cls from 'classnames'
 
-const montserrat = Montserrat({ style: "normal" }, { subsets: ["latin"] });
+const montserrat = Montserrat({ style: "normal", subsets: ["latin"] });
 
 export default function Home() {
 

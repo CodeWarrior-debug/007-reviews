@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import {Red_Hat_Display, Plus_Jakarta_Sans} from "@next/font/google";
+import {Red_Hat_Display, Plus_Jakarta_Sans} from "next/font/google";
 import cls from "classnames"
 
-const redhatdisplay = Red_Hat_Display({ style: "normal" }, { subsets: ["latin"] });
-const plusjakartasans = Plus_Jakarta_Sans({ style: "normal" }, { subsets: ["latin"] });
+const redhatdisplay = Red_Hat_Display({ style: "normal", subsets: ["latin"] });
+const plusjakartasans = Plus_Jakarta_Sans({ style: "normal", subsets: ["latin"] });
 
 export default function Card(props) {
   const { movieId, title, overview, poster_path, release_date, vote_average} = props;
