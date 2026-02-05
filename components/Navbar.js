@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Montserrat } from "@next/font/google";
-const montserrat = Montserrat({ style: "normal" }, { subsets: ["latin"] });
+import { Montserrat } from "next/font/google";
+const montserrat = Montserrat({ style: "normal", subsets: ["latin"] });
 import cls from 'classnames'
 
 export default function Navbar() {

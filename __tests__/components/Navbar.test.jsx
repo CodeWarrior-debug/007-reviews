@@ -5,7 +5,7 @@ vi.mock('next/link', () => ({
   default: ({ children, href }) => <a href={href}>{children}</a>,
 }))
 
-vi.mock('@next/font/google', () => ({
+vi.mock('next/font/google', () => ({
   Montserrat: () => ({ className: 'mock-montserrat-font' }),
 }))
 
