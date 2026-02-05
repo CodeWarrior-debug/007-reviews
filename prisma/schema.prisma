@@ -7,25 +7,25 @@ datasource db {
   provider = "postgresql"
 }
 
-model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-  reviews   Review[]
+model Movie {
+  id          Int      @id @default(autoincrement())
+  tmdbId      Int      @unique @map("tmdb_id")
+  title       String
+  releaseDate DateTime @map("release_date")
+  runtime     Int
+  budget      BigInt   @default(0)
+  revenue     BigInt   @default(0)
+  voteAverage Float    @map("vote_average")
+  voteCount   Int      @map("vote_count")
+  popularity  Float
+  bondActor   String   @map("bond_actor")
+  posterPath  String?  @map("poster_path")
+  backdropPath String? @map("backdrop_path")
+  overview    String?
+  tagline     String?
+  imdbId      String?  @map("imdb_id")
+  homepage    String?
+  updatedAt   DateTime @updatedAt @map("updated_at")
 
-  @@map("users")
-}
-
-model Review {
-  id        Int      @id @default(autoincrement())
-  userId    Int      @map("user_id")
-  movieId   Int      @map("movie_id")
-  rating    Float
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, movieId])
-  @@map("reviews")
+  @@map("movies")
 }
