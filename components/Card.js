@@ -17,7 +17,7 @@ export default function Card(props) {
       <Link href={`./filmography/${movieId}`} 
       key={movieId.toString()} className="bg-[rgb(176,176,176)] rounded-2xl hover:scale-105 hover:bg-[rgb(200,200,200)] aspect-[380/196] max-h-[11rem]">
       
-        <div className="grid grid-cols-8 max-w-32 gap-2 rounded-md border-none  ">
+        <div className="grid grid-cols-8 min-w-[340px] gap-2 rounded-md border-none  ">
 
           <div className="col-span-3 flex items-center shrink-0 relative">
             <Image
