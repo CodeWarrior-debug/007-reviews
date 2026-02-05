@@ -1,3 +1,7 @@
 {
-  "buildCommand": "TURBOPACK=0 next build"
+  "functions": {
+    "**/*": {
+      "runtime": "nodejs24.x"
+    }
+  }
 }
