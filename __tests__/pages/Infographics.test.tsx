@@ -1,17 +1,47 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import React from 'react'
+import { describe, it, expect, vi, beforeEach, Mock } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import Axios from 'axios'
 
 vi.mock('axios')
+
+const mockedAxios = Axios as { get: Mock }
+
+interface ChartDataset {
+  label: string
+  data: (string | number)[]
+  backgroundColor: ((context: MockChartContext) => string | void) | string
+}
+
+interface ChartData {
+  labels: string[]
+  datasets: ChartDataset[]
+}
+
+interface ChartOptions {
+  plugins: {
+    title: {
+      text: string
+    }
+  }
+}
+
+interface MockChartContext {
+  chart: {
+    ctx: {
+      createLinearGradient?: ReturnType<typeof vi.fn>
+    }
+    chartArea: { right: number; left: number; bottom: number; top: number } | null
+  }
+}
 
 vi.mock('next/font/google', () => ({
   Montserrat: () => ({ className: 'mock-montserrat-font' }),
 }))
 
 vi.mock('react-chartjs-2', () => ({
-  Bar: ({ options, data, className }) => {
-    // Call backgroundColor callback to test gradient functions
-    const mockContext = {
+  Bar: ({ options, data, className }: { options: ChartOptions; data: ChartData; className: string }) => {
+    const mockContext: MockChartContext = {
       chart: {
         ctx: {
           createLinearGradient: vi.fn(() => ({
@@ -22,10 +52,8 @@ vi.mock('react-chartjs-2', () => ({
       },
     }
 
-    // Execute backgroundColor function if it exists
     if (typeof data.datasets[0].backgroundColor === 'function') {
       data.datasets[0].backgroundColor(mockContext)
-      // Also test with no chartArea to cover that branch
       data.datasets[0].backgroundColor({ chart: { ctx: {}, chartArea: null } })
     }
 
@@ -59,8 +87,16 @@ vi.mock('../../components/Footer', () => ({
 
 import Infographics, { getStaticProps } from '../../pages/infographics'
 
+interface Movie {
+  id: number
+  original_title: string
+  vote_average: number
+  vote_count: number
+  popularity: number
+}
+
 describe('Infographics Page', () => {
-  const mockMovies = [
+  const mockMovies: Movie[] = [
     {
       id: 1,
       original_title: 'Skyfall',
@@ -126,7 +162,7 @@ describe('Infographics Page', () => {
   it('should use movie titles as chart labels', () => {
     render(<Infographics movies={mockMovies} />)
     const labels = screen.getAllByTestId('chart-labels')
-    const parsedLabels = JSON.parse(labels[0].textContent)
+    const parsedLabels = JSON.parse(labels[0].textContent || '[]')
     expect(parsedLabels).toContain('Skyfall')
     expect(parsedLabels).toContain('Spectre')
     expect(parsedLabels).toContain('No Time to Die')
@@ -151,7 +187,7 @@ describe('Infographics Page', () => {
   it('should format vote averages to one decimal place', () => {
     render(<Infographics movies={mockMovies} />)
     const dataElements = screen.getAllByTestId('chart-data')
-    const ratingsData = JSON.parse(dataElements[0].textContent)
+    const ratingsData = JSON.parse(dataElements[0].textContent || '[]')
     expect(ratingsData).toContain('7.8')
     expect(ratingsData).toContain('6.8')
     expect(ratingsData).toContain('7.3')
@@ -160,7 +196,7 @@ describe('Infographics Page', () => {
   it('should display vote counts in votes chart', () => {
     render(<Infographics movies={mockMovies} />)
     const dataElements = screen.getAllByTestId('chart-data')
-    const votesData = JSON.parse(dataElements[1].textContent)
+    const votesData = JSON.parse(dataElements[1].textContent || '[]')
     expect(votesData).toContain(15000)
     expect(votesData).toContain(12000)
     expect(votesData).toContain(10000)
@@ -183,17 +219,17 @@ describe('getStaticProps', () => {
   })
 
   it('should fetch movies from TMDB API', async () => {
-    Axios.get.mockResolvedValue(mockApiResponse)
+    mockedAxios.get.mockResolvedValue(mockApiResponse)
 
     await getStaticProps()
 
-    expect(Axios.get).toHaveBeenCalledWith(
+    expect(mockedAxios.get).toHaveBeenCalledWith(
       expect.stringContaining('https://api.themoviedb.org/3/collection/')
     )
   })
 
   it('should return movies in props', async () => {
-    Axios.get.mockResolvedValue(mockApiResponse)
+    mockedAxios.get.mockResolvedValue(mockApiResponse)
 
     const result = await getStaticProps()
 
@@ -201,7 +237,7 @@ describe('getStaticProps', () => {
   })
 
   it('should set revalidate to 3600 seconds', async () => {
-    Axios.get.mockResolvedValue(mockApiResponse)
+    mockedAxios.get.mockResolvedValue(mockApiResponse)
 
     const result = await getStaticProps()
 
@@ -210,20 +246,20 @@ describe('getStaticProps', () => {
 
   it('should handle API errors gracefully', async () => {
     const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {})
-    Axios.get.mockRejectedValue(new Error('API Error'))
+    mockedAxios.get.mockRejectedValue(new Error('API Error'))
 
-    const result = await getStaticProps()
+    await getStaticProps()
 
     expect(consoleSpy).toHaveBeenCalled()
     consoleSpy.mockRestore()
   })
 
   it('should include API key in request', async () => {
-    Axios.get.mockResolvedValue(mockApiResponse)
+    mockedAxios.get.mockResolvedValue(mockApiResponse)
 
     await getStaticProps()
 
-    expect(Axios.get).toHaveBeenCalledWith(
+    expect(mockedAxios.get).toHaveBeenCalledWith(
       expect.stringContaining('api_key=')
     )
   })

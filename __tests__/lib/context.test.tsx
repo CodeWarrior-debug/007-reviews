@@ -1,7 +1,11 @@
 import { describe, it, expect } from 'vitest'
 import { renderHook, act } from '@testing-library/react'
-import { useContext, useState } from 'react'
+import React, { useContext, useState, ReactNode } from 'react'
 import { AuthContext } from '../../lib/context'
+
+interface WrapperProps {
+  children: ReactNode
+}
 
 describe('AuthContext', () => {
   it('should have correct default values', () => {
@@ -19,7 +23,7 @@ describe('AuthContext', () => {
   })
 
   it('should be usable with a custom provider', () => {
-    const wrapper = ({ children }) => {
+    const wrapper = ({ children }: WrapperProps) => {
       const [authEmail, setAuthEmail] = useState('custom@test.com')
       return (
         <AuthContext.Provider value={{ authEmail, setAuthEmail }}>
@@ -34,7 +38,7 @@ describe('AuthContext', () => {
   })
 
   it('should allow updating authEmail through provider', () => {
-    const wrapper = ({ children }) => {
+    const wrapper = ({ children }: WrapperProps) => {
       const [authEmail, setAuthEmail] = useState('')
       return (
         <AuthContext.Provider value={{ authEmail, setAuthEmail }}>

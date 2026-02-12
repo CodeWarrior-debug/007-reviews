@@ -1,12 +1,17 @@
+import React from 'react'
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 
 vi.mock('next/image', () => ({
-  default: ({ src, alt, ...props }) => <img src={src} alt={alt} {...props} />,
+  default: ({ src, alt, ...props }: { src: string; alt: string; [key: string]: unknown }) => (
+    <img src={src} alt={alt} {...props} />
+  ),
 }))
 
 vi.mock('next/link', () => ({
-  default: ({ children, href }) => <a href={href}>{children}</a>,
+  default: ({ children, href }: { children: React.ReactNode; href: string }) => (
+    <a href={href}>{children}</a>
+  ),
 }))
 
 vi.mock('next/font/google', () => ({
@@ -16,8 +21,17 @@ vi.mock('next/font/google', () => ({
 
 import Card from '../../components/Card'
 
+interface CardProps {
+  movieId: number
+  title: string
+  overview: string
+  poster_path: string
+  release_date: string
+  vote_average: number
+}
+
 describe('Card', () => {
-  const mockProps = {
+  const mockProps: CardProps = {
     movieId: 123,
     title: 'Skyfall',
     overview: 'James Bond investigates an attack on MI6.',

@@ -1,10 +1,30 @@
+import React from 'react'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen } from '@testing-library/react'
 
+interface ChartDataset {
+  label: string
+  data: (string | number)[]
+  backgroundColor: ((context: MockChartContext) => string | void) | string
+}
+
+interface ChartData {
+  labels: string[]
+  datasets: ChartDataset[]
+}
+
+interface MockChartContext {
+  chart: {
+    ctx: {
+      createLinearGradient?: ReturnType<typeof vi.fn>
+    }
+    chartArea: { right: number; left: number; bottom: number; top: number } | null
+  }
+}
+
 vi.mock('react-chartjs-2', () => ({
-  Bar: ({ data, options, id }) => {
-    // Call backgroundColor callback to test gradient function
-    const mockContext = {
+  Bar: ({ data, id }: { data: ChartData; options: unknown; id: string }) => {
+    const mockContext: MockChartContext = {
       chart: {
         ctx: {
           createLinearGradient: vi.fn(() => ({
@@ -15,10 +35,8 @@ vi.mock('react-chartjs-2', () => ({
       },
     }
 
-    // Execute backgroundColor function if it exists
     if (typeof data.datasets[0].backgroundColor === 'function') {
       data.datasets[0].backgroundColor(mockContext)
-      // Also test with no chartArea to cover that branch
       data.datasets[0].backgroundColor({ chart: { ctx: {}, chartArea: null } })
     }
 
@@ -61,7 +79,7 @@ describe('OneMovieReview', () => {
 
   it('should display correct labels', () => {
     render(<OneMovieReview userReview={7.5} audienceReview={8.0} />)
-    const labels = JSON.parse(screen.getByTestId('chart-labels').textContent)
+    const labels = JSON.parse(screen.getByTestId('chart-labels').textContent || '[]')
     expect(labels).toEqual(['Me', 'TMDB Audience', 'Differential'])
   })
 
@@ -72,26 +90,26 @@ describe('OneMovieReview', () => {
 
   it('should calculate differential correctly', () => {
     render(<OneMovieReview userReview={6.0} audienceReview={8.0} />)
-    const data = JSON.parse(screen.getByTestId('chart-data').textContent)
-    expect(parseFloat(data[2])).toBe(2.0) // |6.0 - 8.0| = 2.0
+    const data = JSON.parse(screen.getByTestId('chart-data').textContent || '[]')
+    expect(parseFloat(data[2])).toBe(2.0)
   })
 
   it('should handle equal reviews with zero differential', () => {
     render(<OneMovieReview userReview={7.5} audienceReview={7.5} />)
-    const data = JSON.parse(screen.getByTestId('chart-data').textContent)
+    const data = JSON.parse(screen.getByTestId('chart-data').textContent || '[]')
     expect(parseFloat(data[2])).toBe(0.0)
   })
 
   it('should format values to one decimal place', () => {
     render(<OneMovieReview userReview={7.333} audienceReview={8.666} />)
-    const data = JSON.parse(screen.getByTestId('chart-data').textContent)
+    const data = JSON.parse(screen.getByTestId('chart-data').textContent || '[]')
     expect(data[0]).toBe('7.3')
     expect(data[1]).toBe('8.7')
   })
 
   it('should handle user review higher than audience', () => {
     render(<OneMovieReview userReview={9.0} audienceReview={7.0} />)
-    const data = JSON.parse(screen.getByTestId('chart-data').textContent)
-    expect(parseFloat(data[2])).toBe(2.0) // absolute value
+    const data = JSON.parse(screen.getByTestId('chart-data').textContent || '[]')
+    expect(parseFloat(data[2])).toBe(2.0)
   })
 })

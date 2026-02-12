@@ -1,3 +1,4 @@
+import React from 'react'
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 
@@ -5,7 +6,7 @@ const mockSignOut = vi.fn(() => Promise.resolve())
 const mockOnAuthStateChanged = vi.fn()
 
 vi.mock('firebase/auth', () => ({
-  onAuthStateChanged: (...args) => mockOnAuthStateChanged(...args),
+  onAuthStateChanged: (...args: unknown[]) => mockOnAuthStateChanged(...args),
   signOut: () => mockSignOut(),
 }))
 
@@ -26,7 +27,7 @@ describe('AuthDetails', () => {
   })
 
   it('should show signed out state when no user', async () => {
-    mockOnAuthStateChanged.mockImplementation((auth, callback) => {
+    mockOnAuthStateChanged.mockImplementation((auth: unknown, callback: (user: null) => void) => {
       callback(null)
       return vi.fn()
     })
@@ -37,7 +38,7 @@ describe('AuthDetails', () => {
   })
 
   it('should show user email when signed in', async () => {
-    mockOnAuthStateChanged.mockImplementation((auth, callback) => {
+    mockOnAuthStateChanged.mockImplementation((auth: unknown, callback: (user: { email: string }) => void) => {
       callback({ email: 'test@example.com' })
       return vi.fn()
     })
@@ -50,7 +51,7 @@ describe('AuthDetails', () => {
   })
 
   it('should render sign out button when user is authenticated', async () => {
-    mockOnAuthStateChanged.mockImplementation((auth, callback) => {
+    mockOnAuthStateChanged.mockImplementation((auth: unknown, callback: (user: { email: string }) => void) => {
       callback({ email: 'test@example.com' })
       return vi.fn()
     })
@@ -63,7 +64,7 @@ describe('AuthDetails', () => {
   })
 
   it('should call signOut when sign out button is clicked', async () => {
-    mockOnAuthStateChanged.mockImplementation((auth, callback) => {
+    mockOnAuthStateChanged.mockImplementation((auth: unknown, callback: (user: { email: string }) => void) => {
       callback({ email: 'test@example.com' })
       return vi.fn()
     })
@@ -80,7 +81,7 @@ describe('AuthDetails', () => {
   })
 
   it('should not show sign out button when signed out', async () => {
-    mockOnAuthStateChanged.mockImplementation((auth, callback) => {
+    mockOnAuthStateChanged.mockImplementation((auth: unknown, callback: (user: null) => void) => {
       callback(null)
       return vi.fn()
     })

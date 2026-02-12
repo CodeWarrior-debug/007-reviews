@@ -1,12 +1,13 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import React from 'react'
+import { describe, it, expect, vi, beforeEach, Mock } from 'vitest'
 import { render, screen, waitFor } from '@testing-library/react'
 
 vi.mock('next/head', () => ({
-  default: ({ children }) => <>{children}</>,
+  default: ({ children }: { children: React.ReactNode }) => <>{children}</>,
 }))
 
 vi.mock('next/image', () => ({
-  default: ({ src, alt, fill, priority, ...props }) => (
+  default: ({ src, alt, fill, priority, ...props }: { src: string; alt: string; fill?: boolean; priority?: boolean; [key: string]: unknown }) => (
     <img src={src} alt={alt} data-fill={fill} data-priority={priority} {...props} />
   ),
 }))
@@ -32,10 +33,12 @@ vi.mock('../../components/Footer', () => ({
 import Home from '../../pages/index'
 import Axios from 'axios'
 
+const mockedAxios = Axios as { get: Mock }
+
 describe('Home Page', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    Axios.get.mockResolvedValue({
+    mockedAxios.get.mockResolvedValue({
       data: { poster_path: '/test-poster.jpg' },
     })
   })
@@ -71,7 +74,7 @@ describe('Home Page', () => {
   it('should fetch poster from TMDB API on mount', async () => {
     render(<Home />)
     await waitFor(() => {
-      expect(Axios.get).toHaveBeenCalled()
+      expect(mockedAxios.get).toHaveBeenCalled()
     })
   })
 

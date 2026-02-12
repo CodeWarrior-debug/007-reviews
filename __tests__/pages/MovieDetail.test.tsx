@@ -1,17 +1,20 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import React from 'react'
+import { describe, it, expect, vi, beforeEach, Mock } from 'vitest'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import Axios from 'axios'
 
 vi.mock('axios')
 
+const mockedAxios = Axios as { get: Mock }
+
 vi.mock('next/image', () => ({
-  default: ({ src, alt, fill, priority, ...props }) => (
+  default: ({ src, alt, fill, priority, ...props }: { src: string; alt: string; fill?: boolean; priority?: boolean; [key: string]: unknown }) => (
     <img src={src} alt={alt} data-fill={fill} data-priority={priority} {...props} />
   ),
 }))
 
 vi.mock('next/link', () => ({
-  default: ({ children, href }) => <a href={href}>{children}</a>,
+  default: ({ children, href }: { children: React.ReactNode; href: string }) => <a href={href}>{children}</a>,
 }))
 
 vi.mock('next/font/google', () => ({
@@ -38,7 +41,7 @@ vi.mock('../../components/Footer', () => ({
 }))
 
 vi.mock('../../components/OneMovieReview', () => ({
-  default: ({ userReview, audienceReview }) => (
+  default: ({ userReview, audienceReview }: { userReview: number; audienceReview: number }) => (
     <div data-testid="review-chart">
       User: {userReview}, Audience: {audienceReview}
     </div>
@@ -47,8 +50,26 @@ vi.mock('../../components/OneMovieReview', () => ({
 
 import MovieId, { getStaticProps, getStaticPaths } from '../../pages/filmography/[movieId]'
 
+interface MovieFacts {
+  id: number
+  title: string
+  tagline: string
+  overview: string
+  backdrop_path: string
+  poster_path: string
+  release_date: string
+  runtime: number
+  revenue: number
+  budget: number
+  vote_average: number
+  vote_count: number
+  popularity: number
+  homepage: string | null
+  imdb_id: string | null
+}
+
 describe('MovieDetail Page', () => {
-  const mockMovieFacts = {
+  const mockMovieFacts: MovieFacts = {
     id: 37724,
     title: 'Skyfall',
     tagline: 'Think on your sins.',
@@ -218,7 +239,7 @@ describe('MovieDetail Page', () => {
 
   it('should show validation dialog for invalid review value > 10', async () => {
     const { container } = render(<MovieId movieFacts={mockMovieFacts} />)
-    const dialog = container.querySelector('dialog')
+    const dialog = container.querySelector('dialog') as HTMLDialogElement
     const input = screen.getByRole('spinbutton')
     const button = screen.getByRole('button', { name: 'Update Review' })
 
@@ -235,7 +256,7 @@ describe('MovieDetail Page', () => {
 
   it('should show validation dialog for invalid review value < 0', async () => {
     const { container } = render(<MovieId movieFacts={mockMovieFacts} />)
-    const dialog = container.querySelector('dialog')
+    const dialog = container.querySelector('dialog') as HTMLDialogElement
     const input = screen.getByRole('spinbutton')
     const button = screen.getByRole('button', { name: 'Update Review' })
 
@@ -284,17 +305,17 @@ describe('getStaticPaths', () => {
   })
 
   it('should fetch movie collection from TMDB API', async () => {
-    Axios.get.mockResolvedValue(mockCollectionResponse)
+    mockedAxios.get.mockResolvedValue(mockCollectionResponse)
 
     await getStaticPaths()
 
-    expect(Axios.get).toHaveBeenCalledWith(
+    expect(mockedAxios.get).toHaveBeenCalledWith(
       expect.stringContaining('https://api.themoviedb.org/3/collection/')
     )
   })
 
   it('should return paths for all movies', async () => {
-    Axios.get.mockResolvedValue(mockCollectionResponse)
+    mockedAxios.get.mockResolvedValue(mockCollectionResponse)
 
     const result = await getStaticPaths()
 
@@ -305,7 +326,7 @@ describe('getStaticPaths', () => {
   })
 
   it('should set fallback to blocking', async () => {
-    Axios.get.mockResolvedValue(mockCollectionResponse)
+    mockedAxios.get.mockResolvedValue(mockCollectionResponse)
 
     const result = await getStaticPaths()
 
@@ -314,7 +335,7 @@ describe('getStaticPaths', () => {
 
   it('should handle API errors', async () => {
     const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {})
-    Axios.get.mockRejectedValue(new Error('API Error'))
+    mockedAxios.get.mockRejectedValue(new Error('API Error'))
 
     try {
       await getStaticPaths()
@@ -349,17 +370,17 @@ describe('getStaticProps', () => {
   })
 
   it('should fetch movie details from TMDB API', async () => {
-    Axios.get.mockResolvedValue(mockMovieResponse)
+    mockedAxios.get.mockResolvedValue(mockMovieResponse)
 
     await getStaticProps({ params: { movieId: '37724' } })
 
-    expect(Axios.get).toHaveBeenCalledWith(
+    expect(mockedAxios.get).toHaveBeenCalledWith(
       expect.stringContaining('https://api.themoviedb.org/3/movie/37724')
     )
   })
 
   it('should return movie facts in props', async () => {
-    Axios.get.mockResolvedValue(mockMovieResponse)
+    mockedAxios.get.mockResolvedValue(mockMovieResponse)
 
     const result = await getStaticProps({ params: { movieId: '37724' } })
 
@@ -367,7 +388,7 @@ describe('getStaticProps', () => {
   })
 
   it('should set revalidate to 3600 seconds', async () => {
-    Axios.get.mockResolvedValue(mockMovieResponse)
+    mockedAxios.get.mockResolvedValue(mockMovieResponse)
 
     const result = await getStaticProps({ params: { movieId: '37724' } })
 
@@ -375,20 +396,20 @@ describe('getStaticProps', () => {
   })
 
   it('should use movieId from params', async () => {
-    Axios.get.mockResolvedValue(mockMovieResponse)
+    mockedAxios.get.mockResolvedValue(mockMovieResponse)
 
     await getStaticProps({ params: { movieId: '206647' } })
 
-    expect(Axios.get).toHaveBeenCalledWith(
+    expect(mockedAxios.get).toHaveBeenCalledWith(
       expect.stringContaining('/206647')
     )
   })
 
   it('should handle API errors gracefully', async () => {
     const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {})
-    Axios.get.mockRejectedValue(new Error('API Error'))
+    mockedAxios.get.mockRejectedValue(new Error('API Error'))
 
-    const result = await getStaticProps({ params: { movieId: '37724' } })
+    await getStaticProps({ params: { movieId: '37724' } })
 
     expect(consoleSpy).toHaveBeenCalled()
     consoleSpy.mockRestore()

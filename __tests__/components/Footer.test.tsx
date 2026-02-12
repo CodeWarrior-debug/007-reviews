@@ -1,8 +1,9 @@
+import React from 'react'
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 
 vi.mock('next/link', () => ({
-  default: ({ children, href, target }) => (
+  default: ({ children, href, target }: { children: React.ReactNode; href: string; target?: string }) => (
     <a href={href} target={target}>{children}</a>
   ),
 }))
