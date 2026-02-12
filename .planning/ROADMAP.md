@@ -32,10 +32,12 @@ Decimal phases appear between their surrounding integers in numeric order.
   4. Home page poster fetch uses proper async/await pattern without anti-patterns
   5. Review input focus management works correctly without focusing on every state update
   6. Auth errors (sign in/sign up failures) display user-friendly messages instead of silent console logging
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] TBD
+- [ ] 01-01-PLAN.md — Security foundation (credentials, env validation, external links)
+- [ ] 01-02-PLAN.md — Code quality fixes (async pattern, focus management)
+- [ ] 01-03-PLAN.md — Auth error handling (surface errors to users)
 
 ### Phase 2: User Experience & Validation
 **Goal**: Add user feedback mechanisms, input validation, and essential UX improvements
@@ -117,7 +119,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Critical Security & Quick Fixes | 0/TBD | Not started | - |
+| 1. Critical Security & Quick Fixes | 0/3 | Ready to execute | - |
 | 2. User Experience & Validation | 0/TBD | Not started | - |
 | 3. Foundation Consolidation | 0/TBD | Not started | - |
 | 4. Error Resilience | 0/TBD | Not started | - |
