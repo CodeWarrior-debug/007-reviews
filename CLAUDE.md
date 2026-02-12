@@ -15,7 +15,7 @@ Planning docs live in `.planning/`. Use `/gsd:progress` to check current state o
 - TMDB API for movie data
 - Chart.js for rating visualizations
 - Tailwind CSS for styling
-- Jest + React Testing Library for tests
+- Vitest + React Testing Library for tests
 
 ## Key Decisions
 
