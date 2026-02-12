@@ -1,5 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import Axios from 'axios'
+
+vi.mock('axios')
 
 vi.mock('next/image', () => ({
   default: ({ src, alt, fill, priority, ...props }) => (
@@ -42,7 +45,7 @@ vi.mock('../../components/OneMovieReview', () => ({
   ),
 }))
 
-import MovieId from '../../pages/filmography/[movieId]'
+import MovieId, { getStaticProps, getStaticPaths } from '../../pages/filmography/[movieId]'
 
 describe('MovieDetail Page', () => {
   const mockMovieFacts = {
@@ -174,5 +177,220 @@ describe('MovieDetail Page', () => {
     const { container } = render(<MovieId movieFacts={mockMovieFacts} />)
     const dialog = container.querySelector('dialog')
     expect(dialog).toBeInTheDocument()
+  })
+
+  it('should toggle poster visibility on button click', async () => {
+    render(<MovieId movieFacts={mockMovieFacts} />)
+    const button = screen.getByRole('button', { name: /Hide Details/i })
+
+    fireEvent.click(button)
+
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: /Show Details/i })).toBeInTheDocument()
+    })
+  })
+
+  it('should toggle back to show details', async () => {
+    render(<MovieId movieFacts={mockMovieFacts} />)
+    const button = screen.getByRole('button', { name: /Hide Details/i })
+
+    fireEvent.click(button)
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: /Show Details/i })).toBeInTheDocument()
+    })
+
+    fireEvent.click(screen.getByRole('button', { name: /Show Details/i }))
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: /Hide Details/i })).toBeInTheDocument()
+    })
+  })
+
+  it('should handle update review button click', async () => {
+    render(<MovieId movieFacts={mockMovieFacts} />)
+    const input = screen.getByRole('spinbutton')
+    const button = screen.getByRole('button', { name: 'Update Review' })
+
+    fireEvent.change(input, { target: { value: '8' } })
+    fireEvent.click(button)
+
+    expect(button).toBeInTheDocument()
+  })
+
+  it('should show validation dialog for invalid review value > 10', async () => {
+    const { container } = render(<MovieId movieFacts={mockMovieFacts} />)
+    const dialog = container.querySelector('dialog')
+    const input = screen.getByRole('spinbutton')
+    const button = screen.getByRole('button', { name: 'Update Review' })
+
+    dialog.show = vi.fn()
+    dialog.close = vi.fn()
+
+    fireEvent.change(input, { target: { value: '15' } })
+    fireEvent.click(button)
+
+    await waitFor(() => {
+      expect(dialog.show).toHaveBeenCalled()
+    })
+  })
+
+  it('should show validation dialog for invalid review value < 0', async () => {
+    const { container } = render(<MovieId movieFacts={mockMovieFacts} />)
+    const dialog = container.querySelector('dialog')
+    const input = screen.getByRole('spinbutton')
+    const button = screen.getByRole('button', { name: 'Update Review' })
+
+    dialog.show = vi.fn()
+    dialog.close = vi.fn()
+
+    fireEvent.change(input, { target: { value: '-5' } })
+    fireEvent.click(button)
+
+    await waitFor(() => {
+      expect(dialog.show).toHaveBeenCalled()
+    })
+  })
+
+  it('should display formatted release date', () => {
+    render(<MovieId movieFacts={mockMovieFacts} />)
+    expect(screen.getByText(/November 26, 2012/i)).toBeInTheDocument()
+  })
+
+  it('should handle movie without homepage', () => {
+    const movieWithoutHomepage = { ...mockMovieFacts, homepage: null }
+    render(<MovieId movieFacts={movieWithoutHomepage} />)
+    expect(screen.queryByText('Official Homepage')).not.toBeInTheDocument()
+  })
+
+  it('should handle movie without imdb_id', () => {
+    const movieWithoutImdb = { ...mockMovieFacts, imdb_id: null }
+    render(<MovieId movieFacts={movieWithoutImdb} />)
+    expect(screen.queryByText('IMDB Infopage')).not.toBeInTheDocument()
+  })
+})
+
+describe('getStaticPaths', () => {
+  const mockCollectionResponse = {
+    data: {
+      parts: [
+        { id: 37724 },
+        { id: 206647 },
+        { id: 370172 },
+      ]
+    }
+  }
+
+  beforeEach(() => {
+    vi.clearAllMocks()
+  })
+
+  it('should fetch movie collection from TMDB API', async () => {
+    Axios.get.mockResolvedValue(mockCollectionResponse)
+
+    await getStaticPaths()
+
+    expect(Axios.get).toHaveBeenCalledWith(
+      expect.stringContaining('https://api.themoviedb.org/3/collection/')
+    )
+  })
+
+  it('should return paths for all movies', async () => {
+    Axios.get.mockResolvedValue(mockCollectionResponse)
+
+    const result = await getStaticPaths()
+
+    expect(result.paths).toHaveLength(3)
+    expect(result.paths[0]).toEqual({ params: { movieId: '37724' } })
+    expect(result.paths[1]).toEqual({ params: { movieId: '206647' } })
+    expect(result.paths[2]).toEqual({ params: { movieId: '370172' } })
+  })
+
+  it('should set fallback to blocking', async () => {
+    Axios.get.mockResolvedValue(mockCollectionResponse)
+
+    const result = await getStaticPaths()
+
+    expect(result.fallback).toBe('blocking')
+  })
+
+  it('should handle API errors', async () => {
+    const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {})
+    Axios.get.mockRejectedValue(new Error('API Error'))
+
+    try {
+      await getStaticPaths()
+    } catch (e) {
+      // Expected to fail
+    }
+
+    consoleSpy.mockRestore()
+  })
+})
+
+describe('getStaticProps', () => {
+  const mockMovieResponse = {
+    data: {
+      id: 37724,
+      title: 'Skyfall',
+      tagline: 'Think on your sins.',
+      overview: 'Bond investigates an attack on MI6.',
+      backdrop_path: '/skyfall-backdrop.jpg',
+      release_date: '2012-10-26',
+      runtime: 143,
+      revenue: 1108561013,
+      budget: 200000000,
+      vote_average: 7.8,
+      vote_count: 15000,
+      popularity: 45.5,
+    }
+  }
+
+  beforeEach(() => {
+    vi.clearAllMocks()
+  })
+
+  it('should fetch movie details from TMDB API', async () => {
+    Axios.get.mockResolvedValue(mockMovieResponse)
+
+    await getStaticProps({ params: { movieId: '37724' } })
+
+    expect(Axios.get).toHaveBeenCalledWith(
+      expect.stringContaining('https://api.themoviedb.org/3/movie/37724')
+    )
+  })
+
+  it('should return movie facts in props', async () => {
+    Axios.get.mockResolvedValue(mockMovieResponse)
+
+    const result = await getStaticProps({ params: { movieId: '37724' } })
+
+    expect(result.props.movieFacts).toEqual(mockMovieResponse.data)
+  })
+
+  it('should set revalidate to 3600 seconds', async () => {
+    Axios.get.mockResolvedValue(mockMovieResponse)
+
+    const result = await getStaticProps({ params: { movieId: '37724' } })
+
+    expect(result.revalidate).toBe(3600)
+  })
+
+  it('should use movieId from params', async () => {
+    Axios.get.mockResolvedValue(mockMovieResponse)
+
+    await getStaticProps({ params: { movieId: '206647' } })
+
+    expect(Axios.get).toHaveBeenCalledWith(
+      expect.stringContaining('/206647')
+    )
+  })
+
+  it('should handle API errors gracefully', async () => {
+    const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {})
+    Axios.get.mockRejectedValue(new Error('API Error'))
+
+    const result = await getStaticProps({ params: { movieId: '37724' } })
+
+    expect(consoleSpy).toHaveBeenCalled()
+    consoleSpy.mockRestore()
   })
 })

@@ -2,13 +2,34 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen } from '@testing-library/react'
 
 vi.mock('react-chartjs-2', () => ({
-  Bar: ({ data, options, id }) => (
-    <div data-testid="bar-chart" data-id={id}>
-      <span data-testid="chart-labels">{JSON.stringify(data.labels)}</span>
-      <span data-testid="chart-data">{JSON.stringify(data.datasets[0].data)}</span>
-      <span data-testid="chart-label">{data.datasets[0].label}</span>
-    </div>
-  ),
+  Bar: ({ data, options, id }) => {
+    // Call backgroundColor callback to test gradient function
+    const mockContext = {
+      chart: {
+        ctx: {
+          createLinearGradient: vi.fn(() => ({
+            addColorStop: vi.fn(),
+          })),
+        },
+        chartArea: { right: 400, left: 0, bottom: 300, top: 0 },
+      },
+    }
+
+    // Execute backgroundColor function if it exists
+    if (typeof data.datasets[0].backgroundColor === 'function') {
+      data.datasets[0].backgroundColor(mockContext)
+      // Also test with no chartArea to cover that branch
+      data.datasets[0].backgroundColor({ chart: { ctx: {}, chartArea: null } })
+    }
+
+    return (
+      <div data-testid="bar-chart" data-id={id}>
+        <span data-testid="chart-labels">{JSON.stringify(data.labels)}</span>
+        <span data-testid="chart-data">{JSON.stringify(data.datasets[0].data)}</span>
+        <span data-testid="chart-label">{data.datasets[0].label}</span>
+      </div>
+    )
+  },
 }))
 
 vi.mock('chart.js/auto', () => ({

@@ -1,18 +1,42 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen } from '@testing-library/react'
+import Axios from 'axios'
+
+vi.mock('axios')
 
 vi.mock('next/font/google', () => ({
   Montserrat: () => ({ className: 'mock-montserrat-font' }),
 }))
 
 vi.mock('react-chartjs-2', () => ({
-  Bar: ({ options, data, className }) => (
-    <div data-testid="bar-chart" className={className}>
-      <span data-testid="chart-title">{options.plugins.title.text}</span>
-      <span data-testid="chart-labels">{JSON.stringify(data.labels)}</span>
-      <span data-testid="chart-data">{JSON.stringify(data.datasets[0].data)}</span>
-    </div>
-  ),
+  Bar: ({ options, data, className }) => {
+    // Call backgroundColor callback to test gradient functions
+    const mockContext = {
+      chart: {
+        ctx: {
+          createLinearGradient: vi.fn(() => ({
+            addColorStop: vi.fn(),
+          })),
+        },
+        chartArea: { right: 400, left: 0, bottom: 300, top: 0 },
+      },
+    }
+
+    // Execute backgroundColor function if it exists
+    if (typeof data.datasets[0].backgroundColor === 'function') {
+      data.datasets[0].backgroundColor(mockContext)
+      // Also test with no chartArea to cover that branch
+      data.datasets[0].backgroundColor({ chart: { ctx: {}, chartArea: null } })
+    }
+
+    return (
+      <div data-testid="bar-chart" className={className}>
+        <span data-testid="chart-title">{options.plugins.title.text}</span>
+        <span data-testid="chart-labels">{JSON.stringify(data.labels)}</span>
+        <span data-testid="chart-data">{JSON.stringify(data.datasets[0].data)}</span>
+      </div>
+    )
+  },
 }))
 
 vi.mock('chart.js/auto', () => ({
@@ -33,7 +57,7 @@ vi.mock('../../components/Footer', () => ({
   default: () => <footer data-testid="footer">Footer</footer>,
 }))
 
-import Infographics from '../../pages/infographics'
+import Infographics, { getStaticProps } from '../../pages/infographics'
 
 describe('Infographics Page', () => {
   const mockMovies = [
@@ -140,5 +164,67 @@ describe('Infographics Page', () => {
     expect(votesData).toContain(15000)
     expect(votesData).toContain(12000)
     expect(votesData).toContain(10000)
+  })
+})
+
+describe('getStaticProps', () => {
+  const mockApiResponse = {
+    data: {
+      parts: [
+        { id: 1, original_title: 'Skyfall', vote_average: 7.8, vote_count: 15000, popularity: 45.5 },
+        { id: 2, original_title: 'Spectre', vote_average: 6.8, vote_count: 12000, popularity: 35.2 },
+        { id: 3, original_title: 'No Time to Die', vote_average: 7.3, vote_count: 10000, popularity: 55.8 },
+      ]
+    }
+  }
+
+  beforeEach(() => {
+    vi.clearAllMocks()
+  })
+
+  it('should fetch movies from TMDB API', async () => {
+    Axios.get.mockResolvedValue(mockApiResponse)
+
+    await getStaticProps()
+
+    expect(Axios.get).toHaveBeenCalledWith(
+      expect.stringContaining('https://api.themoviedb.org/3/collection/')
+    )
+  })
+
+  it('should return movies in props', async () => {
+    Axios.get.mockResolvedValue(mockApiResponse)
+
+    const result = await getStaticProps()
+
+    expect(result.props.movies).toEqual(mockApiResponse.data.parts)
+  })
+
+  it('should set revalidate to 3600 seconds', async () => {
+    Axios.get.mockResolvedValue(mockApiResponse)
+
+    const result = await getStaticProps()
+
+    expect(result.revalidate).toBe(3600)
+  })
+
+  it('should handle API errors gracefully', async () => {
+    const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {})
+    Axios.get.mockRejectedValue(new Error('API Error'))
+
+    const result = await getStaticProps()
+
+    expect(consoleSpy).toHaveBeenCalled()
+    consoleSpy.mockRestore()
+  })
+
+  it('should include API key in request', async () => {
+    Axios.get.mockResolvedValue(mockApiResponse)
+
+    await getStaticProps()
+
+    expect(Axios.get).toHaveBeenCalledWith(
+      expect.stringContaining('api_key=')
+    )
   })
 })

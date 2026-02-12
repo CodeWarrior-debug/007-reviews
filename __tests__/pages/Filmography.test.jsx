@@ -1,5 +1,8 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
+import Axios from 'axios'
+
+vi.mock('axios')
 
 vi.mock('next/font/google', () => ({
   Red_Hat_Display: () => ({ className: 'mock-redhat-font' }),
@@ -33,7 +36,7 @@ vi.mock('../../components/Card', () => ({
   ),
 }))
 
-import Filmography from '../../pages/filmography/index'
+import Filmography, { getStaticProps } from '../../pages/filmography/index'
 
 describe('Filmography Page', () => {
   const mockMovies = [
@@ -103,5 +106,52 @@ describe('Filmography Page', () => {
     const { container } = render(<Filmography movies={mockMovies} />)
     const wrapper = container.firstChild.firstChild
     expect(wrapper).toHaveClass('bg-[#161616]')
+  })
+})
+
+describe('getStaticProps', () => {
+  const mockApiResponse = {
+    data: {
+      parts: [
+        { id: 1, title: 'Skyfall', overview: 'MI6 attack', poster_path: '/sky.jpg', release_date: '2012-10-26', vote_average: 7.8 },
+        { id: 2, title: 'Spectre', overview: 'Criminal org', poster_path: '/spec.jpg', release_date: '2015-10-26', vote_average: 6.8 },
+      ]
+    }
+  }
+
+  it('should fetch movies from TMDB API', async () => {
+    Axios.get.mockResolvedValue(mockApiResponse)
+
+    const result = await getStaticProps()
+
+    expect(Axios.get).toHaveBeenCalledWith(
+      expect.stringContaining('https://api.themoviedb.org/3/collection/')
+    )
+  })
+
+  it('should return movies in props', async () => {
+    Axios.get.mockResolvedValue(mockApiResponse)
+
+    const result = await getStaticProps()
+
+    expect(result.props.movies).toEqual(mockApiResponse.data.parts)
+  })
+
+  it('should set revalidate to 3600 seconds', async () => {
+    Axios.get.mockResolvedValue(mockApiResponse)
+
+    const result = await getStaticProps()
+
+    expect(result.revalidate).toBe(3600)
+  })
+
+  it('should handle API errors gracefully', async () => {
+    const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {})
+    Axios.get.mockRejectedValue(new Error('API Error'))
+
+    const result = await getStaticProps()
+
+    expect(consoleSpy).toHaveBeenCalled()
+    consoleSpy.mockRestore()
   })
 })
