@@ -1,8 +1,11 @@
-import { describe, it, expect, vi } from 'vitest'
+import React from 'react'
+import { describe, it, expect, vi, Mock } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import Axios from 'axios'
 
 vi.mock('axios')
+
+const mockedAxios = Axios as { get: Mock }
 
 vi.mock('next/font/google', () => ({
   Red_Hat_Display: () => ({ className: 'mock-redhat-font' }),
@@ -10,11 +13,15 @@ vi.mock('next/font/google', () => ({
 }))
 
 vi.mock('next/image', () => ({
-  default: ({ src, alt, ...props }) => <img src={src} alt={alt} {...props} />,
+  default: ({ src, alt, ...props }: { src: string; alt: string; [key: string]: unknown }) => (
+    <img src={src} alt={alt} {...props} />
+  ),
 }))
 
 vi.mock('next/link', () => ({
-  default: ({ children, href }) => <a href={href}>{children}</a>,
+  default: ({ children, href }: { children: React.ReactNode; href: string }) => (
+    <a href={href}>{children}</a>
+  ),
 }))
 
 vi.mock('../../components/Navbar', () => ({
@@ -26,44 +33,29 @@ vi.mock('../../components/Footer', () => ({
 }))
 
 vi.mock('../../components/Card', () => ({
-  default: ({ title, movieId, overview, release_date, vote_average }) => (
+  default: ({ title, movieId }: { title: string; movieId: number; overview: string; release_date: string; vote_average: number }) => (
     <div data-testid={`movie-card-${movieId}`}>
       <h3>{title}</h3>
-      <p>{overview}</p>
-      <span>{release_date}</span>
-      <span>{vote_average}</span>
     </div>
   ),
 }))
 
 import Filmography, { getStaticProps } from '../../pages/filmography/index'
 
+interface Movie {
+  id: number
+  title: string
+  overview: string
+  poster_path: string
+  release_date: string
+  vote_average: number
+}
+
 describe('Filmography Page', () => {
-  const mockMovies = [
-    {
-      id: 1,
-      title: 'Skyfall',
-      overview: 'Bond investigates MI6 attack',
-      poster_path: '/skyfall.jpg',
-      release_date: '2012-10-26',
-      vote_average: 7.8,
-    },
-    {
-      id: 2,
-      title: 'Spectre',
-      overview: 'Bond discovers criminal organization',
-      poster_path: '/spectre.jpg',
-      release_date: '2015-10-26',
-      vote_average: 6.8,
-    },
-    {
-      id: 3,
-      title: 'No Time to Die',
-      overview: 'Bond comes out of retirement',
-      poster_path: '/nttd.jpg',
-      release_date: '2021-09-30',
-      vote_average: 7.3,
-    },
+  const mockMovies: Movie[] = [
+    { id: 1, title: 'Skyfall', overview: 'Bond investigates MI6 attack', poster_path: '/skyfall.jpg', release_date: '2012-10-26', vote_average: 7.8 },
+    { id: 2, title: 'Spectre', overview: 'Bond discovers criminal organization', poster_path: '/spectre.jpg', release_date: '2015-10-26', vote_average: 6.8 },
+    { id: 3, title: 'No Time to Die', overview: 'Bond comes out of retirement', poster_path: '/nttd.jpg', release_date: '2021-09-30', vote_average: 7.3 },
   ]
 
   it('should render the page with movies', () => {
@@ -104,7 +96,7 @@ describe('Filmography Page', () => {
 
   it('should have dark background', () => {
     const { container } = render(<Filmography movies={mockMovies} />)
-    const wrapper = container.firstChild.firstChild
+    const wrapper = container.firstChild?.firstChild as HTMLElement
     expect(wrapper).toHaveClass('bg-[#161616]')
   })
 })
@@ -120,17 +112,17 @@ describe('getStaticProps', () => {
   }
 
   it('should fetch movies from TMDB API', async () => {
-    Axios.get.mockResolvedValue(mockApiResponse)
+    mockedAxios.get.mockResolvedValue(mockApiResponse)
 
-    const result = await getStaticProps()
+    await getStaticProps()
 
-    expect(Axios.get).toHaveBeenCalledWith(
+    expect(mockedAxios.get).toHaveBeenCalledWith(
       expect.stringContaining('https://api.themoviedb.org/3/collection/')
     )
   })
 
   it('should return movies in props', async () => {
-    Axios.get.mockResolvedValue(mockApiResponse)
+    mockedAxios.get.mockResolvedValue(mockApiResponse)
 
     const result = await getStaticProps()
 
@@ -138,7 +130,7 @@ describe('getStaticProps', () => {
   })
 
   it('should set revalidate to 3600 seconds', async () => {
-    Axios.get.mockResolvedValue(mockApiResponse)
+    mockedAxios.get.mockResolvedValue(mockApiResponse)
 
     const result = await getStaticProps()
 
@@ -147,9 +139,9 @@ describe('getStaticProps', () => {
 
   it('should handle API errors gracefully', async () => {
     const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {})
-    Axios.get.mockRejectedValue(new Error('API Error'))
+    mockedAxios.get.mockRejectedValue(new Error('API Error'))
 
-    const result = await getStaticProps()
+    await getStaticProps()
 
     expect(consoleSpy).toHaveBeenCalled()
     consoleSpy.mockRestore()

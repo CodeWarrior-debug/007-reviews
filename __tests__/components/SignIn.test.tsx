@@ -1,3 +1,4 @@
+import React from 'react'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 
@@ -5,7 +6,7 @@ const mockPush = vi.fn()
 const mockSignInWithEmailAndPassword = vi.fn()
 
 vi.mock('firebase/auth', () => ({
-  signInWithEmailAndPassword: (...args) => mockSignInWithEmailAndPassword(...args),
+  signInWithEmailAndPassword: (...args: unknown[]) => mockSignInWithEmailAndPassword(...args),
 }))
 
 vi.mock('../../lib/db', () => ({
@@ -38,7 +39,7 @@ describe('SignIn', () => {
   it('should update email field on input', () => {
     render(<SignIn />)
 
-    const emailInput = screen.getByPlaceholderText('Email...')
+    const emailInput = screen.getByPlaceholderText('Email...') as HTMLInputElement
     fireEvent.change(emailInput, { target: { value: 'test@example.com' } })
 
     expect(emailInput.value).toBe('test@example.com')
@@ -47,7 +48,7 @@ describe('SignIn', () => {
   it('should update password field on input', () => {
     render(<SignIn />)
 
-    const passwordInput = screen.getByPlaceholderText('Password...')
+    const passwordInput = screen.getByPlaceholderText('Password...') as HTMLInputElement
     fireEvent.change(passwordInput, { target: { value: 'password123' } })
 
     expect(passwordInput.value).toBe('password123')
