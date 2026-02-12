@@ -35,5 +35,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Claude Code local config (GSD tooling, agents, commands)
-.claude/
+# GSD framework (installed locally, not vendored)
+.claude/get-shit-done/
+.claude/agents/gsd-*
+.claude/commands/gsd/
+.claude/hooks/gsd-*
+.claude/gsd-file-manifest.json
