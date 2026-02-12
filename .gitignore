@@ -37,3 +37,4 @@ next-env.d.ts
 
 # GSD framework (installed locally, not vendored)
 .claude/get-shit-done/
+.claude/agents/
