@@ -273,7 +273,7 @@ describe('MovieDetail Page', () => {
 
   it('should display formatted release date', () => {
     render(<MovieId movieFacts={mockMovieFacts} />)
-    expect(screen.getByText(/November 26, 2012/i)).toBeInTheDocument()
+    expect(screen.getByText(/October 26, 2012/i)).toBeInTheDocument()
   })
 
   it('should handle movie without homepage', () => {

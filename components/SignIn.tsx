@@ -1,27 +1,19 @@
-
 import { signInWithEmailAndPassword } from "firebase/auth";
-import React, { useState} from "react";
+import React, { useState, FormEvent } from "react";
 import { auth } from "../lib/db";
 import { useRouter } from "next/router";
 
-
-const SignIn = () => {
-
+const SignIn: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
-  
-  
 
-
-
-
-  const signIn = (e) => {
+  const signIn = (e: FormEvent) => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then(() => {
         localStorage.setItem("userEmail", email);
-        router.push('/filmography')
+        router.push("/filmography");
       })
       .catch((error) => {
         console.log(error);
@@ -46,8 +38,12 @@ const SignIn = () => {
           onChange={(e) => setPassword(e.target.value)}
           className="border-2 border-slate-900 rounded p-2 m-4 text-black"
         ></input>
-        <button type="submit" className="bg-slate-600 text-white h-11 rounded pl-4 pr-4 font-semibold m-2">Log In</button>
-        
+        <button
+          type="submit"
+          className="bg-slate-600 text-white h-11 rounded pl-4 pr-4 font-semibold m-2"
+        >
+          Log In
+        </button>
       </form>
     </div>
   );

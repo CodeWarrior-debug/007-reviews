@@ -1,70 +1,62 @@
 import { Bar } from "react-chartjs-2";
 import { useEffect, useState, useRef } from "react";
-import { Chart as ChartJS } from "chart.js/auto";
+import { Chart as ChartJS, ChartArea, ScriptableContext, ChartData } from "chart.js/auto";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 ChartJS.register(ChartDataLabels);
 
-const OneMovieReview = ({ userReview, audienceReview }) => {
+interface OneMovieReviewProps {
+  userReview: number;
+  audienceReview: number;
+}
 
-  
-
+const OneMovieReview: React.FC<OneMovieReviewProps> = ({
+  userReview,
+  audienceReview,
+}) => {
   const chartRef = useRef(null);
 
-  let width, height, gradient; 
+  let width: number, height: number, gradient: CanvasGradient;
 
-  const getGradient = (ctx, chartArea)=>{
+  const getGradient = (
+    ctx: CanvasRenderingContext2D,
+    chartArea: ChartArea
+  ) => {
     const chartWidth = chartArea.right - chartArea.left;
     const chartHeight = chartArea.bottom - chartArea.top;
     if (!gradient || width !== chartWidth || height !== chartHeight) {
-      // Create the gradient because this is either the first render// or the size of the chart has changed
       width = chartWidth;
       height = chartHeight;
-
       gradient = ctx.createLinearGradient(0, 0, 0, 450);
-
-
-      gradient.addColorStop(0, 'rgba(255, 0,0, 0.5)');
-      gradient.addColorStop(0.5, 'rgba(255, 0, 0, 0.25)');
-      gradient.addColorStop(1, 'rgba(255, 0, 0, 0)');
+      gradient.addColorStop(0, "rgba(255, 0,0, 0.5)");
+      gradient.addColorStop(0.5, "rgba(255, 0, 0, 0.25)");
+      gradient.addColorStop(1, "rgba(255, 0, 0, 0)");
     }
-  
     return gradient;
-  }
+  };
 
-
-  const [userData, setUserData] = useState({
+  const [userData, setUserData] = useState<ChartData<"bar">>({
     labels: ["Me", "TMDB Audience", "Differential"],
     datasets: [
       {
         label: "Rating (out of 10)",
-        backgroundColor: function(context) {
+        backgroundColor: function (context: ScriptableContext<"bar">) {
           const chart = context.chart;
-          const {ctx, chartArea} = chart;
-  
+          const { ctx, chartArea } = chart;
           if (!chartArea) {
-            // This case happens on initial chart load
             return;
           }
           return getGradient(ctx, chartArea);
         },
         data: [
-          userReview | "",
+          userReview || 0,
           audienceReview,
           Math.abs(userReview - audienceReview),
         ],
-
       },
     ],
   });
 
   useEffect(() => {
-    // const chart = chartRef.current;
-    // // display options below
-      // if (chart) {
-      //   console.log('CanvasRenderingContext2D', chart.ctx);
-      //   console.log('HTMLCanvasElement', chart.canvas);
-      // }
-
     setUserData({
       labels: ["Me", "TMDB Audience", "Differential"],
       datasets: [
@@ -74,19 +66,15 @@ const OneMovieReview = ({ userReview, audienceReview }) => {
             userReview.toFixed(1),
             audienceReview.toFixed(1),
             Math.abs(userReview - audienceReview).toFixed(1),
-          ],
-          backgroundColor: function(context) {
+          ] as unknown as number[],
+          backgroundColor: function (context: ScriptableContext<"bar">) {
             const chart = context.chart;
-            const {ctx, chartArea} = chart;
-    
+            const { ctx, chartArea } = chart;
             if (!chartArea) {
-              // This case happens on initial chart load
               return;
             }
             return getGradient(ctx, chartArea);
           },
-          // backgroundColor: gradient,
-          pointBackgroundColor: "white",
           borderWidth: 0,
           borderColor: "#911215",
         },
@@ -97,32 +85,29 @@ const OneMovieReview = ({ userReview, audienceReview }) => {
   return (
     <>
       <Bar
-        ref = {chartRef}
+        ref={chartRef}
         id="chart"
         data={userData}
         options={{
           maintainAspectRatio: false,
           scales: {
-            x: { grid: { display: false ,           
-            } ,
-          ticks:{
-            font:16,
-            color:"white"
-          }
-          },
+            x: {
+              grid: { display: false },
+              ticks: {
+                font: { size: 16 },
+                color: "white",
+              },
+            },
             y: {
-              // min: 0,
-              // max: 10,
               ticks: { display: false },
-              // ticks: { beginAtZero: true },
               grid: { display: false },
             },
           },
           plugins: {
-            legend:{
-              labels:{
-                color:"#FFF"
-              }
+            legend: {
+              labels: {
+                color: "#FFF",
+              },
             },
             datalabels: {
               display: true,

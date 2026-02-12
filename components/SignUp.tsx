@@ -1,48 +1,43 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { initializeApp } from "firebase/app";
-import {doc, setDoc, getFirestore,Timestamp} from "firebase/firestore"
-import React, { useState } from "react";
-import {auth, firebaseConfig} from "../lib/db"
+import { doc, setDoc, getFirestore, Timestamp } from "firebase/firestore";
+import React, { useState, FormEvent } from "react";
+import { auth, firebaseConfig } from "../lib/db";
 import { useRouter } from "next/router";
-// import { AuthContext } from "../lib/context";
 
-const SignUp = () => {
+const SignUp: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [authEmail, setAuthEmail] = useState("")
-  const router = useRouter()
-  // const user = useContext(AuthContext)
+  const [, setAuthEmail] = useState("");
+  const router = useRouter();
 
-  const signUp = async (e) => {
+  const signUp = async (e: FormEvent) => {
     e.preventDefault();
     await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         console.log(userCredential);
-        setAuthEmail(email)
+        setAuthEmail(email);
       })
       .catch((error) => {
         console.log(error);
       });
 
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
-    
-    // Initialize Cloud Firestore and get a reference to the service
     const db = getFirestore(app);
 
-    
+    const setUpUser = async () => {
+      e.preventDefault();
+      const userRef = doc(db, "users", email);
+      await setDoc(
+        userRef,
+        { updated: Timestamp.fromDate(new Date()) },
+        { merge: true }
+      );
+      localStorage.setItem("userEmail", email);
+      router.push("/filmography");
+    };
 
-      const setUpUser = async () =>{
-  
-        e.preventDefault();
-        const userRef = doc(db, 'users', email);
-        await setDoc(userRef, { updated: Timestamp.fromDate(new Date()) }, { merge: true });
-        localStorage.setItem("userEmail", email);
-        router.push('/filmography')
-      }
-
-      setUpUser();
-
+    setUpUser();
   };
 
   return (
@@ -63,7 +58,12 @@ const SignUp = () => {
           onChange={(e) => setPassword(e.target.value)}
           className="border-2 text-black border-slate-900 rounded p-2 m-4"
         ></input>
-        <button type="submit" className="bg-slate-600 text-white h-11 rounded pl-4 pr-4 font-semibold m-2 ">Sign Up</button>
+        <button
+          type="submit"
+          className="bg-slate-600 text-white h-11 rounded pl-4 pr-4 font-semibold m-2 "
+        >
+          Sign Up
+        </button>
       </form>
     </div>
   );
