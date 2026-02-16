@@ -28,7 +28,7 @@ export default function Card(props: CardProps) {
       <Link
         href={`./filmography/${movieId}`}
         key={movieId.toString()}
-        className="bg-[rgb(176,176,176)] rounded-2xl hover:scale-105 hover:bg-[rgb(200,200,200)] aspect-[380/196] max-h-[11rem]"
+        className="bg-[#1e1e1e] rounded-2xl ring-1 ring-[#BF953F]/30 shadow-lg shadow-black/50 transition-all duration-300 hover:ring-[#BF953F]/60 hover:shadow-[#BF953F]/20 hover:shadow-xl hover:scale-105 aspect-[380/196] max-h-[11rem]"
       >
         <div className="grid grid-cols-8 min-w-[340px] gap-2 rounded-md border-none  ">
           <div className="col-span-3 flex items-center shrink-0 relative">
@@ -46,19 +46,19 @@ export default function Card(props: CardProps) {
             <h2
               className={cls(
                 plusjakartasans.className,
-                "text-black font-semibold text-center text-[13px]"
+                "text-white font-semibold text-center text-[13px]"
               )}
             >
               {title}
             </h2>
-            <div className="text-sm text-left indent-3 mt-2 mb-2 flex justify-around text-black font-semibold leading-none">
+            <div className="text-sm text-left indent-3 mt-2 mb-2 flex justify-around text-gray-300 font-semibold leading-none">
               <div className="tracking-wider"> {release_date} </div>
               <div className="tracking-wider"> {vote_average.toFixed(1)} ★ </div>
             </div>
             <p
               className={cls(
                 redhatdisplay.className,
-                "overflow-clip text-[rgb(80,80,80)] h-28 text-sm leading-tight hover:overflow-y-auto p-2 pl-0"
+                "overflow-clip text-gray-400 h-28 text-sm leading-tight hover:overflow-y-auto p-2 pl-0"
               )}
             >
               {overview}

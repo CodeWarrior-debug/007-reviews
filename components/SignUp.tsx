@@ -60,7 +60,7 @@ const SignUp: React.FC = () => {
         ></input>
         <button
           type="submit"
-          className="bg-slate-600 text-white h-11 rounded pl-4 pr-4 font-semibold m-2 "
+          className="bg-transparent border border-[#BF953F] text-[#FCF6ba] hover:bg-[#BF953F]/20 transition-all duration-300 font-semibold h-11 rounded pl-4 pr-4 m-2"
         >
           Sign Up
         </button>
