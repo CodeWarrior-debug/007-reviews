@@ -27,9 +27,9 @@ const OneMovieReview: React.FC<OneMovieReviewProps> = ({
       width = chartWidth;
       height = chartHeight;
       gradient = ctx.createLinearGradient(0, 0, 0, 450);
-      gradient.addColorStop(0, "rgba(255, 0,0, 0.5)");
-      gradient.addColorStop(0.5, "rgba(255, 0, 0, 0.25)");
-      gradient.addColorStop(1, "rgba(255, 0, 0, 0)");
+      gradient.addColorStop(0, "rgba(191, 149, 63, 0.7)");
+      gradient.addColorStop(0.5, "rgba(191, 149, 63, 0.35)");
+      gradient.addColorStop(1, "rgba(191, 149, 63, 0)");
     }
     return gradient;
   };
@@ -76,7 +76,7 @@ const OneMovieReview: React.FC<OneMovieReviewProps> = ({
             return getGradient(ctx, chartArea);
           },
           borderWidth: 0,
-          borderColor: "#911215",
+          borderColor: "#8A6E2F",
         },
       ],
     });

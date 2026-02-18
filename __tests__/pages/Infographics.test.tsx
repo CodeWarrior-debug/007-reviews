@@ -168,14 +168,28 @@ describe('Infographics Page', () => {
     expect(parsedLabels).toContain('No Time to Die')
   })
 
-  it('should display landscape hint for smaller devices', () => {
+  it('should not display landscape hint (removed in redesign)', () => {
     render(<Infographics movies={mockMovies} />)
-    expect(screen.getByText('Use Landscape On Smaller Devices')).toBeInTheDocument()
+    expect(screen.queryByText('Use Landscape On Smaller Devices')).not.toBeInTheDocument()
   })
 
-  it('should display hover instruction', () => {
+  it('should display hover instruction without pulse animation', () => {
     render(<Infographics movies={mockMovies} />)
-    expect(screen.getByText('Hover/Touch Graphs For Details')).toBeInTheDocument()
+    const hoverText = screen.getByText('Hover/Touch Graphs For Details')
+    expect(hoverText).toBeInTheDocument()
+    expect(hoverText.closest('h3')).not.toHaveClass('animate-pulse')
+  })
+
+  it('should wrap charts in scrollable containers', () => {
+    const { container } = render(<Infographics movies={mockMovies} />)
+    const scrollContainers = container.querySelectorAll('.overflow-x-auto')
+    expect(scrollContainers).toHaveLength(3)
+  })
+
+  it('should have min-width inner containers for charts', () => {
+    const { container } = render(<Infographics movies={mockMovies} />)
+    const minWidthContainers = container.querySelectorAll('.min-w-\\[600px\\]')
+    expect(minWidthContainers).toHaveLength(3)
   })
 
   it('should have dark background', () => {

@@ -44,9 +44,9 @@ const Infographics = ({
       width = chartWidth;
       height = chartHeight;
       gradient = ctx.createLinearGradient(0, 0, 0, 450);
-      gradient.addColorStop(0, "rgba(255, 0,0, 0.5)");
-      gradient.addColorStop(0.5, "rgba(255, 0, 0, 0.25)");
-      gradient.addColorStop(1, "rgba(255, 0, 0, 0)");
+      gradient.addColorStop(0, "rgba(191, 149, 63, 0.7)");
+      gradient.addColorStop(0.5, "rgba(191, 149, 63, 0.35)");
+      gradient.addColorStop(1, "rgba(191, 149, 63, 0)");
     }
     return gradient;
   };
@@ -67,6 +67,8 @@ const Infographics = ({
         ticks: {
           color: "#C0C2C9",
           font: { size: 13 },
+          maxRotation: 45,
+          minRotation: 45,
         },
       },
       y: { min: 0, max: 10 },
@@ -96,7 +98,7 @@ const Infographics = ({
         backgroundColor: bgColorFn,
         pointBackgroundColor: "white",
         borderWidth: 0,
-        borderColor: "#911215",
+        borderColor: "#8A6E2F",
       },
     ],
   };
@@ -108,6 +110,8 @@ const Infographics = ({
         ticks: {
           color: "#C0C2C9",
           font: { size: 13 },
+          maxRotation: 45,
+          minRotation: 45,
         },
       },
     },
@@ -137,7 +141,7 @@ const Infographics = ({
         backgroundColor: bgColorFn,
         pointBackgroundColor: "white",
         borderWidth: 0,
-        borderColor: "#911215",
+        borderColor: "#8A6E2F",
       },
     ],
   };
@@ -149,6 +153,8 @@ const Infographics = ({
         ticks: {
           color: "#C0C2C9",
           font: { size: 13 },
+          maxRotation: 45,
+          minRotation: 45,
         },
       },
     },
@@ -177,7 +183,7 @@ const Infographics = ({
         backgroundColor: bgColorFn,
         pointBackgroundColor: "white",
         borderWidth: 0,
-        borderColor: "#911215",
+        borderColor: "#8A6E2F",
       },
     ],
   };
@@ -202,37 +208,40 @@ const Infographics = ({
           <h3
             className={cls(
               montserrat.className,
-              "text-white text-center mb-2 mvID3:hidden animate-pulse"
-            )}
-          >
-            {" "}
-            Use Landscape On Smaller Devices{" "}
-          </h3>
-          <h3
-            className={cls(
-              montserrat.className,
-              "text-white text-center mb-8 animate-pulse"
+              "text-white text-center mb-8"
             )}
           >
             {" "}
             Hover/Touch Graphs For Details{" "}
           </h3>
 
-          <Bar
-            options={optionsRatings}
-            data={dataRatings}
-            className="w-[80%] max-h-[500px] max-w-[1040px] mb-12"
-          />
-          <Bar
-            options={optionsVotes}
-            data={dataVotes}
-            className="w-[80%] max-w-[1040px] max-h-[500px] mb-12"
-          />
-          <Bar
-            options={optionsPopularity}
-            data={dataPopularity}
-            className="w-[80%] max-w-[1040px] max-h-[500px] mb-12"
-          />
+          <div className="overflow-x-auto w-[80%] max-w-[1040px] mb-12">
+            <div className="min-w-[600px]">
+              <Bar
+                options={optionsRatings}
+                data={dataRatings}
+                className="max-h-[500px]"
+              />
+            </div>
+          </div>
+          <div className="overflow-x-auto w-[80%] max-w-[1040px] mb-12">
+            <div className="min-w-[600px]">
+              <Bar
+                options={optionsVotes}
+                data={dataVotes}
+                className="max-h-[500px]"
+              />
+            </div>
+          </div>
+          <div className="overflow-x-auto w-[80%] max-w-[1040px] mb-12">
+            <div className="min-w-[600px]">
+              <Bar
+                options={optionsPopularity}
+                data={dataPopularity}
+                className="max-h-[500px]"
+              />
+            </div>
+          </div>
 
           <Footer />
         </div>

@@ -3,8 +3,8 @@ import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 
 vi.mock('next/link', () => ({
-  default: ({ children, href, target }: { children: React.ReactNode; href: string; target?: string }) => (
-    <a href={href} target={target}>{children}</a>
+  default: ({ children, href, target, className }: { children: React.ReactNode; href: string; target?: string; className?: string }) => (
+    <a href={href} target={target} className={className}>{children}</a>
   ),
 }))
 
@@ -56,5 +56,37 @@ describe('Footer', () => {
   it('should mention TMDB disclaimer', () => {
     render(<Footer />)
     expect(screen.getByText(/not endorsed or certified by/i)).toBeInTheDocument()
+  })
+
+  it('should use semantic footer element as outer wrapper', () => {
+    const { container } = render(<Footer />)
+    expect(container.querySelector('footer')).toBeInTheDocument()
+  })
+
+  it('should not contain any br tags', () => {
+    const { container } = render(<Footer />)
+    expect(container.querySelectorAll('br')).toHaveLength(0)
+  })
+
+  it('should not have nested p inside p tags', () => {
+    const { container } = render(<Footer />)
+    const paragraphs = container.querySelectorAll('p')
+    paragraphs.forEach((p) => {
+      expect(p.querySelector('p')).toBeNull()
+    })
+  })
+
+  it('should use gold-themed link colors', () => {
+    render(<Footer />)
+    const links = screen.getAllByRole('link')
+    links.forEach((link) => {
+      expect(link.className).toContain('text-[#9f7928]')
+    })
+  })
+
+  it('should use text-sm for footer text', () => {
+    const { container } = render(<Footer />)
+    const textDiv = container.querySelector('.text-sm')
+    expect(textDiv).toBeInTheDocument()
   })
 })

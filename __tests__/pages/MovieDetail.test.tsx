@@ -14,7 +14,7 @@ vi.mock('next/image', () => ({
 }))
 
 vi.mock('next/link', () => ({
-  default: ({ children, href }: { children: React.ReactNode; href: string }) => <a href={href}>{children}</a>,
+  default: ({ children, href, className }: { children: React.ReactNode; href: string; className?: string }) => <a href={href} className={className}>{children}</a>,
 }))
 
 vi.mock('next/font/google', () => ({
@@ -286,6 +286,36 @@ describe('MovieDetail Page', () => {
     const movieWithoutImdb = { ...mockMovieFacts, imdb_id: null }
     render(<MovieId movieFacts={movieWithoutImdb} />)
     expect(screen.queryByText('IMDB Infopage')).not.toBeInTheDocument()
+  })
+
+  it('should use bg-black/70 instead of bg-black opacity-70 for readable text', () => {
+    const { container } = render(<MovieId movieFacts={mockMovieFacts} />)
+    const bgBlack70Elements = container.querySelectorAll('.bg-black\\/70')
+    expect(bgBlack70Elements.length).toBeGreaterThan(0)
+    const opacityElements = container.querySelectorAll('.opacity-70')
+    expect(opacityElements).toHaveLength(0)
+  })
+
+  it('should use gold-themed Films List button', () => {
+    render(<MovieId movieFacts={mockMovieFacts} />)
+    const link = screen.getByRole('link', { name: 'Films List' })
+    expect(link).toHaveClass('border-[#BF953F]')
+    expect(link).toHaveClass('bg-transparent')
+    expect(link).toHaveClass('text-[#FCF6ba]')
+  })
+
+  it('should use gold hover color on Official Homepage link instead of text-2xl', () => {
+    render(<MovieId movieFacts={mockMovieFacts} />)
+    const link = screen.getByRole('link', { name: 'Official Homepage' })
+    expect(link.className).not.toContain('hover:text-2xl')
+    expect(link).toHaveClass('hover:text-[#FCF6ba]')
+    expect(link).toHaveClass('transition-colors')
+  })
+
+  it('should have backdrop-blur-sm on overview container', () => {
+    const { container } = render(<MovieId movieFacts={mockMovieFacts} />)
+    const blurElements = container.querySelectorAll('.backdrop-blur-sm')
+    expect(blurElements.length).toBeGreaterThan(0)
   })
 })
 

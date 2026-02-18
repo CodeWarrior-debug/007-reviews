@@ -148,14 +148,14 @@ const MovieId = ({ movieFacts }: MovieIdProps) => {
         <div className="grid grid-flow-row grid-cols-3 mb-16 place-items-center">
           <Link
             href="/filmography"
-            className="col-span-1 p-2 m-8 text-xs text-center bg-slate-600 mvID3:text-base mvID2:text-xl mvID1:text-3xl rounded-xl"
+            className="col-span-1 p-2 m-8 text-xs text-center bg-transparent border border-[#BF953F] text-[#FCF6ba] hover:bg-[#BF953F]/20 transition-all duration-300 font-semibold mvID3:text-base mvID2:text-xl mvID1:text-3xl rounded-xl"
           >
             {" "}
             Films List{" "}
           </Link>
           <h1
             className={cls(
-              " text-base m-2 mvID3:text-xl mvID2:text-3xl mvID1:text-5xl text-center mvID2:m-8 col-span-1 font-extrabold bg-blend-darken bg-black opacity-70 rounded-3xl p-2 mvID3:p-4 uppercase",
+              " text-base m-2 mvID3:text-xl mvID2:text-3xl mvID1:text-5xl text-center mvID2:m-8 col-span-1 font-extrabold bg-blend-darken bg-black/70 backdrop-blur-sm rounded-3xl p-2 mvID3:p-4 uppercase",
               montserrat.className
             )}
           >
@@ -165,7 +165,7 @@ const MovieId = ({ movieFacts }: MovieIdProps) => {
 
           <div className="col-span-1">
             <button
-              className="hidden p-2 m-8 text-xs text-center mvID2:block bg-slate-600 mvID3:text-base mvID2:text-xl mvID1:text-3xl rounded-xl"
+              className="hidden p-2 m-8 text-xs text-center mvID2:block bg-transparent border border-[#BF953F] text-[#FCF6ba] hover:bg-[#BF953F]/20 transition-all duration-300 font-semibold mvID3:text-base mvID2:text-xl mvID1:text-3xl rounded-xl"
               onClick={handleViewClick}
             >
               {" "}
@@ -182,7 +182,7 @@ const MovieId = ({ movieFacts }: MovieIdProps) => {
         >
           <div className="flex flex-row w-full mvID1:w-3/5">
             <div className="grid pl-8 pr-8 mvID3:pr-24 mvID3:pl-24 place-items-center">
-              <div className="w-4/5 p-4 mb-8 bg-black bg-blend-darken opacity-70 rounded-3xl">
+              <div className="w-4/5 p-4 mb-8 bg-black/70 backdrop-blur-sm bg-blend-darken rounded-3xl">
                 <p> In {movieFacts.title}... </p>
                 <br />
                 <p> {movieFacts.tagline} </p>
@@ -223,7 +223,7 @@ const MovieId = ({ movieFacts }: MovieIdProps) => {
                   ref={reviewRef}
                 ></input>
                 <button
-                  className="p-1 ml-1 text-xs font-semibold text-black bg-white rounded cursor-pointer mvID4:ml-2 z-60 mvID2:text-sm hover:bg-slate-800 hover:text-white w-28"
+                  className="p-1 ml-1 text-xs font-semibold bg-transparent border border-[#BF953F] text-[#FCF6ba] hover:bg-[#BF953F]/20 transition-all duration-300 rounded cursor-pointer mvID4:ml-2 z-60 mvID2:text-sm w-28"
                   onClick={handleUpdateClick}
                 >
                   Update Review
@@ -252,7 +252,7 @@ const MovieId = ({ movieFacts }: MovieIdProps) => {
               "flex flex-col w-full mvID1:w-2/5 mvID1:min-w-[349px] justify-center items-center"
             )}
           >
-            <div className="bg-blend-darken bg-black opacity-70 rounded-3xl w-1/2 p-4 pt-2 min-w-[143px] flex flex-col mb-16 items-between">
+            <div className="bg-blend-darken bg-black/70 backdrop-blur-sm rounded-3xl w-1/2 p-4 pt-2 min-w-[143px] flex flex-col mb-16 items-between">
               <div className="mt-2">
                 <div className="flex flex-row flex-wrap justify-between">
                   <div className="font-semibold">
@@ -360,7 +360,7 @@ const MovieId = ({ movieFacts }: MovieIdProps) => {
               <p className="text-center">
                 <Link
                   href={movieFacts.homepage ? movieFacts.homepage : "#"}
-                  className="font-bold text-blue-500 underline hover:text-2xl"
+                  className="font-bold text-blue-500 hover:text-[#FCF6ba] transition-colors duration-200"
                 >
                   {" "}
                   {movieFacts.homepage ? "Official Homepage" : ""}
@@ -374,14 +374,14 @@ const MovieId = ({ movieFacts }: MovieIdProps) => {
                       ? "https://www.imdb.com/title/" + movieFacts.imdb_id
                       : "/404"
                   }
-                  className="font-bold text-green-500 underline hover:text-2xl"
+                  className="font-bold text-green-500 hover:text-[#FCF6ba] transition-colors duration-200"
                 >
                   {movieFacts.imdb_id ? "IMDB Infopage" : ""}{" "}
                 </Link>
               </p>
             </div>
           </div>
-          <div className="bg-blend-darken bg-[#161616] opacity-70 rounded-3xl p-2 mb-8">
+          <div className="bg-blend-darken bg-[#161616]/70 rounded-3xl p-2 mb-8">
             <Footer />
           </div>
         </div>

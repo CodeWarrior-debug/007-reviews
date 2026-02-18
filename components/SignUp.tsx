@@ -43,24 +43,24 @@ const SignUp: React.FC = () => {
   return (
     <div>
       <form onSubmit={signUp}>
-        <h1 className="font-extrabold text-2xl">Create Account</h1>
+        <h1 className="font-extrabold text-2xl text-transparent bg-gradient-to-r bg-clip-text from-[#BF953F] via-[#FCF6ba] to-[#AA771c]">Create Account</h1>
         <input
           type="email"
           placeholder="Enter your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="border-2 text-black border-slate-900 rounded p-2 m-4"
+          className="bg-[#252429] border border-[#BF953F]/30 rounded-lg p-3 m-3 text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-[#BF953F] transition-all duration-200"
         ></input>
         <input
           type="password"
           placeholder="Enter your password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="border-2 text-black border-slate-900 rounded p-2 m-4"
+          className="bg-[#252429] border border-[#BF953F]/30 rounded-lg p-3 m-3 text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-[#BF953F] transition-all duration-200"
         ></input>
         <button
           type="submit"
-          className="bg-slate-600 text-white h-11 rounded pl-4 pr-4 font-semibold m-2 "
+          className="bg-transparent border border-[#BF953F] text-[#FCF6ba] hover:bg-[#BF953F]/20 transition-all duration-300 font-semibold h-11 rounded pl-4 pr-4 m-2"
         >
           Sign Up
         </button>
