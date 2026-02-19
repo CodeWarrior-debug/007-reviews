@@ -50,14 +50,14 @@ export default function Navbar() {
           "sm:hidden overflow-hidden transition-all duration-300",
           mobileMenuOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0"
         )}>
-          <ul className="flex flex-col items-center gap-4 py-4 font-bold text-transparent bg-gradient-to-r bg-clip-text from-[#BF953F] via-[#FCF6ba] to-[#AA771c]">
+          <ul className="flex flex-col items-center gap-4 py-4 font-bold">
             {navLinks.map((link) => (
               <li key={link.href} className="text-xl">
                 <Link
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
                   className={cls(
-                    "relative pb-1",
+                    "relative pb-1 text-transparent bg-gradient-to-r bg-clip-text from-[#BF953F] via-[#FCF6ba] to-[#AA771c]",
                     router.pathname === link.href && "font-extrabold"
                   )}
                 >
@@ -71,13 +71,13 @@ export default function Navbar() {
           </ul>
         </div>
 
-        <ul className="hidden sm:flex flex-row flex-wrap font-bold justify-evenly sm:mt-8 text-transparent bg-gradient-to-r bg-clip-text from-[#BF953F] via-[#FCF6ba] to-[#AA771c]">
+        <ul className="hidden sm:flex flex-row flex-wrap font-bold justify-evenly sm:mt-8">
           {navLinks.map((link) => (
             <li key={link.href} className="mt-2 text-center sm:mt-8">
               <Link
                 href={link.href}
                 className={cls(
-                  "relative text-xl sm:text-3xl pb-1 group",
+                  "relative text-xl sm:text-3xl pb-1 group text-transparent bg-gradient-to-r bg-clip-text from-[#BF953F] via-[#FCF6ba] to-[#AA771c]",
                   router.pathname === link.href && "font-extrabold"
                 )}
               >
