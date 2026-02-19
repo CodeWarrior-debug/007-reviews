@@ -83,12 +83,12 @@ describe('Card', () => {
     expect(screen.getByText('8.0 ★')).toBeInTheDocument()
   })
 
-  it('should use dark background with gold ring styling', () => {
+  it('should use dark background with gunmetal border styling', () => {
     render(<Card {...mockProps} />)
     const link = screen.getByRole('link')
     expect(link).toHaveClass('bg-[#1e1e1e]')
-    expect(link).toHaveClass('ring-1')
-    expect(link).toHaveClass('ring-[#BF953F]/30')
+    expect(link).toHaveClass('border')
+    expect(link).toHaveClass('border-[#3a3a3a]')
     expect(link).toHaveClass('shadow-lg')
   })
 

@@ -28,7 +28,7 @@ export default function Card(props: CardProps) {
       <Link
         href={`./filmography/${movieId}`}
         key={movieId.toString()}
-        className="bg-[#1e1e1e] ring-1 ring-[#BF953F]/30 shadow-lg shadow-black/50 transition-all duration-300 rounded-2xl hover:ring-[#BF953F]/60 hover:shadow-[#BF953F]/20 hover:shadow-xl hover:scale-105 aspect-[380/196] max-h-[11rem]"
+        className="bg-[#1e1e1e] border border-[#3a3a3a] shadow-lg shadow-black/40 transition-all duration-300 rounded-2xl hover:border-[#8A8D8F] hover:shadow-xl hover:scale-105 aspect-[380/196] max-h-[11rem]"
       >
         <div className="grid grid-cols-8 min-w-[340px] gap-2 rounded-md border-none  ">
           <div className="col-span-3 flex items-center shrink-0 relative">

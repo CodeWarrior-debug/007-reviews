@@ -76,17 +76,18 @@ describe('Footer', () => {
     })
   })
 
-  it('should use gold-themed link colors', () => {
+  it('should use blue and red link colors matching original style', () => {
     render(<Footer />)
-    const links = screen.getAllByRole('link')
-    links.forEach((link) => {
-      expect(link.className).toContain('text-[#9f7928]')
-    })
+    const icons8Link = screen.getByRole('link', { name: 'Icons8' })
+    expect(icons8Link).toHaveClass('text-blue-400')
+    const tmdbApiLink = screen.getByRole('link', { name: 'TMDB API' })
+    expect(tmdbApiLink).toHaveClass('text-red-400')
   })
 
-  it('should use text-sm for footer text', () => {
+  it('should use text-base font-light for footer text', () => {
     const { container } = render(<Footer />)
-    const textDiv = container.querySelector('.text-sm')
+    const textDiv = container.querySelector('.text-base')
     expect(textDiv).toBeInTheDocument()
+    expect(textDiv).toHaveClass('font-light')
   })
 })

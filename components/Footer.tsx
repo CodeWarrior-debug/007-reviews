@@ -4,12 +4,12 @@ import Link from "next/link";
 const Footer: React.FC = () => {
   return (
     <footer className="grid place-items-center mt-8 mb-4">
-      <div className="text-sm text-gray-500 text-center">
+      <div className="text-base font-light text-center">
         <span>
           <Link
             target="_blank"
             href="https://icons8.com/icon/19532/007"
-            className="text-[#9f7928] hover:text-[#FCF6ba] transition-colors duration-200 hover:underline"
+            className="text-blue-400 hover:font-extrabold"
           >
             007
           </Link>{" "}
@@ -17,7 +17,7 @@ const Footer: React.FC = () => {
           <Link
             target="_blank"
             href="https://icons8.com"
-            className="text-[#9f7928] hover:text-[#FCF6ba] transition-colors duration-200 hover:underline"
+            className="text-blue-400 hover:font-extrabold"
           >
             Icons8
           </Link>
@@ -27,7 +27,7 @@ const Footer: React.FC = () => {
           <Link
             target="_blank"
             href="https://www.themoviedb.org/documentation/api"
-            className="text-[#9f7928] hover:text-[#FCF6ba] transition-colors duration-200 hover:underline"
+            className="text-red-400 hover:font-extrabold"
           >
             TMDB API
           </Link>{" "}
@@ -35,7 +35,7 @@ const Footer: React.FC = () => {
           <Link
             target="_blank"
             href="https://www.themoviedb.org/"
-            className="text-[#9f7928] hover:text-[#FCF6ba] transition-colors duration-200 hover:underline"
+            className="text-red-400 hover:font-extrabold"
           >
             TMDB
           </Link>
@@ -45,7 +45,7 @@ const Footer: React.FC = () => {
           <Link
             target="_blank"
             href="https://github.com/CodeWarrior-debug"
-            className="text-[#9f7928] hover:text-[#FCF6ba] transition-colors duration-200 hover:underline"
+            className="text-blue-400 underline"
           >
             CodeWarrior-debug
           </Link>{" "}
@@ -53,7 +53,7 @@ const Footer: React.FC = () => {
           <Link
             target="_blank"
             href="https://github.com/CodeWarrior-debug/007-reviews"
-            className="text-[#9f7928] hover:text-[#FCF6ba] transition-colors duration-200 hover:underline"
+            className="text-blue-400 underline"
           >
             GitHub
           </Link>
