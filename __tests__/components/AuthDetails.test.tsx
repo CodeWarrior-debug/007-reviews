@@ -100,4 +100,49 @@ describe('AuthDetails', () => {
 
     expect(unsubscribe).toHaveBeenCalled()
   })
+
+  it('should use dark theme for signed-in status box', async () => {
+    mockOnAuthStateChanged.mockImplementation((auth: unknown, callback: (user: { email: string }) => void) => {
+      callback({ email: 'test@example.com' })
+      return vi.fn()
+    })
+
+    render(<AuthDetails />)
+
+    await waitFor(() => {
+      const statusText = screen.getByText('Signed In as test@example.com')
+      expect(statusText).toHaveClass('bg-[#252429]')
+      expect(statusText).toHaveClass('text-white')
+      expect(statusText).toHaveClass('ring-1')
+    })
+  })
+
+  it('should use dark theme for signed-out status box', () => {
+    mockOnAuthStateChanged.mockImplementation((auth: unknown, callback: (user: null) => void) => {
+      callback(null)
+      return vi.fn()
+    })
+
+    render(<AuthDetails />)
+
+    const statusText = screen.getByText('Currently Signed Out')
+    expect(statusText).toHaveClass('bg-[#252429]')
+    expect(statusText).toHaveClass('text-white')
+  })
+
+  it('should use gold-themed sign out button', async () => {
+    mockOnAuthStateChanged.mockImplementation((auth: unknown, callback: (user: { email: string }) => void) => {
+      callback({ email: 'test@example.com' })
+      return vi.fn()
+    })
+
+    render(<AuthDetails />)
+
+    await waitFor(() => {
+      const button = screen.getByRole('button', { name: 'Sign Out' })
+      expect(button).toHaveClass('border-[#BF953F]')
+      expect(button).toHaveClass('text-[#FCF6ba]')
+      expect(button).toHaveClass('bg-transparent')
+    })
+  })
 })

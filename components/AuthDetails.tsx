@@ -32,17 +32,18 @@ const AuthDetails: React.FC = () => {
     <div className="grid place-items-center">
       {authUser ? (
         <>
-          <p className="bg-slate-300 text-2xl text-black p-2 rounded font-semibold">{`Signed In as ${authUser.email}`}</p>
-          <br />
-          <button
-            onClick={userSignOut}
-            className="bg-amber-500 text-black h-11 rounded pl-4 pr-4 font-semibold m-2"
-          >
-            Sign Out
-          </button>
+          <p className="bg-[#252429] text-xl text-white ring-1 ring-[#BF953F]/30 rounded-lg p-2 font-semibold">{`Signed In as ${authUser.email}`}</p>
+          <div className="mt-4">
+            <button
+              onClick={userSignOut}
+              className="bg-transparent border border-[#BF953F] text-[#FCF6ba] hover:bg-[#BF953F]/20 transition-all duration-300 font-semibold h-11 rounded pl-4 pr-4 m-2"
+            >
+              Sign Out
+            </button>
+          </div>
         </>
       ) : (
-        <p className="bg-slate-300 text-black text-2xl p-2 rounded font-semibold">
+        <p className="bg-[#252429] text-white text-xl p-2 rounded-lg ring-1 ring-[#BF953F]/30 font-semibold">
           Currently Signed Out
         </p>
       )}

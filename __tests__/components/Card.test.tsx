@@ -9,8 +9,8 @@ vi.mock('next/image', () => ({
 }))
 
 vi.mock('next/link', () => ({
-  default: ({ children, href }: { children: React.ReactNode; href: string }) => (
-    <a href={href}>{children}</a>
+  default: ({ children, href, className }: { children: React.ReactNode; href: string; className?: string }) => (
+    <a href={href} className={className}>{children}</a>
   ),
 }))
 
@@ -81,5 +81,35 @@ describe('Card', () => {
   it('should handle integer vote average', () => {
     render(<Card {...{ ...mockProps, vote_average: 8 }} />)
     expect(screen.getByText('8.0 ★')).toBeInTheDocument()
+  })
+
+  it('should use dark background with gunmetal border styling', () => {
+    render(<Card {...mockProps} />)
+    const link = screen.getByRole('link')
+    expect(link).toHaveClass('bg-[#1e1e1e]')
+    expect(link).toHaveClass('border')
+    expect(link).toHaveClass('border-[#3a3a3a]')
+    expect(link).toHaveClass('shadow-lg')
+  })
+
+  it('should use white text for title instead of black', () => {
+    render(<Card {...mockProps} />)
+    const title = screen.getByText('Skyfall')
+    expect(title).toHaveClass('text-white')
+    expect(title).not.toHaveClass('text-black')
+  })
+
+  it('should use gray-300 for metadata text', () => {
+    render(<Card {...mockProps} />)
+    const metaDiv = screen.getByText('2012-10-26').closest('div')?.parentElement
+    expect(metaDiv).toHaveClass('text-gray-300')
+  })
+
+  it('should have transition and hover classes for smooth interaction', () => {
+    render(<Card {...mockProps} />)
+    const link = screen.getByRole('link')
+    expect(link).toHaveClass('transition-all')
+    expect(link).toHaveClass('duration-300')
+    expect(link).toHaveClass('hover:scale-105')
   })
 })

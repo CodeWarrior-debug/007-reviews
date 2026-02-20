@@ -67,6 +67,8 @@ const Infographics = ({
         ticks: {
           color: "#C0C2C9",
           font: { size: 13 },
+          maxRotation: 45,
+          minRotation: 45,
         },
       },
       y: { min: 0, max: 10 },
@@ -108,6 +110,8 @@ const Infographics = ({
         ticks: {
           color: "#C0C2C9",
           font: { size: 13 },
+          maxRotation: 45,
+          minRotation: 45,
         },
       },
     },
@@ -149,6 +153,8 @@ const Infographics = ({
         ticks: {
           color: "#C0C2C9",
           font: { size: 13 },
+          maxRotation: 45,
+          minRotation: 45,
         },
       },
     },
@@ -202,37 +208,40 @@ const Infographics = ({
           <h3
             className={cls(
               montserrat.className,
-              "text-white text-center mb-2 mvID3:hidden animate-pulse"
-            )}
-          >
-            {" "}
-            Use Landscape On Smaller Devices{" "}
-          </h3>
-          <h3
-            className={cls(
-              montserrat.className,
-              "text-white text-center mb-8 animate-pulse"
+              "text-white text-center mb-8"
             )}
           >
             {" "}
             Hover/Touch Graphs For Details{" "}
           </h3>
 
-          <Bar
-            options={optionsRatings}
-            data={dataRatings}
-            className="w-[80%] max-h-[500px] max-w-[1040px] mb-12"
-          />
-          <Bar
-            options={optionsVotes}
-            data={dataVotes}
-            className="w-[80%] max-w-[1040px] max-h-[500px] mb-12"
-          />
-          <Bar
-            options={optionsPopularity}
-            data={dataPopularity}
-            className="w-[80%] max-w-[1040px] max-h-[500px] mb-12"
-          />
+          <div className="overflow-x-auto w-[80%] max-w-[1040px] mb-12">
+            <div className="min-w-[600px]">
+              <Bar
+                options={optionsRatings}
+                data={dataRatings}
+                className="max-h-[500px]"
+              />
+            </div>
+          </div>
+          <div className="overflow-x-auto w-[80%] max-w-[1040px] mb-12">
+            <div className="min-w-[600px]">
+              <Bar
+                options={optionsVotes}
+                data={dataVotes}
+                className="max-h-[500px]"
+              />
+            </div>
+          </div>
+          <div className="overflow-x-auto w-[80%] max-w-[1040px] mb-12">
+            <div className="min-w-[600px]">
+              <Bar
+                options={optionsPopularity}
+                data={dataPopularity}
+                className="max-h-[500px]"
+              />
+            </div>
+          </div>
 
           <Footer />
         </div>
