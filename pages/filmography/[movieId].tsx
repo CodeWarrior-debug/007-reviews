@@ -165,7 +165,7 @@ const MovieId = ({ movieFacts }: MovieIdProps) => {
 
           <div className="col-span-1">
             <button
-              className="hidden p-2 m-8 text-xs text-center mvID2:block bg-slate-600 mvID3:text-base mvID2:text-xl mvID1:text-3xl rounded-xl"
+              className="p-2 m-8 text-xs text-center bg-slate-600 mvID3:text-base mvID2:text-xl mvID1:text-3xl rounded-xl"
               onClick={handleViewClick}
             >
               {" "}
