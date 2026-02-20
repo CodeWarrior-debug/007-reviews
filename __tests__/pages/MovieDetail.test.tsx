@@ -296,20 +296,17 @@ describe('MovieDetail Page', () => {
     expect(opacityElements).toHaveLength(0)
   })
 
-  it('should use gold-themed Films List button', () => {
+  it('should use slate Films List button', () => {
     render(<MovieId movieFacts={mockMovieFacts} />)
     const link = screen.getByRole('link', { name: 'Films List' })
-    expect(link).toHaveClass('border-[#BF953F]')
-    expect(link).toHaveClass('bg-transparent')
-    expect(link).toHaveClass('text-[#FCF6ba]')
+    expect(link).toHaveClass('bg-slate-600')
   })
 
-  it('should use gold hover color on Official Homepage link instead of text-2xl', () => {
+  it('should use underline and hover:text-2xl on Official Homepage link', () => {
     render(<MovieId movieFacts={mockMovieFacts} />)
     const link = screen.getByRole('link', { name: 'Official Homepage' })
-    expect(link.className).not.toContain('hover:text-2xl')
-    expect(link).toHaveClass('hover:text-[#FCF6ba]')
-    expect(link).toHaveClass('transition-colors')
+    expect(link).toHaveClass('underline')
+    expect(link).toHaveClass('hover:text-2xl')
   })
 
   it('should have backdrop-blur-sm on overview container', () => {

@@ -148,7 +148,7 @@ const MovieId = ({ movieFacts }: MovieIdProps) => {
         <div className="grid grid-flow-row grid-cols-3 mb-16 place-items-center">
           <Link
             href="/filmography"
-            className="col-span-1 p-2 m-8 text-xs text-center bg-transparent border border-[#BF953F] text-[#FCF6ba] hover:bg-[#BF953F]/20 transition-all duration-300 font-semibold mvID3:text-base mvID2:text-xl mvID1:text-3xl rounded-xl"
+            className="col-span-1 p-2 m-8 text-xs text-center bg-slate-600 mvID3:text-base mvID2:text-xl mvID1:text-3xl rounded-xl"
           >
             {" "}
             Films List{" "}
@@ -165,7 +165,7 @@ const MovieId = ({ movieFacts }: MovieIdProps) => {
 
           <div className="col-span-1">
             <button
-              className="hidden p-2 m-8 text-xs text-center mvID2:block bg-transparent border border-[#BF953F] text-[#FCF6ba] hover:bg-[#BF953F]/20 transition-all duration-300 font-semibold mvID3:text-base mvID2:text-xl mvID1:text-3xl rounded-xl"
+              className="hidden p-2 m-8 text-xs text-center mvID2:block bg-slate-600 mvID3:text-base mvID2:text-xl mvID1:text-3xl rounded-xl"
               onClick={handleViewClick}
             >
               {" "}
@@ -223,7 +223,7 @@ const MovieId = ({ movieFacts }: MovieIdProps) => {
                   ref={reviewRef}
                 ></input>
                 <button
-                  className="p-1 ml-1 text-xs font-semibold bg-transparent border border-[#BF953F] text-[#FCF6ba] hover:bg-[#BF953F]/20 transition-all duration-300 rounded cursor-pointer mvID4:ml-2 z-60 mvID2:text-sm w-28"
+                  className="p-1 ml-1 text-xs font-semibold text-black bg-white rounded cursor-pointer mvID4:ml-2 z-60 mvID2:text-sm hover:bg-slate-800 hover:text-white w-28"
                   onClick={handleUpdateClick}
                 >
                   Update Review
@@ -360,7 +360,7 @@ const MovieId = ({ movieFacts }: MovieIdProps) => {
               <p className="text-center">
                 <Link
                   href={movieFacts.homepage ? movieFacts.homepage : "#"}
-                  className="font-bold text-blue-500 hover:text-[#FCF6ba] transition-colors duration-200"
+                  className="font-bold text-blue-500 underline hover:text-2xl"
                 >
                   {" "}
                   {movieFacts.homepage ? "Official Homepage" : ""}
@@ -374,7 +374,7 @@ const MovieId = ({ movieFacts }: MovieIdProps) => {
                       ? "https://www.imdb.com/title/" + movieFacts.imdb_id
                       : "/404"
                   }
-                  className="font-bold text-green-500 hover:text-[#FCF6ba] transition-colors duration-200"
+                  className="font-bold text-green-500 underline hover:text-2xl"
                 >
                   {movieFacts.imdb_id ? "IMDB Infopage" : ""}{" "}
                 </Link>
