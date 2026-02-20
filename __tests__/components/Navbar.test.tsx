@@ -1,15 +1,21 @@
 import React from 'react'
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 
 vi.mock('next/link', () => ({
-  default: ({ children, href }: { children: React.ReactNode; href: string }) => (
-    <a href={href}>{children}</a>
+  default: ({ children, href, className, onClick }: { children: React.ReactNode; href: string; className?: string; onClick?: () => void }) => (
+    <a href={href} className={className} onClick={onClick}>{children}</a>
   ),
 }))
 
 vi.mock('next/font/google', () => ({
   Montserrat: () => ({ className: 'mock-montserrat-font' }),
+}))
+
+vi.mock('next/router', () => ({
+  useRouter: () => ({
+    pathname: '/',
+  }),
 }))
 
 import Navbar from '../../components/Navbar'
@@ -26,33 +32,37 @@ describe('Navbar', () => {
   it('should render all navigation links', () => {
     render(<Navbar />)
 
-    expect(screen.getByText('HOME')).toBeInTheDocument()
-    expect(screen.getByText('CINEMATOGRAPHY')).toBeInTheDocument()
-    expect(screen.getByText('INFOGRAPHICS')).toBeInTheDocument()
-    expect(screen.getByText('SIGN IN/OUT')).toBeInTheDocument()
+    expect(screen.getAllByText('HOME').length).toBeGreaterThan(0)
+    expect(screen.getAllByText('CINEMATOGRAPHY').length).toBeGreaterThan(0)
+    expect(screen.getAllByText('INFOGRAPHICS').length).toBeGreaterThan(0)
+    expect(screen.getAllByText('SIGN IN/OUT').length).toBeGreaterThan(0)
   })
 
   it('should have correct href for HOME link', () => {
     render(<Navbar />)
-    const homeLink = screen.getByText('HOME').closest('a')
+    const homeLinks = screen.getAllByText('HOME')
+    const homeLink = homeLinks[0].closest('a')
     expect(homeLink).toHaveAttribute('href', '/')
   })
 
   it('should have correct href for CINEMATOGRAPHY link', () => {
     render(<Navbar />)
-    const filmLink = screen.getByText('CINEMATOGRAPHY').closest('a')
+    const filmLinks = screen.getAllByText('CINEMATOGRAPHY')
+    const filmLink = filmLinks[0].closest('a')
     expect(filmLink).toHaveAttribute('href', '/filmography')
   })
 
   it('should have correct href for INFOGRAPHICS link', () => {
     render(<Navbar />)
-    const infoLink = screen.getByText('INFOGRAPHICS').closest('a')
+    const infoLinks = screen.getAllByText('INFOGRAPHICS')
+    const infoLink = infoLinks[0].closest('a')
     expect(infoLink).toHaveAttribute('href', '/infographics')
   })
 
   it('should have correct href for SIGN IN/OUT link', () => {
     render(<Navbar />)
-    const loginLink = screen.getByText('SIGN IN/OUT').closest('a')
+    const loginLinks = screen.getAllByText('SIGN IN/OUT')
+    const loginLink = loginLinks[0].closest('a')
     expect(loginLink).toHaveAttribute('href', '/login')
   })
 
@@ -63,7 +73,30 @@ describe('Navbar', () => {
 
   it('should render unordered list with navigation items', () => {
     render(<Navbar />)
-    expect(screen.getByRole('list')).toBeInTheDocument()
-    expect(screen.getAllByRole('listitem')).toHaveLength(4)
+    const lists = screen.getAllByRole('list')
+    expect(lists.length).toBeGreaterThanOrEqual(1)
+    expect(screen.getAllByRole('listitem')).toHaveLength(8)
+  })
+
+  it('should have backdrop blur styling on nav', () => {
+    render(<Navbar />)
+    const nav = screen.getByRole('navigation')
+    expect(nav).toHaveClass('backdrop-blur-md')
+    expect(nav).toHaveClass('bg-[#161616]/80')
+  })
+
+  it('should render hamburger menu button for mobile', () => {
+    render(<Navbar />)
+    expect(screen.getByLabelText('Toggle menu')).toBeInTheDocument()
+  })
+
+  it('should toggle mobile menu on hamburger click', () => {
+    render(<Navbar />)
+    const hamburger = screen.getByLabelText('Toggle menu')
+
+    fireEvent.click(hamburger)
+
+    const mobileMenus = document.querySelectorAll('.sm\\:hidden')
+    expect(mobileMenus.length).toBeGreaterThan(0)
   })
 })

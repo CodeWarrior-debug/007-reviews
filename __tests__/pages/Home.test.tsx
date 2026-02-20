@@ -90,4 +90,24 @@ describe('Home Page', () => {
     expect(title).toHaveClass('text-transparent')
     expect(title).toHaveClass('bg-clip-text')
   })
+
+  it('should have fade-in-up animation on James Bond title', () => {
+    render(<Home />)
+    const title = screen.getByText('James Bond')
+    expect(title).toHaveClass('animate-fade-in-up')
+  })
+
+  it('should have fade-in-up animation with delay on 007 Reviews title', () => {
+    render(<Home />)
+    const subtitle = screen.getByText('007 Reviews')
+    expect(subtitle).toHaveClass('animate-fade-in-up')
+    expect(subtitle).toHaveClass('animation-delay-600')
+  })
+
+  it('should show skeleton placeholder when poster is not loaded', () => {
+    mockedAxios.get.mockReturnValue(new Promise(() => {}))
+    const { container } = render(<Home />)
+    const skeleton = container.querySelector('.animate-pulse')
+    expect(skeleton).toBeInTheDocument()
+  })
 })

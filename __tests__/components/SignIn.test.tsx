@@ -146,4 +146,30 @@ describe('SignIn', () => {
 
     consoleSpy.mockRestore()
   })
+
+  it('should use gold-themed input styling', () => {
+    render(<SignIn />)
+
+    const emailInput = screen.getByPlaceholderText('Email...')
+    expect(emailInput).toHaveClass('bg-[#252429]')
+    expect(emailInput).toHaveClass('border-[#BF953F]/30')
+    expect(emailInput).toHaveClass('text-white')
+  })
+
+  it('should use gold-themed button styling', () => {
+    render(<SignIn />)
+
+    const button = screen.getByRole('button', { name: 'Log In' })
+    expect(button).toHaveClass('bg-transparent')
+    expect(button).toHaveClass('border-[#BF953F]')
+    expect(button).toHaveClass('text-[#FCF6ba]')
+  })
+
+  it('should have gold gradient text on heading', () => {
+    render(<SignIn />)
+
+    const heading = screen.getByText('Log In to your Account')
+    expect(heading).toHaveClass('text-transparent')
+    expect(heading).toHaveClass('bg-clip-text')
+  })
 })

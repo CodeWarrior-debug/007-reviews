@@ -3,10 +3,9 @@ import Link from "next/link";
 
 const Footer: React.FC = () => {
   return (
-    <>
-      <br />
-      <div className="grid place-items-center">
-        <p className="text-xl font-thin text-center ">
+    <footer className="grid place-items-center mt-8 mb-4">
+      <div className="text-base font-light text-center">
+        <span>
           <Link
             target="_blank"
             href="https://icons8.com/icon/19532/007"
@@ -22,7 +21,8 @@ const Footer: React.FC = () => {
           >
             Icons8
           </Link>
-          <br />
+        </span>
+        <p className="mt-2">
           This product uses the{" "}
           <Link
             target="_blank"
@@ -39,28 +39,27 @@ const Footer: React.FC = () => {
           >
             TMDB
           </Link>
-          <p>
-            A{" "}
-            <Link
-              target="_blank"
-              href="https://github.com/CodeWarrior-debug"
-              className="text-blue-400 underline"
-            >
-              CodeWarrior-debug
-            </Link>{" "}
-            production. View repository on{" "}
-            <Link
-              target="_blank"
-              href="https://github.com/CodeWarrior-debug/007-reviews"
-              className="text-blue-400 underline"
-            >
-              GitHub
-            </Link>{" "}
-          </p>
+        </p>
+        <p className="mt-2">
+          A{" "}
+          <Link
+            target="_blank"
+            href="https://github.com/CodeWarrior-debug"
+            className="text-blue-400 underline"
+          >
+            CodeWarrior-debug
+          </Link>{" "}
+          production. View repository on{" "}
+          <Link
+            target="_blank"
+            href="https://github.com/CodeWarrior-debug/007-reviews"
+            className="text-blue-400 underline"
+          >
+            GitHub
+          </Link>
         </p>
       </div>
-      <br />
-    </>
+    </footer>
   );
 };
 
