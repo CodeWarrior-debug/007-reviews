@@ -100,9 +100,11 @@ Both produce identical 23MB `.next/` output. The `target: ES2025` vs `target: ES
 
 | File | Change | Reason |
 |------|--------|--------|
-| `tsconfig.json` | `target`: `ES2020` → `ES2025` | Align with TS 6.0 default |
+| `tsconfig.json` | `target`: `ES2020` → `ES2022` | Align with TS 6.0; ES2025 unsupported by esbuild/Vite |
 | `global.d.ts` | Added `declare module "*.css"` | TS 6.0 enables `noUncheckedSideEffectImports` by default |
 | `package.json` | `typescript`: `^5.9.3` → `6.0.0-beta` | Version upgrade |
+| `package.json` | Added `@testing-library/dom` to devDeps | Transitive dep dropped during `legacy-peer-deps` reinstall |
+| `.npmrc` | Added `legacy-peer-deps=true` | `eslint-config-next` peer dep incompatible with TS 6.0 semver |
 
 ---
 
