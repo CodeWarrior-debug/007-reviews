@@ -1,32 +1,25 @@
 import Card from "../../components/Card";
-import Axios from "axios";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import type { GetStaticProps } from "next";
-
-interface Movie {
-  id: number;
-  title: string;
-  overview: string;
-  release_date: string;
-  vote_average: number;
-  poster_path: string;
-}
+import { fetchCollection, useCollectionMovies } from "../../lib/queries/tmdb";
+import type { Movie } from "../../lib/queries/tmdb";
 
 interface FilmographyProps {
   movies: Movie[];
 }
 
 export default function Filmography({ movies }: FilmographyProps) {
+  const { data: cachedMovies } = useCollectionMovies(movies);
+  const displayMovies = cachedMovies ?? movies;
+
   return (
     <>
       <div className="bg-[#161616] text-white ">
-        <div className=" sticky top-0 bg-[#161616] z-20 mb-8">
-          <Navbar />
-        </div>
+        <Navbar />
 
-        <div className="flex flex-row justify-center flex-wrap flex-auto gap-4 ml-[10%] mr-[10%]">
-          {movies.map((movie, index) => {
+        <div className="flex flex-row justify-center flex-wrap flex-auto gap-4 ml-[10%] mr-[10%] mt-8">
+          {displayMovies.map((movie) => {
             const baseURL = "https://image.tmdb.org/t/p/original/";
             const movie_w_poster_path = baseURL + `${movie.poster_path}`;
 
@@ -51,18 +44,11 @@ export default function Filmography({ movies }: FilmographyProps) {
 }
 
 export const getStaticProps: GetStaticProps<FilmographyProps> = async () => {
-  const response = await Axios.get(
-    "https://api.themoviedb.org/3/collection/" +
-      process.env.NEXT_PUBLIC_TMDB_COLLECTION_ID +
-      "?api_key=" +
-      process.env.NEXT_PUBLIC_TMDB_API_KEY
-  )
-    .then((res) => res.data.parts)
-    .catch((err) => console.log("error: ", err));
+  const data = await fetchCollection();
 
   return {
     props: {
-      movies: response,
+      movies: data.parts,
     },
     revalidate: 3600,
   };

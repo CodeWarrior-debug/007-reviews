@@ -1,9 +1,9 @@
 import Footer from "../../components/Footer";
+import Navbar from "../../components/Navbar";
 import { format } from "date-fns";
 import cls from "classnames";
 import Link from "next/link";
 import Image from "next/image";
-import Axios from "axios";
 import numeral from "numeral";
 import { useRef, useState, useEffect } from "react";
 import { getFirestore, getDoc, doc, updateDoc } from "firebase/firestore";
@@ -13,6 +13,7 @@ import converter from "number-to-words";
 import OneMovieReview from "../../components/OneMovieReview";
 import { Montserrat } from "next/font/google";
 import type { GetStaticPaths, GetStaticProps } from "next";
+import { fetchCollection, fetchMovie } from "../../lib/queries/tmdb";
 
 const montserrat = Montserrat({ style: "normal", subsets: ["latin"] });
 
@@ -145,14 +146,22 @@ const MovieId = ({ movieFacts }: MovieIdProps) => {
           className="hidden mvID2:flex -z-10 fixed top-0 left-0 aspect-[16/9] min-h-screen bg-[#161616]"
           priority
         />
+        <Navbar />
         <div className="grid grid-flow-row grid-cols-3 mb-16 place-items-center">
-          <Link
-            href="/filmography"
-            className="col-span-1 p-2 m-8 text-xs text-center bg-slate-600 mvID3:text-base mvID2:text-xl mvID1:text-3xl rounded-xl"
-          >
-            {" "}
-            Films List{" "}
-          </Link>
+          <div className="col-span-1 flex flex-row gap-2 m-8">
+            <Link
+              href="/"
+              className="p-2 text-xs text-center bg-slate-600 mvID3:text-base mvID2:text-xl mvID1:text-3xl rounded-xl"
+            >
+              Home
+            </Link>
+            <Link
+              href="/filmography"
+              className="p-2 text-xs text-center bg-slate-600 mvID3:text-base mvID2:text-xl mvID1:text-3xl rounded-xl"
+            >
+              Films List
+            </Link>
+          </div>
           <h1
             className={cls(
               " text-base m-2 mvID3:text-xl mvID2:text-3xl mvID1:text-5xl text-center mvID2:m-8 col-span-1 font-extrabold bg-blend-darken bg-black/70 backdrop-blur-sm rounded-3xl p-2 mvID3:p-4 uppercase",
@@ -391,40 +400,18 @@ const MovieId = ({ movieFacts }: MovieIdProps) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const response = await Axios.get(
-    "https://api.themoviedb.org/3/collection/" +
-      process.env.NEXT_PUBLIC_TMDB_COLLECTION_ID +
-      "?api_key=" +
-      process.env.NEXT_PUBLIC_TMDB_API_KEY
-  )
-    .then((res) => res.data.parts)
-    .catch((err) => console.log("error: ", err));
+  const data = await fetchCollection();
+  const paths = data.parts.map((movie: { id: number }) => ({
+    params: { movieId: movie.id.toString() },
+  }));
 
-  const paths = await response.map((movie: { id: number }) => {
-    return {
-      params: {
-        movieId: movie.id.toString(),
-      },
-    };
-  });
-
-  return {
-    paths,
-    fallback: "blocking",
-  };
+  return { paths, fallback: "blocking" };
 };
 
 export const getStaticProps: GetStaticProps<MovieIdProps> = async ({
   params,
 }) => {
-  const moviesFacts = await Axios.get(
-    "https://api.themoviedb.org/3/movie/" +
-      params?.movieId +
-      "?api_key=" +
-      process.env.NEXT_PUBLIC_TMDB_API_KEY
-  )
-    .then((res) => res.data)
-    .catch((err) => console.log(err));
+  const moviesFacts = await fetchMovie(Number(params?.movieId));
 
   return {
     props: {

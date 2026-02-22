@@ -1,29 +1,18 @@
 import cls from "classnames";
 import Footer from "../components/Footer";
 import React from "react";
-import Axios from "axios";
+
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, ChartArea, ScriptableContext } from "chart.js/auto";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import { Montserrat } from "next/font/google";
 import Navbar from "../components/Navbar";
 import type { GetStaticProps, InferGetStaticPropsType } from "next";
+import { fetchCollection, useCollectionMovies } from "../lib/queries/tmdb";
+import type { Movie } from "../lib/queries/tmdb";
 ChartJS.register(ChartDataLabels);
 
 const montserrat = Montserrat({ style: "normal", subsets: ["latin"] });
-
-interface Movie {
-  id: number;
-  original_title: string;
-  title: string;
-  overview: string;
-  release_date: string;
-  vote_average: number;
-  vote_count: number;
-  popularity: number;
-  poster_path: string;
-  backdrop_path: string;
-}
 
 interface InfographicsProps {
   movies: Movie[];
@@ -32,6 +21,9 @@ interface InfographicsProps {
 const Infographics = ({
   movies,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const { data: cachedMovies } = useCollectionMovies(movies);
+  const displayMovies = cachedMovies ?? movies;
+
   let width: number, height: number, gradient: CanvasGradient;
 
   const getGradient = (
@@ -90,10 +82,10 @@ const Infographics = ({
   };
 
   const dataRatings = {
-    labels: movies.map((movie: Movie) => movie.original_title),
+    labels: displayMovies.map((movie: Movie) => movie.original_title),
     datasets: [
       {
-        data: movies.map((movie: Movie) => movie.vote_average.toFixed(1)),
+        data: displayMovies.map((movie: Movie) => movie.vote_average.toFixed(1)),
         label: "Rating 0-10",
         backgroundColor: bgColorFn,
         pointBackgroundColor: "white",
@@ -133,10 +125,10 @@ const Infographics = ({
   };
 
   const dataVotes = {
-    labels: movies.map((movie: Movie) => movie.original_title),
+    labels: displayMovies.map((movie: Movie) => movie.original_title),
     datasets: [
       {
-        data: movies.map((movie: Movie) => movie.vote_count),
+        data: displayMovies.map((movie: Movie) => movie.vote_count),
         label: "# TMDB Votes",
         backgroundColor: bgColorFn,
         pointBackgroundColor: "white",
@@ -175,10 +167,10 @@ const Infographics = ({
   };
 
   const dataPopularity = {
-    labels: movies.map((movie: Movie) => movie.original_title),
+    labels: displayMovies.map((movie: Movie) => movie.original_title),
     datasets: [
       {
-        data: movies.map((movie: Movie) => movie.popularity.toFixed(1)),
+        data: displayMovies.map((movie: Movie) => movie.popularity.toFixed(1)),
         label: "Popularity Now 0-100",
         backgroundColor: bgColorFn,
         pointBackgroundColor: "white",
@@ -253,18 +245,11 @@ const Infographics = ({
 };
 
 export const getStaticProps: GetStaticProps<InfographicsProps> = async () => {
-  const response = await Axios.get(
-    "https://api.themoviedb.org/3/collection/" +
-      process.env.NEXT_PUBLIC_TMDB_COLLECTION_ID +
-      "?api_key=" +
-      process.env.NEXT_PUBLIC_TMDB_API_KEY
-  )
-    .then((res) => res.data.parts)
-    .catch((err) => console.log("error: ", err));
+  const data = await fetchCollection();
 
   return {
     props: {
-      movies: response,
+      movies: data.parts,
     },
     revalidate: 3600,
   };
