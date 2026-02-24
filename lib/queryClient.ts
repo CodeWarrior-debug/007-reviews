@@ -1,5 +1,11 @@
 import { QueryClient } from "@tanstack/react-query";
 
+declare global {
+  interface Window {
+    __TANSTACK_QUERY_CLIENT__: QueryClient;
+  }
+}
+
 export function makeQueryClient() {
   return new QueryClient({
     defaultOptions: {
@@ -23,6 +29,7 @@ export function getQueryClient() {
   // Browser: reuse the same client across renders
   if (!browserQueryClient) {
     browserQueryClient = makeQueryClient();
+    window.__TANSTACK_QUERY_CLIENT__ = browserQueryClient;
   }
   return browserQueryClient;
 }
