@@ -15,7 +15,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon/favicon.ico" />
       </Head>
 
-      <main className={cls(libre_franklin.className)}>
+      <main className={cls(libre_franklin.className, "bg-[#161616] min-h-screen")}>
         <Component className="z-0" {...pageProps} />
         <Analytics />
       </main>
