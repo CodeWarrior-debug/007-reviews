@@ -37,3 +37,10 @@ yarn-error.log*
 next-env.d.ts
 
 /lib/generated/prisma
+
+# GSD framework (installed locally, not vendored)
+.claude/get-shit-done/
+.claude/agents/
+.claude/commands/gsd/
+.claude/hooks/gsd-*
+.claude/gsd-file-manifest.json
