@@ -18,7 +18,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className={cls(montserrat.className, "pt-8 bg-[#161616]")}>
+      <nav className={cls(montserrat.className, "pt-8")}>
         <ul className="flex flex-row flex-wrap font-bold justify-evenly sm:mt-8 text-transparent bg-gradient-to-r bg-clip-text from-[#BF953F] via-[#FCF6ba] to-[#AA771c]">
           <li className="mt-2 text-xl text-center sm:mt-8 md:text-3xl hover:underline ">
             <Link href="/">
