@@ -182,8 +182,10 @@ const Infographics = ({
 
   return (
     <>
-      <Navbar />
       <div className="bg-[#161616] p-12 h-full min-h-screen w-full text-white grid grid-cols-12 ">
+        <div className="col-span-12">
+          <Navbar />
+        </div>
         <div className="col-span-12">
           <h1
             className={cls(
