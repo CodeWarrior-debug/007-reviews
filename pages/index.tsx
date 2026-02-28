@@ -1,35 +1,16 @@
-import { useEffect, useState } from "react";
 import Head from "next/head";
 import Navbar from "../components/Navbar";
 import "tailwindcss/tailwind.css";
 import Footer from "../components/Footer";
-import Axios from "axios";
 import Image from "next/image";
 import { Montserrat } from "next/font/google";
 import cls from "classnames";
+import { useCollectionPoster } from "../lib/queries/tmdb";
 
 const montserrat = Montserrat({ style: "normal", subsets: ["latin"] });
 
 export default function Home() {
-  const [poster, setPoster] = useState("");
-  const baseURL = "https://image.tmdb.org/t/p/original/";
-
-  useEffect(() => {
-    const getPoster = Axios.get(
-      "https://api.themoviedb.org/3/collection/" +
-        process.env.NEXT_PUBLIC_TMDB_COLLECTION_ID +
-        "?api_key=" +
-        process.env.NEXT_PUBLIC_TMDB_API_KEY
-    )
-      .then((res) => setPoster(baseURL + res.data.poster_path))
-      .catch((err) => console.log("error: ", err));
-
-    const data = async () => {
-      await getPoster;
-    };
-
-    data();
-  }, []);
+  const { data: poster } = useCollectionPoster();
 
   return (
     <>
@@ -45,9 +26,7 @@ export default function Home() {
           "bg-[#161616] text-white h-full min-h-screen"
         )}
       >
-        <div className="sticky top-0 z-10 bg-[#161616]">
-          <Navbar />
-        </div>
+        <Navbar />
 
         <div className="min-h-[76vh] grid place-items-center">
           <div className="flex flex-col items-center">
