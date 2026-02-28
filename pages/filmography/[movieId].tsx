@@ -183,6 +183,17 @@ const MovieId = ({ movieFacts }: MovieIdProps) => {
           </div>
         </div>
 
+        <div className="grid mvID2:hidden place-items-center mt-4">
+          <Image
+            src={movie_w_backdrop_path}
+            width={360}
+            height={640}
+            alt="movie_backdrop_pic_small"
+            className="mvID2:hidden aspect-[16/9] rounded-xl"
+            priority
+          />
+        </div>
+
         <div
           className={cls(
             posterOnly,
@@ -197,17 +208,6 @@ const MovieId = ({ movieFacts }: MovieIdProps) => {
                 <p> {movieFacts.tagline} </p>
                 <br />
                 <p className=""> {movieFacts.overview} </p>
-              </div>
-
-              <div className="grid h-64 mvID2:hidden place-items-center">
-                <Image
-                  src={movie_w_backdrop_path}
-                  width={360}
-                  height={640}
-                  alt="movie_backdrop_pic_small"
-                  className="mvID2:hidden aspect-[16/9] rounded-xl"
-                  priority
-                />
               </div>
 
               <div className="bg-[#252429] rounded-2xl w-[85%] mvID1:w-[400px] mvID1:h-[200px]">
