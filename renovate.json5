@@ -1,0 +1,49 @@
+/**
+ * Renovate Configuration — 007-reviews
+ * ======================================
+ *
+ * WHY RENOVATE OVER DEPENDABOT?
+ * - Dependency Dashboard: Renovate creates a GitHub issue that acts as a
+ *   control panel — you can see all pending updates, trigger them on demand,
+ *   and close the issue to pause updates entirely.
+ * - Flexible scheduling: cron-based schedules, not just daily/weekly/monthly.
+ * - Security-only mode: Dependabot can do security alerts, but Renovate lets
+ *   you combine security-only updates with fine-grained rules in one config.
+ * - Better PR descriptions: changelogs, release notes, and compatibility
+ *   scores are included automatically.
+ *
+ * THIS REPO'S STRATEGY:
+ * Security updates only — no version bumps, no noise.
+ * We want to stay on top of CVEs without drowning in routine update PRs.
+ * Auto-merge is OFF so a human always reviews.
+ */
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+
+  // Start from Renovate's recommended defaults
+  "extends": ["config:recommended"],
+
+  // ── Disable ALL regular dependency updates ──
+  "enabled": false,
+
+  // ── But keep vulnerability/security alerts ON ──
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": ["security", "dependencies"],
+    "prPriority": 10,
+    "commitMessagePrefix": "🔒 security:",
+    "schedule": ["at any time"]
+  },
+
+  // ── No auto-merge ──
+  "automerge": false,
+
+  // ── Dependency Dashboard ──
+  "dependencyDashboard": true,
+
+  // ── PR limits ──
+  "prConcurrentLimit": 5,
+
+  // ── Labels ──
+  "labels": ["dependencies", "renovate"]
+}
